@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+  <script type="text/javascript">
+	function refreshLeftDatas(datas, index) {
+		var data = datas[index].children;
+		var container = document.getElementById('leftMenu');
+		container.innerHTML = '';
+		for (var k = 0; k < data.length; k++) {
+			var htmlstr = '';
+			var haschild = (data[k].children.length > 0)? true: false;
+			var childclass = haschild? "dropdown-toggle": "";
+			var arrow = haschild? "<b class='arrow fa fa-angle-down'></b>": "";
+		    htmlstr += '<li>'+
+							   '<a href="javascript:changeLoding(\'' + data[k].url + '\', \'' + data[k].name + '\');" target="main" class='+childclass+'  >'+ 
+						       '<i class="menu-icon fa '+data[k].img+'"></i>'+
+						       '<span class="menu-text"> '+data[k].name+' </span>'+arrow+
+					 	       '</a>'+
+					 	       '<ul class="submenu">';
+			for (var i = data[k].children.length-1; i >= 0 ; i--) {
+				htmlstr += '<li>'+
+									'<a href="javascript:changeLoding(\'' + data[k].children[i].url + '\', \'' + data[k].children[i].name + '\');" onclick="javascript:activeMenu(this);" target="main" >'+ 
+						   	   		'<i class="menu-icon fa '+data[k].children[i].img+'"></i>'+data[k].children[i].name+
+						       		'</a>'+
+						       		'<b class="arrow"></b>'+
+						       		'</li>'
+			}
+			htmlstr += '</ul>'+
+							   '</li>';
+			container.innerHTML = container.innerHTML + htmlstr
+		}
+	}
+	
+	function changeLoding (url, name) {
+		document.getElementById("main").src = url;
+	}
+	
+	function activeMenu (menu) {
+		var new_active = $(menu).parent();
+		$('.nav-list li.active').removeClass('active');
+		new_active.addClass('active').parents('.nav-list li').addClass('active');
+	}
+  </script>
+  <body>
+		<div id="sidebar" class="sidebar responsive">
+			<script type="text/javascript">
+				try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+			</script>
+		
+			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+				<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+					<button class="btn btn-success" data-placement="bottom" title="无线设置">
+						<i class="ace-icon fa fa-signal"></i>
+					</button>
+		
+					<button class="btn btn-info" data-target="#authority-modal" data-toggle="modal" data-placement="bottom" title="常用功能设置">
+						<i class="ace-icon fa fa-pencil"></i>
+					</button>
+		
+					<!-- #section:basics/sidebar.layout.shortcuts -->
+					<button class="btn btn-warning" data-placement="bottom" title="我的好友">
+						<i class="ace-icon fa fa-users"></i>
+					</button>
+		
+					<button class="btn btn-danger" data-placement="bottom" title="系统设置">
+						<i class="ace-icon fa fa-cogs"></i>
+					</button>
+		
+					<!-- /section:basics/sidebar.layout.shortcuts -->
+				</div>
+		
+				<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+					<span class="btn btn-success"></span>
+		
+					<span class="btn btn-info"></span>
+		
+					<span class="btn btn-warning"></span>
+		
+					<span class="btn btn-danger"></span>
+				</div>
+			</div><!-- /.sidebar-shortcuts -->
+		
+			<ul id="leftMenu" class="nav nav-list">
+<!-- 				<li class="active">
+					<a href="index.html">
+						<i class="menu-icon fa fa-tachometer"></i>
+						<span class="menu-text"> Dashboard </span>
+					</a>
+		
+					<b class="arrow"></b>
+				</li>
+		
+				<li class="">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-desktop"></i>
+						<span class="menu-text">
+							UI &amp; Elements
+						</span>
+		
+						<b class="arrow fa fa-angle-down"></b>
+					</a>
+		
+					<b class="arrow"></b>
+		
+					<ul class="submenu">
+						<li class="">
+							<a href="#" class="dropdown-toggle">
+								<i class="menu-icon fa fa-caret-right"></i>
+		
+								Layouts
+								<b class="arrow fa fa-angle-down"></b>
+							</a>
+		
+							<b class="arrow"></b>
+		
+							<ul class="submenu">
+								<li class="">
+									<a href="top-menu.html">
+										<i class="menu-icon fa fa-caret-right"></i>
+										Top Menu
+									</a>
+		
+									<b class="arrow"></b>
+								</li>
+		
+								<li class="">
+									<a href="two-menu-1.html">
+										<i class="menu-icon fa fa-caret-right"></i>
+										Two Menus 1
+									</a>
+		
+									<b class="arrow"></b>
+								</li>
+		
+								<li class="">
+									<a href="two-menu-2.html">
+										<i class="menu-icon fa fa-caret-right"></i>
+										Two Menus 2
+									</a>
+		
+									<b class="arrow"></b>
+								</li>
+		
+								<li class="">
+									<a href="mobile-menu-1.html">
+										<i class="menu-icon fa fa-caret-right"></i>
+										Default Mobile Menu
+									</a>
+		
+									<b class="arrow"></b>
+								</li>
+		
+								<li class="">
+									<a href="mobile-menu-2.html">
+										<i class="menu-icon fa fa-caret-right"></i>
+										Mobile Menu 2
+									</a>
+		
+									<b class="arrow"></b>
+								</li>
+		
+								<li class="">
+									<a href="mobile-menu-3.html">
+										<i class="menu-icon fa fa-caret-right"></i>
+										Mobile Menu 3
+									</a>
+		
+									<b class="arrow"></b>
+								</li>
+							</ul>
+						</li>
+		
+						<li class="">
+							<a href="typography.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Typography
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="elements.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Elements
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="buttons.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Buttons &amp; Icons
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="content-slider.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Content Sliders
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="treeview.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Treeview
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="jquery-ui.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								jQuery UI
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="nestable-list.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Nestable Lists
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="#" class="dropdown-toggle">
+								<i class="menu-icon fa fa-caret-right"></i>
+		
+								Three Level Menu
+								<b class="arrow fa fa-angle-down"></b>
+							</a>
+		
+							<b class="arrow"></b>
+		
+							<ul class="submenu">
+								<li class="">
+									<a href="#">
+										<i class="menu-icon fa fa-leaf green"></i>
+										Item #1
+									</a>
+		
+									<b class="arrow"></b>
+								</li>
+		
+								<li class="">
+									<a href="#" class="dropdown-toggle">
+										<i class="menu-icon fa fa-pencil orange"></i>
+		
+										4th level
+										<b class="arrow fa fa-angle-down"></b>
+									</a>
+		
+									<b class="arrow"></b>
+		
+									<ul class="submenu">
+										<li class="">
+											<a href="#">
+												<i class="menu-icon fa fa-plus purple"></i>
+												Add Product
+											</a>
+		
+											<b class="arrow"></b>
+										</li>
+		
+										<li class="">
+											<a href="#">
+												<i class="menu-icon fa fa-eye pink"></i>
+												View Products
+											</a>
+		
+											<b class="arrow"></b>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+		
+				<li class="">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-list"></i>
+						<span class="menu-text"> Tables </span>
+		
+						<b class="arrow fa fa-angle-down"></b>
+					</a>
+		
+					<b class="arrow"></b>
+		
+					<ul class="submenu">
+						<li class="">
+							<a href="tables.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Simple &amp; Dynamic
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="jqgrid.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								jqGrid plugin
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+					</ul>
+				</li>
+		
+				<li class="">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-pencil-square-o"></i>
+						<span class="menu-text"> Forms </span>
+		
+						<b class="arrow fa fa-angle-down"></b>
+					</a>
+		
+					<b class="arrow"></b>
+		
+					<ul class="submenu">
+						<li class="">
+							<a href="form-elements.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Form Elements
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="form-elements-2.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Form Elements 2
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="form-wizard.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Wizard &amp; Validation
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="wysiwyg.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Wysiwyg &amp; Markdown
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="dropzone.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Dropzone File Upload
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+					</ul>
+				</li>
+		
+				<li class="">
+					<a href="widgets.html">
+						<i class="menu-icon fa fa-list-alt"></i>
+						<span class="menu-text"> Widgets </span>
+					</a>
+		
+					<b class="arrow"></b>
+				</li>
+		
+				<li class="">
+					<a href="calendar.html">
+						<i class="menu-icon fa fa-calendar"></i>
+		
+						<span class="menu-text">
+							Calendar
+		
+							#section:basics/sidebar.layout.badge
+							<span class="badge badge-transparent tooltip-error" title="2 Important Events">
+								<i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
+							</span>
+		
+							/section:basics/sidebar.layout.badge
+						</span>
+					</a>
+		
+					<b class="arrow"></b>
+				</li>
+		
+				<li class="">
+					<a href="gallery.html">
+						<i class="menu-icon fa fa-picture-o"></i>
+						<span class="menu-text"> Gallery </span>
+					</a>
+		
+					<b class="arrow"></b>
+				</li>
+		
+				<li class="">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-tag"></i>
+						<span class="menu-text"> More Pages </span>
+		
+						<b class="arrow fa fa-angle-down"></b>
+					</a>
+		
+					<b class="arrow"></b>
+		
+					<ul class="submenu">
+						<li class="">
+							<a href="profile.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								User Profile
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="inbox.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Inbox
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="pricing.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Pricing Tables
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="invoice.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Invoice
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="timeline.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Timeline
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="email.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Email Templates
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="login.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Login &amp; Register
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+					</ul>
+				</li>
+		
+				<li class="">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-file-o"></i>
+		
+						<span class="menu-text">
+							Other Pages
+		
+							#section:basics/sidebar.layout.badge
+							<span class="badge badge-primary">5</span>
+		
+							/section:basics/sidebar.layout.badge
+						</span>
+		
+						<b class="arrow fa fa-angle-down"></b>
+					</a>
+		
+					<b class="arrow"></b>
+		
+					<ul class="submenu">
+						<li class="">
+							<a href="faq.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								FAQ
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="error-404.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Error 404
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="error-500.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Error 500
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="grid.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Grid
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+		
+						<li class="">
+							<a href="blank.html">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Blank Page
+							</a>
+		
+							<b class="arrow"></b>
+						</li>
+					</ul>
+				</li> -->
+			</ul><!-- /.nav-list -->
+		
+			<!-- #section:basics/sidebar.layout.minimize -->
+			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+				<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+			</div>
+		
+			<!-- /section:basics/sidebar.layout.minimize -->
+			<script type="text/javascript">
+				try{ace.settings.check('sidebar' , 'collapsed')}catch(e){};
+
+ 				jQuery(function($){
+ 					var menu = { };
+ 					var userMenu = [];
+ 					var authorityTree = $("#authority-modal").find(".modal-body").find("ul");
+ 					var saveAuthority = $("#authority-modal").find(".modal-footer").find(".btn-success");
+ 					$("#authority-modal").modal({backdrop: "static", keyboard: false, show: false});//禁止点击空白关闭
+ 					$("#sidebar-shortcuts-large").find("button").each(function() {
+ 						$(this).tooltip();
+ 					})
+ 					
+ 					$("#authority-modal").on("shown.bs.modal", function() {
+ 					 	$.ajax({
+							url: '/client/home.do?userTypeAuthority',
+							type: "get",
+							cache: false,
+							async: false,
+							dataType: "json",
+							success: function(response) {},
+							complete: function(response, status) {
+								userMenu = eval(response.responseText);
+							}
+						});
+						for (var i = 0; i < userMenu.length; i++) {
+							var type = userMenu[i].children.length > 0? 'folder': 'item';
+							menu[userMenu[i].id] = {id: userMenu[i].id, name: userMenu[i].name, type: type, additionalParameters:{'item-selected': userMenu[i].checked}};
+							if(type === 'folder') rebuild(menu[userMenu[i].id], userMenu[i].children);
+						}
+						
+ 					    authorityTree.removeData("fu.tree");
+                    	authorityTree.unbind("click.fu.tree");
+ 						authorityTree.ace_tree({
+							dataSource: function(options, callback){
+								var $data = null
+								if(!("text" in options) && !("type" in options)){
+									$data = menu;//the root tree
+									callback({ data: $data });
+									return;
+								}else if("type" in options && options.type == "folder") {
+									if("additionalParameters" in options && "children" in options.additionalParameters)
+										$data = options.additionalParameters.children || {};
+									else $data = {}//no data
+								}
+								if($data != null) setTimeout(function(){callback({ data: $data });} , parseInt(Math.random() * 500) + 200);
+								
+							},
+							multiSelect: true,
+							cacheItems: true,
+							'open-icon' : 'ace-icon tree-minus',
+							'close-icon' : 'ace-icon tree-plus',
+							'itemSelect' : true,
+							'folderSelect': false,
+							'selected-icon' : 'ace-icon fa fa-check',
+							'unselected-icon' : 'ace-icon fa fa-times',
+							loadingHTML : '<div class="tree-loading"><i class="ace-icon fa fa-refresh fa-spin blue"></i></div>'
+						});
+						//展开全部
+						authorityTree.tree("discloseAll");
+ 					})
+ 					$("#authority-modal").on("hidden.bs.modal", function() {
+ 						authorityTree.empty();
+ 					})
+ 					
+ 					
+ 					function rebuild(item, childrens) {
+ 						var children = { };
+  						for (var i = 0; i < childrens.length; i++) {
+							var type = childrens[i].children.length > 0? 'folder': 'item';
+							children[childrens[i].id] = {id: childrens[i].id, name: childrens[i].name, type: type, additionalParameters:{'item-selected': childrens[i].checked}};
+							if(type === 'folder') rebuild(children[childrens[i].id], childrens[i].children);
+						} 
+ 						item['additionalParameters'] = {children: children};
+ 					}
+ 					
+ 					function showMessage(modal, title, msg, ok, cancel) {
+ 						var dialog = $( "#dialog-message" );
+ 						dialog.find("h4").text('');
+ 						dialog.find("h4").text(msg);
+ 						dialog.removeClass("hide").dialog({
+							modal: modal,
+							title_html: true,
+							title: title,
+							buttons: [{
+								text: "确定",
+								"class" : "btn btn-primary btn-minier",
+								click: function() {
+									ok();
+									$( this ).dialog( "close" ); 
+								} 
+							}, {
+								text: "取消",
+								"class" : "btn btn-minier",
+								click: function() {
+									cancel();
+									$( this ).dialog( "close" ); 
+								} 
+							}]
+						});
+ 					}
+ 					
+					saveAuthority.on("click", function(e) {
+						var authoritys = [];
+						var items = authorityTree.tree("selectedItems");
+						for(var i in items) if (items.hasOwnProperty(i)) {
+						   var item = items[i];
+						   authoritys.push(item.id);
+						}
+						//console.log(authoritys);
+						showMessage(false, "　提示", "更改后下次登陆生效，请确认？", function() {
+							//提交数据
+							$.ajax({
+								url: '/client/home.do?saveAuthority',
+								type: "POST",
+								data: {authoritys: authoritys+""},
+								success: function(response) {
+									var res = eval("(" + response + ")" );
+									showMessage(true, "　提示", res.title, function(){ }, function() { });
+									$("#authority-modal").modal("hide");
+								}
+							});
+						}, function() {
+							
+						});
+					});
+				}) 
+			</script>
+		</div>
+  </body>
+</html>

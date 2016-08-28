@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>Financing Supermarket</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring-*.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.xysoft.support.XySessionListener</listener-class>
+  </listener>
+  <!-- <listener>
+    <listener-class>com.xysoft.support.XyServletContextListener</listener-class>
+  </listener> -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping> 
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>spring</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
+    <url-pattern>*.jhtml</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
+    <url-pattern>*.ajx</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>OpenSessionInView</filter-name>
+    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    <init-param>
+      <param-name>singleSession</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>OpenSessionInView</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>index.jhtml</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error/404.html</location>
+  </error-page>
+  <error-page>
+    <error-code>400</error-code>
+    <location>/error/404.html</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error/404.html</location>
+  </error-page>
+  
+  <servlet>  
+      <servlet-name>coreServlet</servlet-name>  
+      <servlet-class>  
+          com.xysoft.weixin.servlet.CoreServlet  
+      </servlet-class>  
+  </servlet>  
+
+  <servlet-mapping>  
+      <servlet-name>coreServlet</servlet-name>  
+      <url-pattern>/coreServlet</url-pattern>  
+  </servlet-mapping> 
+  
+  
+  
+  <!-- 支持cgi执行脚本文件 -->
+  <servlet>
+      <servlet-name>cgi</servlet-name>
+      <servlet-class>org.apache.catalina.servlets.CGIServlet</servlet-class>
+      <init-param>
+        <param-name>debug</param-name>
+        <param-value>0</param-value>
+      </init-param>
+      <init-param>
+        <param-name>cgiPathPrefix</param-name>
+        <param-value>WEB-INF/cgi</param-value>
+      </init-param>
+	  <init-param>
+		<param-name>passShellEnvironment</param-name>
+		<param-value>true</param-value>
+	  </init-param>
+	  <init-param>              
+		<param-name>executable</param-name>             
+		<param-value></param-value>         
+	  </init-param>
+      <load-on-startup>5</load-on-startup>
+  </servlet>
+    
+  <servlet-mapping>
+     <servlet-name>cgi</servlet-name>
+     <url-pattern>/cgi-bin/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>

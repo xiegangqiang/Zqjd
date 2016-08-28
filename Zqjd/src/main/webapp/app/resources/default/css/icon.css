@@ -1,0 +1,157 @@
+.icon {
+	padding-left: 20px;
+	color: #000;
+	text-decoration: none;
+	margin-right: 10px;
+	font-size: 13px;
+	line-height:20px;
+}
+
+.icon-add {
+	background: url(../images/add.png) 0 2px no-repeat;
+}
+
+.icon-addbatch {
+	background: url(../images/addbatch.png) 0 2px no-repeat;
+}
+
+.icon-edit {
+	background: url(../images/edit.png) 0 2px no-repeat;
+}
+
+.icon-del {
+	background: url(../images/del.png) 0 2px no-repeat;
+}
+
+.icon-save {
+	background: url(../images/save.png) 0 2px no-repeat;
+}
+
+
+.icon-expand {
+	background: url(../images/expand.png) 0 2px no-repeat;
+}
+
+.icon-collapse {
+	background: url(../images/collapse.png) 0 2px no-repeat;
+}
+
+.icon-refresh {
+	background: url(../images/refresh.png) 0 2px no-repeat;
+}
+
+.icon-search {
+	background: url(../images/search.png) 0 2px no-repeat;
+}
+
+.icon-turn {
+	background: url(../images/turn.png) 0 2px no-repeat;
+}
+
+.icon-mine {
+	background: url(../images/mine.png) 0 2px no-repeat;
+}
+
+.icon-others {
+	background: url(../images/others.png) 0 2px no-repeat;
+}
+
+.icon-weixin {
+	background: url(../images/weixin.png) 0 2px no-repeat;
+}
+
+.icon-help {
+	background: url(../images/help.png) 0 2px no-repeat;
+}
+
+.icon-config {
+	background: url(../images/config.png) 0 2px no-repeat;
+}
+
+.icon-send {
+	background: url(../images/send.png) 0 2px no-repeat;
+}
+
+.icon-authority {
+	background: url(../images/authority.png) 0 2px no-repeat;
+}
+
+.icon-handle {
+	background: url(../images/handle.png) 0 2px no-repeat;
+}
+
+.icon-user_edit {
+	background: url(../images/user_edit.png) 0 2px no-repeat;
+}
+
+.icon-integral {
+	background: url(../images/book.png) 0 2px no-repeat;
+}
+
+.icon-package {
+	background: url(../images/package.png) 0 2px no-repeat;
+}
+
+.icon-import {
+	background: url(../images/import.png) 0 2px no-repeat;
+}
+
+.icon-excel {
+	background: url(../images/excel.gif) 0 2px no-repeat;
+}
+
+.icon-sendMsg {
+	background: url(../images/sendMsg.png) 0 2px no-repeat;
+}
+
+.icon-more {
+	background: url(../images/more.png) 0 2px no-repeat;
+}
+
+.icon-news {
+	background: url(../images/news.png) 0 2px no-repeat;
+}
+
+.icon-history {
+	background: url(../images/history.png) 0 2px no-repeat;
+}
+
+.icon-chart {
+	background: url(../images/chart.png) 0 2px no-repeat;
+}
+
+.icon-pass {
+	background: url(../images/pass.png) 0 2px no-repeat;
+}
+
+.icon-nopass {
+	background: url(../images/nopass.png) 0 2px no-repeat;
+}
+
+/*消费记录图标*/
+.icon-consumption {
+	background: url(../images/consumption.png) 0 2px no-repeat;
+}
+
+/*签到记录*/
+.icon-table_edit {
+	background: url(../images/table_edit.png) 0 2px no-repeat;
+}
+
+.search-item {
+	text-decoration: none;
+	color: #000;
+}
+
+.icon-o {
+	background: url(../images/o.png) 0 2px no-repeat;
+}
+
+.search-item span {
+	float: right;
+	display: block;
+}
+
+.file { 
+	text-decoration: none;
+}

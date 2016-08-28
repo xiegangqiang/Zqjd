@@ -1,0 +1,120 @@
+.modulecls {
+		margin: 4 !important;
+/* 	background: #FFFFFF; */
+}
+
+.modulecls .thumb-wrap {
+	float: left;
+	width:90px;
+	height: 65px;
+	border: 1px solid #DFEAF2;
+	cursor: pointer;
+	background-color: #EEEEEE;
+	margin: 0px 10px 10px 0px;
+	-moz-border-radius:2px;  
+    -webkit-border-radius:2px;  
+    border-radius:2px;  
+}
+
+.modulecls .thumb-wrap:hover {
+	background-color: #DDDDDD;
+	border: 1px solid #ADD2ED;
+}
+
+.modulecls .thumb-wrap img {
+	width:32px;
+	height: 32px;
+	margin: 5px 25px;
+}
+
+.modulecls .thumb-wrap span {
+	display: block;
+	text-align: center;
+}
+
+.modulecls .x-item-selected {
+	background-color: #DDDDDD;
+	border: 1px solid #ADD2ED;
+}
+
+.x-grid-row {
+	height: 30px;
+}
+
+.x-grid-row td {
+	line-height: 30px;
+} 
+
+.x-grid-row-editor-buttons-default-bottom {
+	top: initial !important;
+}
+
+.field-display .x-form-display-field {
+	margin-top: 2px;
+	color: red;
+	font-size: 16px !important;
+	font-weight: bold;
+}
+
+.field-display-hidevalue .x-form-display-field {
+	display: none;
+}
+
+.x-progress.custom {
+    height: 19px;
+    border: 1px solid #686868;
+    padding: 0 2px 0 2px;
+}
+
+.ext-strict .x-progress.custom {
+    height: 17px;
+}
+
+.custom .x-progress-bar {
+    height: 17px;
+    border: none;
+    border-top: 1px solid #fff;
+    background: transparent url(../images/custom-bar.gif) repeat-x !important;
+}
+
+.ext-strict .custom .x-progress-bar {
+    height: 15px;
+}
+
+.cursor-move {
+    cursor: move;
+    padding: 0 0 10 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.radio .x-form-radio {
+	 width: 0px;
+	 height: 20px;
+}
+
+.radio-checked {
+	background-color: red;
+	color: white;
+	font-weight: bold !important;
+}
+
+.radio-boxlabel {
+	cursor: pointer;
+	font-size: 16px !important;
+}
+
+.radio-boxlabel:HOVER {
+	color: #44FF44;
+	font-weight: bold !important;
+}
+
+
+
+
+
+
+
+

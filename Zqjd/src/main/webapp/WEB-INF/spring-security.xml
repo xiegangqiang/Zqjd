@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:security="http://www.springframework.org/schema/security"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">    
+	<security:http entry-point-ref="authenticationProcessingFilterEntryPoint">  
+		<security:intercept-url  pattern="/admin/login.jsp" filters="none" />
+		<security:intercept-url  pattern="/app/**" access="ROLE_ADMIN_LOGIN" />
+		<security:intercept-url  pattern="/admin/index.jsp" access="ROLE_ADMIN_LOGIN" />
+		<security:intercept-url  pattern="/client/**" access="ROLE_USER_LOGIN" />
+		<security:custom-filter ref="userLoginFilter" before="FORM_LOGIN_FILTER"/>
+		<security:custom-filter ref="adminLoginFilter" position="FORM_LOGIN_FILTER"/>
+		<security:custom-filter ref="xyFilter" before="FILTER_SECURITY_INTERCEPTOR"/> 
+    	<security:custom-filter ref="userlogoutFilter" before="LOGOUT_FILTER"/>
+    	<security:custom-filter ref="adminlogoutFilter" position="LOGOUT_FILTER"/>
+    </security:http>
+    
+    <!-- 后台登录验证器 -->  
+    <bean id="adminLoginFilter"
+        class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">  
+        <property name="filterProcessesUrl" value="/admin/j_spring_security_check"></property>  
+        <property name="authenticationSuccessHandler" ref="xyAuthenticationSuccessHandler"></property>  
+        <property name="authenticationFailureHandler" ref="xyAuthenticationFailureHandler"></property>  
+        <property name="authenticationManager" ref="xyAuthenticationManager"></property>  
+    </bean>  
+
+    <bean id="simpleUrlAuthenticationFailureHandler"  
+        class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">  
+        <property name="defaultFailureUrl" value="/admin/login.jsp"></property>  
+    </bean>
+    
+    <bean id="userLoginFilter"
+        class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">  
+        <property name="filterProcessesUrl" value="/j_spring_security_check"></property>  
+        <property name="authenticationSuccessHandler" ref="xyAuthenticationSuccessHandler"></property>  
+        <property name="authenticationFailureHandler" ref="xyAuthenticationFailureHandler"></property>  
+        <property name="authenticationManager" ref="xyAuthenticationManager"></property>  
+    </bean>  
+
+    <bean id="userSimpleUrlAuthenticationFailureHandler"  
+        class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">  
+        <property name="defaultFailureUrl" value="/client/login.jsp"></property>  
+    </bean>   
+    
+    <bean id="userlogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">  
+    	<constructor-arg ref="xyLogoutHander" />  
+        <constructor-arg>  
+            <list>  
+                <bean class="com.xysoft.security.XySecurityContextLogoutHandler" />  
+            </list>  
+        </constructor-arg> 
+        <property name="filterProcessesUrl" value="/logout" />
+    </bean>
+    
+    <bean id="adminlogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">  
+    	<constructor-arg ref="xyLogoutHander" />  
+        <constructor-arg>  
+            <list>  
+                <bean class="com.xysoft.security.XySecurityContextLogoutHandler" />  
+            </list>  
+        </constructor-arg> 
+        <property name="filterProcessesUrl" value="/admin/logout" />
+    </bean>
+    
+    <!-- 未登录的切入点 -->  
+    <bean id="authenticationProcessingFilterEntryPoint" class="com.xysoft.security.LoginUrlEntryPoint"></bean>
+    
+    <!-- 配置过滤器 -->  
+   <bean id="xyFilter" class="com.xysoft.security.XyFilter">  
+        <!-- 用户拥有的权限 -->  
+        <property name="authenticationManager" ref="xyAuthenticationManager" />
+        <!-- 用户是否拥有所请求资源的权限  --> 
+        <property name="accessDecisionManager" ref="xyAccessDecisionManager" />
+        <!-- 资源与权限对应关系   -->
+        <property name="securityMetadataSource" ref="xySecurityMetadataSource" />
+    </bean>
+     
+    <!-- 后台用户权限管理器 -->  
+    <security:authentication-manager alias="xyAuthenticationManager">
+     	<security:authentication-provider user-service-ref="xyUserDetailServiceImpl" >
+        	<security:password-encoder hash="md5"> 
+        		<security:salt-source user-property="username"/>
+        	</security:password-encoder>
+        </security:authentication-provider> 
+        
+         <security:authentication-provider user-service-ref="xyAdminDetailServiceImpl" >
+        	<security:password-encoder hash="md5"> 
+        		<security:salt-source user-property="username"/>
+        	</security:password-encoder>
+        </security:authentication-provider> 
+    </security:authentication-manager>
+    
+    <!-- 用户权限Service基础类 -->
+    <bean id="userSecurityService" class="com.xysoft.security.UserSecurityServiceImpl">
+    	<!-- <property name="baseDao" ref="baseDao"></property> -->
+    </bean>
+    <bean id="xyUserDetailServiceImpl" class="com.xysoft.security.XyUserDetailServiceImpl"></bean>
+    <bean id="xyAdminDetailServiceImpl" class="com.xysoft.security.XyAdminDetailServiceImpl"></bean>
+    
+    <bean id="xyAccessDecisionManager" class="com.xysoft.security.XyAccessDecisionManager"></bean>  
+    <bean id="xySecurityMetadataSource" class="com.xysoft.security.XySecurityMetadataSource">
+    	<constructor-arg name="baseDao" ref="baseDao"></constructor-arg>
+    </bean>
+    <bean id="xyAuthenticationSuccessHandler" class="com.xysoft.security.XyAuthenticationSuccessHandler"></bean>
+    <bean id="xyAuthenticationFailureHandler" class="com.xysoft.security.XyAuthenticationFailureHandler"></bean>
+    <bean id="xyLogoutHander" class="com.xysoft.security.XyLogoutHandler"></bean>
+
+    <security:global-method-security  
+        jsr250-annotations="enabled" secured-annotations="enabled" />  
+</beans>  
+
+
+

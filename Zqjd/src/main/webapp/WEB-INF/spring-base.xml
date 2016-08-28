@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
+    
+    <context:component-scan base-package="com.xysoft" />
+    
+  	<!-- 读取数据库配置文件> -->
+    <bean id="propertyConfigurer"
+       class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="location">
+          <value>/WEB-INF/db.properties</value>
+      </property>
+    </bean>
+    <bean id="mysqldataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">  
+	   <property name="driverClass" value="${mysql.driverClassName}"/>  
+	   <property name="jdbcUrl" value="${mysql.url}"/>  
+	   <property name="user" value="${mysql.username}"/>  
+	   <property name="password" value="${mysql.password}"/>  
+	   <property name="maxPoolSize" value="150"/>  
+	   <property name="minPoolSize" value="1"></property>  
+	   <property name="initialPoolSize" value="3"/>  
+	   <property name="maxIdleTime" value="60"/>  
+	   <property name="acquireIncrement" value="1"/>  
+	   <property name="idleConnectionTestPeriod" value="60"/>  
+	</bean>
+	
+	<!-- Session工厂 -->
+   	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource"><ref local="mysqldataSource"/></property>
+        <property name="entityInterceptor" ref="entityInterceptor" />
+        <property name="packagesToScan" value="com.xysoft.*"/>
+        <property name="hibernateProperties">
+	        <props>
+	            <prop key="hibernate.dialect">${mysql.hibernate.dialect}</prop>
+	            <prop key="hibernate.show_sql">${mysql.hibernate.show_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${mysql.hibernate.hbm2ddl.auto}</prop>
+	        </props>
+        </property>
+    </bean>
+    
+    <mvc:annotation-driven/>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <bean class="com.xysoft.support.XyApplicationContextUtil" />
+    
+    <bean id="sqldataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">  
+	   <property name="driverClass" value="${sqlserver.driverClassName}"/>  
+	   <property name="jdbcUrl" value="${sqlserver.url}"/>  
+	   <property name="user" value="${sqlserver.username}"/>  
+	   <property name="password" value="${sqlserver.password}"/>  
+	   <property name="maxPoolSize" value="150"/>  
+	   <property name="minPoolSize" value="1"></property>  
+	   <property name="initialPoolSize" value="3"/>  
+	   <property name="maxIdleTime" value="60"/>  
+	   <property name="acquireIncrement" value="1"/>  
+	   <property name="idleConnectionTestPeriod" value="60"/>  
+	</bean>
+	
+	<bean id="dynamicDataSource" class="com.xysoft.support.DynamicDataSource" >  
+	    <!-- 通过key-value的形式来关联数据源 -->  
+	    <property name="targetDataSources">  
+	        <map>  
+	            <entry value-ref="mysqldataSource" key="mysqldataSource"></entry>  
+	            <entry value-ref="sqldataSource" key="sqldataSource"></entry>  
+	        </map>  
+	    </property>  
+	    <property name="defaultTargetDataSource" ref="mysqldataSource" />  
+	</bean> 
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" abstract="false" lazy-init="false">
+		<property name="dataSource"><ref local="dynamicDataSource"/></property>
+	</bean>
+    
+    <!--定义异常处理页面-->
+    <!-- <bean id="exceptionHandler" class="com.xysoft.support.ExceptionHandler"></bean>
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">error/404</prop>
+            </props>
+        </property>
+    </bean> -->
+    
+</beans>
