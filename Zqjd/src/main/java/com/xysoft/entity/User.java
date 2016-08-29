@@ -19,8 +19,10 @@ public class User extends BaseEntity implements UserDetails{
 	private String name; // 姓名
 	private Integer sex;//性别
 	private String phone;//电话
+	private String address;//
 	private String IDCard;//身份证号码
 	private String headimg;//头像
+	private String wxUser;//所属微信用户
 	private Boolean isAccountEnabled; // 账号是否启用
 	private Boolean isAccountLocked; // 账号是否锁定
 	private Boolean isAccountExpired; // 账号是否过期
@@ -86,6 +88,14 @@ public class User extends BaseEntity implements UserDetails{
 		this.phone = phone;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getIDCard() {
 		return IDCard;
 	}
@@ -100,6 +110,14 @@ public class User extends BaseEntity implements UserDetails{
 
 	public void setHeadimg(String headimg) {
 		this.headimg = headimg;
+	}
+	
+	public String getWxUser() {
+		return wxUser;
+	}
+
+	public void setWxUser(String wxUser) {
+		this.wxUser = wxUser;
 	}
 
 	public Boolean getIsAccountEnabled() {

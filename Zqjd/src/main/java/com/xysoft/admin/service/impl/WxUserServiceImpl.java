@@ -63,7 +63,7 @@ public class WxUserServiceImpl implements WxUserService{
 				}
 				WxUser httpUser = WeixinUtil.getWxUser(accessToken.getToken(), openid);
 				if(httpUser == null) continue;
-				BeanUtils.copyProperties(httpUser, wxUser, new String[] {"id", "createDate", "nickname", "subscribe_time", "wx"});
+				BeanUtils.copyProperties(httpUser, wxUser, new String[] {"id", "createDate", "nickname", "subscribe_time"});
 				try {
 					if(NullUtils.isNotEmpty(httpUser.getNickname())){wxUser.setNickname(new String(httpUser.getNickname().getBytes(), "GBK"));}
 				} catch (Exception e) {

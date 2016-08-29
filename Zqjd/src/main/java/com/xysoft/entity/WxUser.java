@@ -1,6 +1,7 @@
 package com.xysoft.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 public class WxUser extends BaseEntity{
@@ -99,6 +100,7 @@ public class WxUser extends BaseEntity{
 	public void setGroupid(String groupid) {
 		this.groupid = groupid;
 	}
+	@Transient
 	public String[] getPrivilege() {
 		return privilege;
 	}

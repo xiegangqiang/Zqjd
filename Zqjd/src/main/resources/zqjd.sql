@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50162
 File Encoding         : 65001
 
-Date: 2016-08-28 19:53:29
+Date: 2016-08-29 22:30:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ CREATE TABLE `admin` (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('4028168153b7f13f0153b7fd20390011', '2016-03-27 20:12:12', '2016-08-28 16:20:19', '技术部', '', '', '\0', '\0', '\0', null, '2016-08-28 16:20:19', '0', '127.0.0.1', '超级管理员', '468dfb923993a1a9cf4f1da54cdfacaf', '', '0', 'root', null, null);
-INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-08-28 19:28:27', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-08-28 19:28:27', '0', '127.0.0.1', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
+INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-08-29 22:19:03', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-08-29 22:19:03', '0', '127.0.0.1', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
 
 -- ----------------------------
 -- Table structure for adminrole
@@ -209,6 +209,42 @@ CREATE TABLE `diymen` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for flowstep
+-- ----------------------------
+DROP TABLE IF EXISTS `flowstep`;
+CREATE TABLE `flowstep` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `laststep` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `nextstep` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flowstep
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for flowsteprecadmin
+-- ----------------------------
+DROP TABLE IF EXISTS `flowsteprecadmin`;
+CREATE TABLE `flowsteprecadmin` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `admin` varchar(255) DEFAULT NULL,
+  `flowStepRec` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flowsteprecadmin
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for home
 -- ----------------------------
 DROP TABLE IF EXISTS `home`;
@@ -319,7 +355,7 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0001', '2014-06-12 10:20:40', '2014-06-12 10:20:42', null, '0', '3G站功能', null, null, '', '0', null, '40288861516abbc201516b0d64d90000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0002', '2014-07-11 10:22:31', '2014-07-11 10:22:33', 'ROLE_ADMIN_DIYMENU', '1', 'DIY菜单', 'diymen', '2c958da346862c52014686333e5c0001', '', '1', '/app/resources/default/images/item.png', '40288861516abbc201516b0d64d90000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0003', '2016-08-28 16:12:14', '2016-08-28 16:12:16', 'ROLE_ADMIN_INTELLIGENT', '1', '智能回复', 'intelligent', '2c958da346862c52014686333e5c0001', '', '2', '/app/resources/default/images/item.png', '40288861516abbc201516b0d64d90000');
-INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0004', '2016-08-28 16:13:48', '2016-08-28 16:13:50', 'ROLE_ADMIN_HOME', '1', '首页设置', 'home', '2c958da346862c52014686333e5c0001', '', '3', '/app/resources/default/images/item.png', '40288861516abbc201516b0d64d90000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0004', '2016-08-28 16:13:48', '2016-08-28 16:13:50', 'ROLE_ADMIN_WXUSER', '1', '关注粉丝', 'wxUser', '2c958da346862c52014686333e5c0001', '', '3', '/app/resources/default/images/item.png', '40288861516abbc201516b0d64d90000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0050', '2015-11-14 17:18:21', '2015-11-14 17:18:23', null, '0', '系统配置', null, null, '', '0', null, '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0051', '2015-11-14 17:36:13', '2015-11-14 17:36:14', 'ROLE_ADMIN_ADMIN', '1', '用户管理', 'admin', '2c958da346862c52014686333e5c0050', '', '2', '/app/resources/default/images/admin.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0052', '2015-11-14 17:18:59', '2015-11-14 17:19:01', 'ROLE_ADMIN_ROLE', '1', '角色管理', 'role', '2c958da346862c52014686333e5c0050', '', '1', '/app/resources/default/images/authority.png', '40288103510e220701510e237c3c0000');
@@ -351,6 +387,52 @@ CREATE TABLE `module` (
 INSERT INTO `module` VALUES ('40288103510e220701510e237c3c0000', '2015-11-16 10:33:05', '2016-03-27 20:09:35', '/app/resources/default/images/setting.png', '', '0', '平台功能', '');
 INSERT INTO `module` VALUES ('40288103510ef60001510f03516f0003', '2015-11-16 14:37:34', '2016-03-27 20:09:45', '/app/resources/default/images/help.png', '\0', '2', '更多帮助', '');
 INSERT INTO `module` VALUES ('40288861516abbc201516b0d64d90000', '2015-12-04 11:33:38', '2016-03-27 20:09:40', '/app/resources/default/images/weixin.png', '\0', '1', '微信功能', '');
+
+-- ----------------------------
+-- Table structure for product
+-- ----------------------------
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `descript` varchar(255) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `price` float NOT NULL,
+  `productClass` varchar(255) DEFAULT NULL,
+  `unit` varchar(255) DEFAULT NULL,
+  `visible` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of product
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for productclass
+-- ----------------------------
+DROP TABLE IF EXISTS `productclass`;
+CREATE TABLE `productclass` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `descript` varchar(255) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `markcode` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `parentId` varchar(255) DEFAULT NULL,
+  `visible` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of productclass
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for role
@@ -466,6 +548,8 @@ CREATE TABLE `user` (
   `userType` int(11) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `sex` int(11) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `wxUser` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -473,7 +557,24 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('3769189447295b2b01472961a9690002', '2016-03-03 15:39:26', '2016-04-19 14:17:32', null, null, '../common/ace/assets/avatars/user.jpg', '', '\0', '\0', '\0', null, '2016-04-19 14:17:32', '0', '192.168.9.9', null, '7837c7867cde9aba3c451fc5c439d350', null, null, '0', 'qiang', '1');
+INSERT INTO `user` VALUES ('3769189447295b2b01472961a9690002', '2016-03-03 15:39:26', '2016-04-19 14:17:32', null, null, '../common/ace/assets/avatars/user.jpg', '', '\0', '\0', '\0', null, '2016-04-19 14:17:32', '0', '192.168.9.9', null, '7837c7867cde9aba3c451fc5c439d350', null, null, '0', 'qiang', '1', null, null);
+
+-- ----------------------------
+-- Table structure for useradmin
+-- ----------------------------
+DROP TABLE IF EXISTS `useradmin`;
+CREATE TABLE `useradmin` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `admin` varchar(255) DEFAULT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of useradmin
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for userauthority
@@ -548,7 +649,6 @@ CREATE TABLE `wxuser` (
   `language` varchar(255) DEFAULT NULL,
   `nickname` varchar(255) DEFAULT NULL,
   `openid` varchar(255) DEFAULT NULL,
-  `privilege` tinyblob,
   `province` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `sex` varchar(255) DEFAULT NULL,

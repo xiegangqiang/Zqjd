@@ -15,7 +15,7 @@ import com.xysoft.support.Pager;
 public class WxUserDaoImpl extends BaseDaoImpl<WxUser> implements WxUserDao{
 
 	public Pager<WxUser> getWxUsers(PageParam page, String nickname, String groupid, String[] subscribe_time, String sex) {
-		String hql = "from WxUser where wx = ? and nickname like ? and groupid like ? ";
+		String hql = "from WxUser where nickname like ? and groupid like ? ";
 		if(subscribe_time.length != 0 && !subscribe_time[0].equals("") && !subscribe_time[1].equals("")) {
 			hql += " and DATE_FORMAT(subscribe_time, '%Y-%m-%d') >= ? and DATE_FORMAT(subscribe_time, '%Y-%m-%d') <= ?";
 			if(!"".equals(sex)) {
