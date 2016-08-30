@@ -33,6 +33,7 @@ Ext.Loader.loadScript("../app/system/diymen/Diymen.js");
 Ext.Loader.loadScript("../app/system/website/Website.js");
 Ext.Loader.loadScript("../app/system/wxUser/WxUser.js");
 Ext.Loader.loadScript("../app/system/intelligent/Intelligent.js");
+Ext.Loader.loadScript("../app/system/productClass/ProductClass.js");
 
 
 
