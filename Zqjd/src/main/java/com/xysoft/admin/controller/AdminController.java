@@ -18,7 +18,7 @@ import com.xysoft.support.PageParam;
 
 @Controller
 @RequestMapping(value = "/admin/admin.do")
-public class AdminController extends BaseController {
+public class AdminController extends BaseController { 
 	@Resource
 	private AdminService adminService;
 	@Resource
