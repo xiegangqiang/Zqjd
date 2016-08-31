@@ -34,6 +34,7 @@ Ext.Loader.loadScript("../app/system/website/Website.js");
 Ext.Loader.loadScript("../app/system/wxUser/WxUser.js");
 Ext.Loader.loadScript("../app/system/intelligent/Intelligent.js");
 Ext.Loader.loadScript("../app/system/productClass/ProductClass.js");
+Ext.Loader.loadScript("../app/system/orders/Orders.js");
 
 
 

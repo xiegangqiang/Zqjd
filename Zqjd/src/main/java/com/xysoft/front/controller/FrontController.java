@@ -48,7 +48,11 @@ public class FrontController {
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
 	
-	
+	@RequestMapping(value = "/scangift.jhtml")
+	public ModelAndView scangift(HttpServletResponse response, HttpServletRequest request) throws Exception {
+		Map<String, Object> model = this.frontService.scangift();
+		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
+	}
 
 	
 }

@@ -7,17 +7,17 @@ public class FlowStepRec extends BaseEntity{
 
 	private static final long serialVersionUID = 2764937881458388040L;
 
-	private String order;//订单
+	private String orders;//订单
 	private String flowstep;//流程
 	private int state;//状态
 	private String flowStepRecAdmin;//负责人
 	private String admin;//操作人
 	
-	public String getOrder() {
-		return order;
+	public String getOrders() {
+		return orders;
 	}
-	public void setOrder(String order) {
-		this.order = order;
+	public void setOrders(String orders) {
+		this.orders = orders;
 	}
 	public String getFlowstep() {
 		return flowstep;

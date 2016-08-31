@@ -29,6 +29,16 @@ public interface FrontService {
 	 */
 	public Map<String, Object> index();
 
+	/**
+	 * 扫描送礼索引
+	 */
+	public Map<String, Object> scangift();
+
+	/**
+	 * 提交电话号码换礼品码
+	 */
+	public String getGiftCode(String phone);
+
 	
 
 

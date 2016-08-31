@@ -3,7 +3,7 @@ package com.xysoft.entity;
 import javax.persistence.Entity;
 
 @Entity
-public class Order extends BaseEntity{
+public class Orders extends BaseEntity{
 
 	private static final long serialVersionUID = -2843604332349008126L;
 
