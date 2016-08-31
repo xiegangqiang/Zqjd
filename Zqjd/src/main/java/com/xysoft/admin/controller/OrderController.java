@@ -28,4 +28,12 @@ public class OrderController extends BaseController{
 		return null;
 	}
 	
+	@RequestMapping(params = "users")
+	public String user(HttpServletResponse response, HttpServletRequest request, @RequestParam(defaultValue = "") String phone) 
+			throws IOException {
+		String res = this.orderService.getUsersByPhone(phone);
+		response.getWriter().print(res);
+		return null;
+	}
+	
 }

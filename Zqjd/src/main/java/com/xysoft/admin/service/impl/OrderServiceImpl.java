@@ -1,11 +1,15 @@
 package com.xysoft.admin.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.xysoft.admin.service.OrderService;
 import com.xysoft.dao.OrderDao;
+import com.xysoft.dao.UserDao;
+import com.xysoft.entity.User;
 import com.xysoft.support.DynamicBean;
 import com.xysoft.support.JdbcDao;
 import com.xysoft.support.PageParam;
@@ -17,6 +21,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Resource
 	private OrderDao orderDao;
+	@Resource
+	private UserDao userDao;
 	@Resource
 	private JdbcDao<DynamicBean> jdbcDao;
 
@@ -32,6 +38,12 @@ public class OrderServiceImpl implements OrderService {
 		pager.setPageCount(objects.getPageCount());
 		pager.setPageIndex(objects.getPageIndex());
 		return JsonUtil.toStringFromObject(pager);
+	}
+
+	@Transactional(readOnly = true)
+	public String getUsersByPhone(String phone) {
+		List<User> users  = this.userDao.getUserByField("phone", phone);
+		return JsonUtil.toString(users);
 	}
 
 }

@@ -9,6 +9,7 @@ Ext.define('SystemApp.View.Orders', {
             layout: 'border',
             items: [this.createGrid()]
         });
+        this.createWindows();
         this.callParent(arguments);
     },
     
@@ -113,7 +114,77 @@ Ext.define('SystemApp.View.Orders', {
 		store.load();
     },
     
+    createWindows: function() {
+    	
+    	this.userStore = Ext.create('Ext.data.Store', {
+    	    fields: ['phone', 'id'],
+    	    proxy: {
+    	        type: 'ajax',
+    	        url: '/admin/orders.do?users'
+    	    },
+            autoLoad: true
+    	});
+    	
+    	this.editWin = Ext.create('Ext.window.Window', {
+    		title: '编辑管理员信息',
+    	    height: 500,
+    	    width: 700,
+    	    layout: 'border',
+    	    modal: true,
+    	    closeAction: 'hide',
+    	    items: [{
+    	    	xtype: 'form',
+    	    	region: 'center',
+    	    	bodyPadding: 10,
+    	    	fieldDefaults: {
+    	           labelWidth: 70,
+    	           labelAlign: 'left',
+    	           anchor: '100%',
+    	           labelStyle: 'color:green;padding-left:4px'
+    	        },
+    	        items: [{
+    	        	xtype: 'hiddenfield',
+    	        	name: 'id'
+    	        }, {
+    	        	xtype:"container",
+		        	layout: 'column',
+		        	margin: 10,
+		        	items: [{
+	    	        	xtype: 'combo',
+	    	        	name: 'department',
+	    	        	fieldLabel: '输入电话',
+	    	            store: this.userStore,
+	    	            queryMode: 'remote',
+	    	            displayField: 'phone',
+	    	            valueField: 'id',
+	    	            //editable: false,
+	    	            allowBlank: false,
+	    	            listeners: {
+			            	focus: function(me) {
+			            		var store = me.getStore();
+			            		store.proxy.extraParams = {
+									phone: me.getValue()
+								};
+								store.load();
+			            		me.expand();
+			            	}
+			            }
+	    	        }, {
+		        		xtype: 'component',
+						html: '<span style="color:#aaa">　请输入电话搜索客户</span>'
+		        	}]
+    	        }]
+    	    }]
+    	});
+    },
+    
+    addGrid: function() {
+		var form = this.editWin.down('form');
+		this.editWin.show();
+    },
+    
     onDestroy: function(){
+    	this.editWin.destroy();
         this.callParent(arguments);
     }
 });

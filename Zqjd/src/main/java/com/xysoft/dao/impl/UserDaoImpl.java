@@ -1,5 +1,7 @@
 package com.xysoft.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 import com.xysoft.dao.UserDao;
 import com.xysoft.entity.User;
@@ -14,6 +16,10 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
 
 	public void saveUser(User user) {
 		this.saveOrUpdate(user);
+	}
+
+	public List<User> getUserByField(String field, String value) {
+		return this.find("from User where "+field+" like ?", "%"+value+"%");
 	}
 
 }

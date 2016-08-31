@@ -6,4 +6,6 @@ public interface OrderService {
 
 	String getOrders(PageParam page, String phone);
 
+	String getUsersByPhone(String phone);
+
 }

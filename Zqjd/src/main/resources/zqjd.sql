@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本地
-Source Server Version : 50162
+Source Server Version : 50625
 Source Host           : localhost:3306
 Source Database       : zqjd
 
 Target Server Type    : MYSQL
-Target Server Version : 50162
+Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2016-08-29 22:30:03
+Date: 2016-08-31 17:30:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ CREATE TABLE `admin` (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('4028168153b7f13f0153b7fd20390011', '2016-03-27 20:12:12', '2016-08-28 16:20:19', '技术部', '', '', '\0', '\0', '\0', null, '2016-08-28 16:20:19', '0', '127.0.0.1', '超级管理员', '468dfb923993a1a9cf4f1da54cdfacaf', '', '0', 'root', null, null);
-INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-08-29 22:19:03', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-08-29 22:19:03', '0', '127.0.0.1', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
+INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-08-31 17:26:47', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-08-31 17:26:47', '0', '192.168.9.9', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
 
 -- ----------------------------
 -- Table structure for adminrole
@@ -228,21 +228,60 @@ CREATE TABLE `flowstep` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for flowsteprecadmin
+-- Table structure for flowsteprec
 -- ----------------------------
-DROP TABLE IF EXISTS `flowsteprecadmin`;
-CREATE TABLE `flowsteprecadmin` (
+DROP TABLE IF EXISTS `flowsteprec`;
+CREATE TABLE `flowsteprec` (
   `id` varchar(32) NOT NULL,
   `createDate` datetime DEFAULT NULL,
   `modifyDate` datetime DEFAULT NULL,
   `admin` varchar(255) DEFAULT NULL,
-  `flowStepRec` varchar(255) DEFAULT NULL,
+  `flowStepRecAdmin` varchar(255) DEFAULT NULL,
+  `flowstep` varchar(255) DEFAULT NULL,
+  `orders` varchar(255) DEFAULT NULL,
+  `state` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of flowsteprecadmin
+-- Records of flowsteprec
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for flowsteprecpost
+-- ----------------------------
+DROP TABLE IF EXISTS `flowsteprecpost`;
+CREATE TABLE `flowsteprecpost` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `flowStepRec` varchar(255) DEFAULT NULL,
+  `posts` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flowsteprecpost
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for giftcode
+-- ----------------------------
+DROP TABLE IF EXISTS `giftcode`;
+CREATE TABLE `giftcode` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `isGrant` bit(1) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of giftcode
+-- ----------------------------
+INSERT INTO `giftcode` VALUES ('4028898956dfa3750156dfa8b9e00006', '2016-08-31 16:13:12', '2016-08-31 16:13:12', 'D31BFFB5', '\0', '13800138000');
 
 -- ----------------------------
 -- Table structure for home
@@ -362,6 +401,9 @@ INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0052', '2015-11-14 17:18
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0053', '2015-11-16 09:13:19', '2015-11-16 09:13:21', 'ROLE_ADMIN_MODULE', '1', '系统模块', 'module', '2c958da346862c52014686333e5c0050', '', '0', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0054', '2015-11-18 09:53:30', '2015-11-18 09:53:31', 'ROLE_ADMIN_DEPARTMENT', '1', '部门管理', 'department', '2c958da346862c52014686333e5c0050', '', '3', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0055', '2015-12-02 09:06:13', '2015-12-02 09:06:14', 'ROLE_ADMIN_LETTER', '1', '站内信', 'letter', '2c958da346862c52014686333e5c0050', '', '4', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0100', '2016-08-30 13:18:12', '2016-08-30 13:18:13', null, '0', '门户功能', null, null, '', '0', null, '40288103510e220701510e237c3c0000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0101', '2016-08-30 13:18:46', '2016-08-30 13:18:47', 'ROLE_ADMIN_PRODUCTCLASS', '1', '产品分类', 'productClass', '2c958da346862c52014686333e5c0100', '', '0', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0103', '2016-08-31 16:50:49', '2016-08-31 16:50:51', 'ROLE_ADMIN_ORDERS', '1', '订单管理', 'orders', '2c958da346862c52014686333e5c0100', '', '2', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0500', '2016-04-20 11:12:24', '2016-04-20 11:12:26', null, '0', '系统帮助', null, null, '', '0', null, '40288103510ef60001510f03516f0003');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0501', '2016-04-20 11:14:00', '2016-04-20 11:14:02', 'ROLE_ADMIN_HELP', '1', '系统使用手册', 'help', '2c958da346862c52014686333e5c0500', '', '0', '/app/resources/default/images/item.png', '40288103510ef60001510f03516f0003');
 
@@ -387,6 +429,30 @@ CREATE TABLE `module` (
 INSERT INTO `module` VALUES ('40288103510e220701510e237c3c0000', '2015-11-16 10:33:05', '2016-03-27 20:09:35', '/app/resources/default/images/setting.png', '', '0', '平台功能', '');
 INSERT INTO `module` VALUES ('40288103510ef60001510f03516f0003', '2015-11-16 14:37:34', '2016-03-27 20:09:45', '/app/resources/default/images/help.png', '\0', '2', '更多帮助', '');
 INSERT INTO `module` VALUES ('40288861516abbc201516b0d64d90000', '2015-12-04 11:33:38', '2016-03-27 20:09:40', '/app/resources/default/images/weixin.png', '\0', '1', '微信功能', '');
+
+-- ----------------------------
+-- Table structure for orders
+-- ----------------------------
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `amount` float NOT NULL,
+  `count` int(11) NOT NULL,
+  `descript` varchar(255) DEFAULT NULL,
+  `freight` float NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `ordernumber` varchar(255) DEFAULT NULL,
+  `product` varchar(255) DEFAULT NULL,
+  `state` int(11) NOT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of orders
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for product
@@ -558,6 +624,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('3769189447295b2b01472961a9690002', '2016-03-03 15:39:26', '2016-04-19 14:17:32', null, null, '../common/ace/assets/avatars/user.jpg', '', '\0', '\0', '\0', null, '2016-04-19 14:17:32', '0', '192.168.9.9', null, '7837c7867cde9aba3c451fc5c439d350', null, null, '0', 'qiang', '1', null, null);
+INSERT INTO `user` VALUES ('4028898956dfa3750156dfa8b9e00007', '2016-08-31 16:13:12', '2016-08-31 16:13:12', null, null, null, '', '\0', '\0', '\0', null, null, '0', null, null, 'd40ce70488c948a3f2e086327e92ddc1', '13800138000', null, '0', '13800138000', null, null, null);
 
 -- ----------------------------
 -- Table structure for useradmin
