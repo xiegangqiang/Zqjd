@@ -117,13 +117,22 @@ Ext.define('SystemApp.View.Orders', {
     createWindows: function() {
     	
     	this.userStore = Ext.create('Ext.data.Store', {
-    	    fields: ['phone', 'id'],
+    	    fields: ['id', 'phone', 'name', 'address'],
     	    proxy: {
     	        type: 'ajax',
     	        url: '/admin/orders.do?users'
     	    },
             autoLoad: true
     	});
+    	
+    	this.roleStore = Ext.create('Ext.data.ArrayStore', {
+	        fields: ['id','name'],
+	        proxy: {
+    	        type: 'ajax',
+    	        url: '/admin/admin.do?role'
+    	    },
+    	     autoLoad: true
+	    });
     	
     	this.editWin = Ext.create('Ext.window.Window', {
     		title: '编辑管理员信息',
@@ -146,9 +155,12 @@ Ext.define('SystemApp.View.Orders', {
     	        	xtype: 'hiddenfield',
     	        	name: 'id'
     	        }, {
+    	        	xtype: 'hiddenfield',
+    	        	name: 'userId'
+    	        }, {
     	        	xtype:"container",
 		        	layout: 'column',
-		        	margin: 10,
+		        	margin: 20,
 		        	items: [{
 	    	        	xtype: 'combo',
 	    	        	name: 'department',
@@ -156,31 +168,118 @@ Ext.define('SystemApp.View.Orders', {
 	    	            store: this.userStore,
 	    	            queryMode: 'remote',
 	    	            displayField: 'phone',
-	    	            valueField: 'id',
+	    	            valueField: 'phone',
 	    	            //editable: false,
+	    	            columnWidth: 0.7,
 	    	            allowBlank: false,
 	    	            listeners: {
-			            	focus: function(me) {
+			            	change: function(me) {
 			            		var store = me.getStore();
 			            		store.proxy.extraParams = {
 									phone: me.getValue()
 								};
 								store.load();
 			            		me.expand();
+			            	},
+			            	select: function(me, index) {
+			            		
 			            	}
 			            }
 	    	        }, {
 		        		xtype: 'component',
 						html: '<span style="color:#aaa">　请输入电话搜索客户</span>'
 		        	}]
+    	        }, {
+    	        	xtype:"container",
+		        	layout: 'column',
+		        	margin: 20,
+		        	items: [{
+	    	        	xtype: 'textfield',
+	    	            name: 'name',
+	    	            fieldLabel: '姓　名',
+	    	            columnWidth: 0.5
+	    	        }, {
+		        		xtype: 'component',
+						html: '<span style="color:#aaa">　请输入客户姓名</span>'
+		        	}]
+    	        }, {
+    	        	xtype:"container",
+		        	layout: 'column',
+		        	margin: 20,
+		        	items: [{
+	    	        	xtype: 'textfield',
+	    	            name: 'name',
+	    	            fieldLabel: '送货地址',
+	    	            columnWidth: 0.5
+	    	        }, {
+		        		xtype: 'component',
+						html: '<span style="color:#aaa">　请输入客户送货地址</span>'
+		        	}]
+    	        }, {
+    	        	xtype: 'itemselector',
+		            name: 'roles',
+		            anchor: '100%',
+		            fieldLabel: '分配岗位',
+		            store: this.roleStore,
+		            displayField: 'name',
+		            valueField: 'id',
+		            value: [],
+		            buttonsText: {top: "移到最上层", up: "向上移动", add: "选中该项", remove: "删除该项", down: "向下移动", bottom: "移到最低层"},
+		            msgTarget: 'side',
+		            fromTitle: '未选的岗位',
+		            toTitle: '已选的岗位'
     	        }]
-    	    }]
+    	    }],
+	        buttons: [{ 
+	        	text: '确定',
+	        	scope: this,
+	        	handler: this.submitFormDate
+	        }, {
+	        	text: '清除所有岗位',
+	        	scope: this,
+	        	handler: this.clearSelected
+	        }, { 
+	        	text: '取消',
+	        	scope: this,
+	        	handler: function() {
+	        		this.editWin.hide();
+	        	}
+	        }]
+    	});
+    },
+    
+    clearSelected: function() {
+    	var field = this.editWin.down('form').getForm().findField('roles');
+    	if(!field.disabled){
+    		field.clearValue();
+    	}
+    },
+    
+    submitFormDate: function() {
+    	var grid  = this.grid;
+    	var form = this.editWin.down('form');
+    	var win = this.editWin;
+    	form.submit({
+    		url: '/admin/orders.do?save',
+    	    success: function(form, action) {
+    	       win.hide();
+    	       Ext.Msg.alert('提示', action.result.title);
+    	       grid.getStore().reload();
+    	    },
+    	    failure: function(form, action) {
+    	    	Ext.Msg.alert('提示', action.result.title);
+    	    }
     	});
     },
     
     addGrid: function() {
 		var form = this.editWin.down('form');
 		this.editWin.show();
+		var roleIds = [];
+		this.roleStore.each(function(item, index) {
+			roleIds[index] = item.get('id');
+		});
+		form.getForm().findField('roles').setValue(roleIds);
     },
     
     onDestroy: function(){
