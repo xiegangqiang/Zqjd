@@ -1,9 +1,7 @@
 package com.xysoft.admin.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -51,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Transactional(readOnly = true)
 	public String getOrders(PageParam page, String phone) {
-		String sql = "SELECT us.id AS `user`, us.`name`, us.phone, us.address, od.id, od.createDate, od.modifyDate, od.ordernumber, fs.id AS flowsteprec, ad.`name` AS operator, GROUP_CONCAT(ro.`name`) AS posts FROM orders od JOIN `user` us ON od.`user` = us.id JOIN flowsteprec fs ON fs.orders = od.id JOIN admin ad ON ad.id=fs.admin JOIN flowsteprecpost fsp ON fs.id = fsp.flowStepRec JOIN role ro ON ro.id=fsp.posts WHERE us.phone LIKE ?";
+		String sql = "SELECT us.id AS `userId`, us.`name`, us.phone, us.address, od.id, od.createDate, od.modifyDate, od.ordernumber, fs.id AS flowsteprec, ad.`name` AS operator, GROUP_CONCAT(ro.`name`) AS posts FROM orders od JOIN `user` us ON od.`user` = us.id JOIN flowsteprec fs ON fs.orders = od.id JOIN admin ad ON ad.id=fs.admin JOIN flowsteprecpost fsp ON fs.id = fsp.flowStepRec JOIN role ro ON ro.id=fsp.posts WHERE us.phone LIKE ? GROUP BY od.id";
 		Pager<DynamicBean> objects = this.jdbcDao.queryForPager(sql, page, "%"+phone+"%");
 		Pager<Object> pager = new Pager<Object>();
 		List<Object> list = new ArrayList<Object>();
@@ -85,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
 			us.setLoginFailureCount(0);
 			us.setUsername(user.getPhone());
 			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			us.setPassword(encoder.encodePassword(us.getPhone().trim(), us.getPhone().trim()));
+			us.setPassword(encoder.encodePassword(user.getPhone().trim(), user.getPhone().trim()));
 		}else {
 			us = this.userDao.getUserById(userId);
 		}
@@ -122,26 +120,42 @@ public class OrderServiceImpl implements OrderService {
 		
 		//处理岗位
 		List<FlowStepRecPost>  flowStepRecPosts = this.flowStepRecPostDao.getFlowStepRecPostByFlowStepRec(flowStepRec.getId());
-		Map<String, FlowStepRecPost> map = new HashMap<String, FlowStepRecPost>();
 		for (FlowStepRecPost flowStepRecPost : flowStepRecPosts) {
-			map.put(flowStepRecPost.getFlowStepRec(), flowStepRecPost);
+			this.flowStepRecPostDao.deleteFlowStepRecPost(flowStepRecPost);
 		}
 		if(roles != null) {
 			for (String role : roles) {
-				if(map.containsKey(flowStepRec.getId())) {
-					map.remove(flowStepRec.getId());
-				}else {
-					FlowStepRecPost frp = new FlowStepRecPost();
-					frp.setFlowStepRec(flowStepRec.getId());
-					frp.setPosts(role);
-					this.flowStepRecPostDao.saveFlowStepRecPost(frp);
-				}
+				FlowStepRecPost frp = new FlowStepRecPost();
+				frp.setFlowStepRec(flowStepRec.getId());
+				frp.setPosts(role);
+				this.flowStepRecPostDao.saveFlowStepRecPost(frp);
 			}
-		}
-		for (FlowStepRecPost flowStepRecPost : map.values()) {
-			this.flowStepRecPostDao.deleteFlowStepRecPost(flowStepRecPost);
 		}
 		return JsonUtil.toRes("保存成功");
 	}
+	
+	@Transactional(readOnly = true)
+	public String getOrderPosts(String flowsteprec) {
+		List<FlowStepRecPost> flowStepRecPosts = this.flowStepRecPostDao.getFlowStepRecPostByFlowStepRec(flowsteprec);
+		return JsonUtil.toString(flowStepRecPosts);
+	}
+
+	@Transactional
+	public String deleteOrders(String id) {
+		Orders order = this.orderDao.getOrder(id);
+		if(order != null) {
+			List<FlowStepRec> flowStepRecs = this.flowStepRecDao.getFlowStepRecsByOrder(order.getId());
+			for (FlowStepRec flowStepRec : flowStepRecs) {
+				List<FlowStepRecPost> flowStepRecPosts = this.flowStepRecPostDao.getFlowStepRecPostByFlowStepRec(flowStepRec.getId());
+				for (FlowStepRecPost flowStepRecPost : flowStepRecPosts) {
+					this.flowStepRecPostDao.deleteFlowStepRecPost(flowStepRecPost);
+				}
+				this.flowStepRecDao.deleteFlowStepRec(flowStepRec);
+			}
+			this.orderDao.deleteOrders(order);
+		}
+		return JsonUtil.toRes("删除成功");
+	}
+
 
 }

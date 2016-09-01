@@ -46,4 +46,19 @@ public class OrderController extends BaseController{
 		return null;
 	}
 	
+	@RequestMapping(params = "posts")
+	public String posts(HttpServletResponse response, HttpServletRequest request, String flowsteprec) 
+			throws IOException {
+		String res = this.orderService.getOrderPosts(flowsteprec);
+		response.getWriter().print(res);
+		return null;
+	}
+	
+	@RequestMapping(params = "delete")
+	public String delete(HttpServletResponse response, HttpServletRequest request, String id) 
+			throws IOException {
+		String res = this.orderService.deleteOrders(id);
+		response.getWriter().print(res);
+		return null;
+	}
 }

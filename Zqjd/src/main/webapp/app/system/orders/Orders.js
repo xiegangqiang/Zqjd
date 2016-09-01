@@ -16,7 +16,7 @@ Ext.define('SystemApp.View.Orders', {
     createGrid: function() {
     	 var store = Ext.create('Ext.data.Store', {
     		pageSize: 25,
-    	    fields:['id', 'user', 'name', 'phone', 'address', 'ordernumber', 'flowsteprec', 'modifyDate', 'posts', 'operator'],
+    	    fields:['id', 'userId', 'name', 'phone', 'address', 'ordernumber', 'flowsteprec', 'modifyDate', 'posts', 'operator'],
     	    proxy: {
     	        type: 'ajax',
     	        url: '/admin/orders.do?list', 
@@ -183,7 +183,10 @@ Ext.define('SystemApp.View.Orders', {
 		        	items: [{
 	    	        	xtype: 'combo',
 	    	        	name: 'phone',
-	    	        	fieldLabel: '输入电话',
+	    	        	fieldLabel: '电话号码',
+	    	        	regex: /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/,
+	        			regexText: '请输入正确的手机号码',
+	        			emptyText: '输入11位联系电话',
 	    	            store: this.userStore,
 	    	            queryMode: 'remote',
 	    	            displayField: 'phone',
@@ -193,12 +196,14 @@ Ext.define('SystemApp.View.Orders', {
 	    	            allowBlank: false,
 	    	            listeners: {
 	    	            	scope: this,
-			            	change: function(me) {
+			            	change: function(me, newValue, oldValue) {
+			            		var form = this.editWin.down('form').getForm();
 			            		var store = me.getStore();
 			            		store.proxy.extraParams = {
-									phone: me.getValue()
+									phone: newValue
 								};
-								store.load();
+								//store.load();
+								form.findField('userId').setValue('');
 			            		me.expand();
 			            	},
 			            	select: function(me, rec) {
@@ -284,12 +289,17 @@ Ext.define('SystemApp.View.Orders', {
     	var grid  = this.grid;
     	var form = this.editWin.down('form');
     	var win = this.editWin;
+    	var roles = form.getForm().findField('roles').getValue();
+    	if(roles.length === 0) {
+    		Ext.example.msg('提示', "订单至少选一个服务岗位");
+    		return;
+    	}
     	form.submit({
     		url: '/admin/orders.do?save',
     	    success: function(form, action) {
     	       win.hide();
-    	       Ext.Msg.alert('提示', action.result.title);
     	       grid.getStore().reload();
+    	       Ext.example.msg('提示', action.result.title);
     	    },
     	    failure: function(form, action) {
     	    	Ext.Msg.alert('提示', action.result.title);
@@ -300,11 +310,61 @@ Ext.define('SystemApp.View.Orders', {
     addGrid: function() {
 		var form = this.editWin.down('form');
 		this.editWin.show();
+		form.getForm().reset();
 		var roleIds = [];
 		this.roleStore.each(function(item, index) {
 			roleIds[index] = item.get('id');
 		});
 		form.getForm().findField('roles').setValue(roleIds);
+    },
+    
+    editGrid: function(grid, rowIndex, colIndex) {
+    	var form = this.editWin.down('form');
+    	this.editWin.show();
+    	var rec = grid.getStore().getAt(rowIndex);
+    	form.loadRecord(rec);
+    	var roles = [];
+    	Ext.Ajax.request({
+    	    url: '/admin/orders.do?posts',
+    	    params: {
+    			flowsteprec: rec.get('flowsteprec')
+    		},
+    	    success: function(response){
+    	    	var res = Ext.decode(response.responseText);
+    	    	for (var i = 0; i < res.length; i++) {
+    	    		roles[i] = res[i].posts;
+    	    	}
+    	    	form.getForm().findField('roles').setValue( roles );
+    	    },
+    	    failure: function(response) {
+    	    	Ext.Msg.alert('提示', '操作异常');
+    	    }
+    	});
+    },
+    
+    delGrid: function(grid, rowIndex, colIndex) {
+    	var record = grid.getStore().getAt(rowIndex);
+    	var grid  = this.grid;
+		Ext.MessageBox.confirm('确认', '删除该订单后无法恢复，请确认?', function(btn) {
+    		if (btn != 'yes') return;
+    		Ext.Ajax.request({
+        	    url: '/admin/orders.do?delete',
+        	    params: {
+        	        id: record.get('id')
+        	    },
+        	    success: function(response){
+        	    	var res = Ext.decode(response.responseText);
+        	    	if (res.success) {
+        	    		grid.getStore().reload();
+        	    	}
+        	    	Ext.example.msg('提示', res.title);
+        	    },
+        	    failure: function(response) {
+        	    	var res = Ext.decode(response.responseText);
+        	    	Ext.Msg.alert('提示', res.title);
+        	    }
+        	});
+		});
     },
     
     onDestroy: function(){

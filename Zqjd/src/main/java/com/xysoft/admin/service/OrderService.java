@@ -12,4 +12,9 @@ public interface OrderService {
 
 	String saveOrders(String userId, User user, Orders order, String[] roles, String nextstep);
 
+	String getOrderPosts(String flowsteprec);
+	
+	String deleteOrders(String id);
+
+
 }

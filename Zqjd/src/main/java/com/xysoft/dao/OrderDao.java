@@ -9,4 +9,6 @@ public interface OrderDao extends BaseDao<Orders>{
 
 	void saveOrder(Orders order);
 
+	void deleteOrders(Orders order);
+
 }

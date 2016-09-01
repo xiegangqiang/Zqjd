@@ -1,6 +1,7 @@
 package com.xysoft.front.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -79,18 +80,21 @@ public class FrontServiceImpl implements FrontService {
 			giftCode.setIsGrant(false);
 			this.giftCodeDao.saveGiftCode(giftCode);
 			
-			User user = new User();
-			user.setPhone(phone);
-			user.setUsername(phone);
-			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			user.setPassword(encoder.encodePassword(phone, phone));
-			user.setUserType(0);
-			user.setIsAccountEnabled(true);
-			user.setIsAccountExpired(false);
-			user.setIsAccountLocked(false);
-			user.setIsCredentialsExpired(false);
-			user.setLoginFailureCount(0);
-			this.userDao.saveUser(user);
+			List<User> users = this.userDao.getUserByField("phone", phone);
+			if(users.size() == 0) {
+				User user = new User();
+				user.setPhone(phone);
+				user.setUsername(phone);
+				Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+				user.setPassword(encoder.encodePassword(phone, phone));
+				user.setUserType(0);
+				user.setIsAccountEnabled(true);
+				user.setIsAccountExpired(false);
+				user.setIsAccountLocked(false);
+				user.setIsCredentialsExpired(false);
+				user.setLoginFailureCount(0);
+				this.userDao.saveUser(user);
+			}
 			
 			return JsonUtil.toStringFromObject(giftCode);
 		}

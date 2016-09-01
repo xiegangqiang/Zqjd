@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2016-08-31 17:30:19
+Date: 2016-09-01 15:15:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ CREATE TABLE `admin` (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('4028168153b7f13f0153b7fd20390011', '2016-03-27 20:12:12', '2016-08-28 16:20:19', '技术部', '', '', '\0', '\0', '\0', null, '2016-08-28 16:20:19', '0', '127.0.0.1', '超级管理员', '468dfb923993a1a9cf4f1da54cdfacaf', '', '0', 'root', null, null);
-INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-08-31 17:26:47', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-08-31 17:26:47', '0', '192.168.9.9', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
+INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-09-01 14:56:07', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-09-01 14:56:07', '0', '192.168.9.9', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
 
 -- ----------------------------
 -- Table structure for adminrole
@@ -226,6 +226,7 @@ CREATE TABLE `flowstep` (
 -- ----------------------------
 -- Records of flowstep
 -- ----------------------------
+INSERT INTO `flowstep` VALUES ('4028808551a6a0c50151a99b8df70002', '2016-09-01 09:08:30', '2016-09-01 09:08:31', null, null, '完成订单', null);
 
 -- ----------------------------
 -- Table structure for flowsteprec
@@ -236,7 +237,6 @@ CREATE TABLE `flowsteprec` (
   `createDate` datetime DEFAULT NULL,
   `modifyDate` datetime DEFAULT NULL,
   `admin` varchar(255) DEFAULT NULL,
-  `flowStepRecAdmin` varchar(255) DEFAULT NULL,
   `flowstep` varchar(255) DEFAULT NULL,
   `orders` varchar(255) DEFAULT NULL,
   `state` int(11) NOT NULL,
@@ -246,6 +246,7 @@ CREATE TABLE `flowsteprec` (
 -- ----------------------------
 -- Records of flowsteprec
 -- ----------------------------
+INSERT INTO `flowsteprec` VALUES ('4028898956e4883e0156e495b1f6000b', '2016-09-01 15:10:30', '2016-09-01 15:10:30', '402881862bf08f18012bf0b1304a0053', '4028808551a6a0c50151a99b8df70002', '4028898956e4883e0156e495b1f3000a', '0');
 
 -- ----------------------------
 -- Table structure for flowsteprecpost
@@ -263,6 +264,9 @@ CREATE TABLE `flowsteprecpost` (
 -- ----------------------------
 -- Records of flowsteprecpost
 -- ----------------------------
+INSERT INTO `flowsteprecpost` VALUES ('4028898956e4883e0156e495b1f7000c', '2016-09-01 15:10:30', '2016-09-01 15:10:30', '4028898956e4883e0156e495b1f6000b', '4028898956e3b73c0156e3c3ab990017');
+INSERT INTO `flowsteprecpost` VALUES ('4028898956e4883e0156e495b1f8000d', '2016-09-01 15:10:30', '2016-09-01 15:10:30', '4028898956e4883e0156e495b1f6000b', '4028898956e33d020156e34300af0001');
+INSERT INTO `flowsteprecpost` VALUES ('4028898956e4883e0156e495b1f8000e', '2016-09-01 15:10:30', '2016-09-01 15:10:30', '4028898956e4883e0156e495b1f6000b', '4028898956e33d020156e34317650002');
 
 -- ----------------------------
 -- Table structure for giftcode
@@ -281,7 +285,7 @@ CREATE TABLE `giftcode` (
 -- ----------------------------
 -- Records of giftcode
 -- ----------------------------
-INSERT INTO `giftcode` VALUES ('4028898956dfa3750156dfa8b9e00006', '2016-08-31 16:13:12', '2016-08-31 16:13:12', 'D31BFFB5', '\0', '13800138000');
+INSERT INTO `giftcode` VALUES ('4028898956e4296b0156e477a2a90027', '2016-09-01 14:37:40', '2016-09-01 14:37:40', '181F985A', '\0', '13800138000');
 
 -- ----------------------------
 -- Table structure for home
@@ -427,8 +431,28 @@ CREATE TABLE `module` (
 -- Records of module
 -- ----------------------------
 INSERT INTO `module` VALUES ('40288103510e220701510e237c3c0000', '2015-11-16 10:33:05', '2016-03-27 20:09:35', '/app/resources/default/images/setting.png', '', '0', '平台功能', '');
-INSERT INTO `module` VALUES ('40288103510ef60001510f03516f0003', '2015-11-16 14:37:34', '2016-03-27 20:09:45', '/app/resources/default/images/help.png', '\0', '2', '更多帮助', '');
-INSERT INTO `module` VALUES ('40288861516abbc201516b0d64d90000', '2015-12-04 11:33:38', '2016-03-27 20:09:40', '/app/resources/default/images/weixin.png', '\0', '1', '微信功能', '');
+INSERT INTO `module` VALUES ('40288103510ef60001510f03516f0003', '2015-11-16 14:37:34', '2016-09-01 08:58:33', '/app/resources/default/images/help.png', '\0', '2', '更多帮助', '');
+INSERT INTO `module` VALUES ('40288861516abbc201516b0d64d90000', '2015-12-04 11:33:38', '2016-09-01 08:58:37', '/app/resources/default/images/weixin.png', '\0', '1', '微信功能', '');
+
+-- ----------------------------
+-- Table structure for orderrole
+-- ----------------------------
+DROP TABLE IF EXISTS `orderrole`;
+CREATE TABLE `orderrole` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `orders` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of orderrole
+-- ----------------------------
+INSERT INTO `orderrole` VALUES ('4028898956e3889f0156e391724d000c', '2016-09-01 10:26:15', '2016-09-01 10:26:15', '4028898956e3889f0156e391724b000b', '4028898956e33d020156e342cfc90000');
+INSERT INTO `orderrole` VALUES ('4028898956e3889f0156e391724d000d', '2016-09-01 10:26:15', '2016-09-01 10:26:15', '4028898956e3889f0156e391724b000b', '4028898956e33d020156e34300af0001');
+INSERT INTO `orderrole` VALUES ('4028898956e3889f0156e391724d000e', '2016-09-01 10:26:15', '2016-09-01 10:26:15', '4028898956e3889f0156e391724b000b', '4028898956e33d020156e34317650002');
 
 -- ----------------------------
 -- Table structure for orders
@@ -442,7 +466,6 @@ CREATE TABLE `orders` (
   `count` int(11) NOT NULL,
   `descript` varchar(255) DEFAULT NULL,
   `freight` float NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
   `ordernumber` varchar(255) DEFAULT NULL,
   `product` varchar(255) DEFAULT NULL,
   `state` int(11) NOT NULL,
@@ -453,6 +476,8 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
+INSERT INTO `orders` VALUES ('4028898956e4296b0156e47d91f40028', '2016-09-01 14:44:09', '2016-09-01 14:44:09', '0', '0', null, '0', null, null, '0', '4028898956e4296b0156e47566b40026');
+INSERT INTO `orders` VALUES ('4028898956e4883e0156e495b1f3000a', '2016-09-01 15:10:30', '2016-09-01 15:10:30', '0', '0', null, '0', null, null, '0', '4028898956e4296b0156e47566b40026');
 
 -- ----------------------------
 -- Table structure for product
@@ -517,7 +542,10 @@ CREATE TABLE `role` (
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES ('4028168153b7f13f0153b7f98a430008', '2016-03-27 20:08:17', '2016-03-27 20:08:17', '超级管理员', '');
-INSERT INTO `role` VALUES ('4028898253826da6015382743e310000', '2016-03-17 10:42:49', '2016-03-17 10:42:49', '普通用户', '');
+INSERT INTO `role` VALUES ('4028898956e33d020156e342cfc90000', '2016-09-01 09:00:21', '2016-09-01 09:00:21', '销售人员', '');
+INSERT INTO `role` VALUES ('4028898956e33d020156e34300af0001', '2016-09-01 09:00:34', '2016-09-01 09:00:34', '送货员', '');
+INSERT INTO `role` VALUES ('4028898956e33d020156e34317650002', '2016-09-01 09:00:40', '2016-09-01 09:00:40', '司机', '');
+INSERT INTO `role` VALUES ('4028898956e3b73c0156e3c3ab990017', '2016-09-01 11:21:06', '2016-09-01 11:21:06', '安装员', '');
 
 -- ----------------------------
 -- Table structure for rolemenu
@@ -565,8 +593,6 @@ CREATE TABLE `rolemodule` (
 INSERT INTO `rolemodule` VALUES ('4028168153b7f13f0153b7fab9bf0009', '2016-03-27 20:09:35', '2016-03-27 20:09:35', '40288103510e220701510e237c3c0000', '4028168153b7f13f0153b7f98a430008');
 INSERT INTO `rolemodule` VALUES ('4028168153b7f13f0153b7face08000a', '2016-03-27 20:09:40', '2016-03-27 20:09:40', '40288861516abbc201516b0d64d90000', '4028168153b7f13f0153b7f98a430008');
 INSERT INTO `rolemodule` VALUES ('4028168153b7f13f0153b7fadf97000b', '2016-03-27 20:09:45', '2016-03-27 20:09:45', '40288103510ef60001510f03516f0003', '4028168153b7f13f0153b7f98a430008');
-INSERT INTO `rolemodule` VALUES ('4028898253826da6015382747ed50001', '2016-03-17 10:43:06', '2016-03-17 10:43:06', '40288861516abbc201516b0d64d90000', '4028898253826da6015382743e310000');
-INSERT INTO `rolemodule` VALUES ('4028898253826da601538274901c0002', '2016-03-17 10:43:10', '2016-03-17 10:43:10', '40288103510ef60001510f03516f0003', '4028898253826da6015382743e310000');
 
 -- ----------------------------
 -- Table structure for textmes
@@ -624,7 +650,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('3769189447295b2b01472961a9690002', '2016-03-03 15:39:26', '2016-04-19 14:17:32', null, null, '../common/ace/assets/avatars/user.jpg', '', '\0', '\0', '\0', null, '2016-04-19 14:17:32', '0', '192.168.9.9', null, '7837c7867cde9aba3c451fc5c439d350', null, null, '0', 'qiang', '1', null, null);
-INSERT INTO `user` VALUES ('4028898956dfa3750156dfa8b9e00007', '2016-08-31 16:13:12', '2016-08-31 16:13:12', null, null, null, '', '\0', '\0', '\0', null, null, '0', null, null, 'd40ce70488c948a3f2e086327e92ddc1', '13800138000', null, '0', '13800138000', null, null, null);
+INSERT INTO `user` VALUES ('4028898956e4296b0156e47566b40026', '2016-09-01 14:35:14', '2016-09-01 15:10:30', null, null, null, '', '\0', '\0', '\0', null, null, '0', null, '333', 'd40ce70488c948a3f2e086327e92ddc1', '13800138000', null, '0', '13800138000', null, '444', null);
 
 -- ----------------------------
 -- Table structure for useradmin

@@ -16,4 +16,8 @@ public class OrderDaoImpl extends BaseDaoImpl<Orders> implements OrderDao{
 		this.saveOrUpdate(order);
 	}
 
+	public void deleteOrders(Orders order) {
+		this.delete(order);
+	}
+
 }
