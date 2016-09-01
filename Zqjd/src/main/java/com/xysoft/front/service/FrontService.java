@@ -39,6 +39,16 @@ public interface FrontService {
 	 */
 	public String getGiftCode(String phone);
 
+	/**
+	 * 微信个人中心索引
+	 */
+	public Map<String, Object> wxcenter(String openId);
+
+	/**
+	 * 订单列表索引
+	 */
+	public Map<String, Object> orderlist(String phone);
+
 	
 
 

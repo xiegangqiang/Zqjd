@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xysoft.dao.GiftCodeDao;
 import com.xysoft.dao.UserDao;
+import com.xysoft.dao.WxUserDao;
 import com.xysoft.entity.GiftCode;
 import com.xysoft.entity.User;
+import com.xysoft.entity.WxUser;
 import com.xysoft.front.service.FrontService;
 import com.xysoft.util.CommonUtil;
 import com.xysoft.util.JsonUtil;
@@ -25,6 +27,8 @@ public class FrontServiceImpl implements FrontService {
 	private GiftCodeDao giftCodeDao;
 	@Resource
 	private UserDao userDao;
+	@Resource
+	private WxUserDao wxUserDao;
 	
 	@Transactional(readOnly = true)
 	public Map<String, Object> error() {
@@ -99,6 +103,22 @@ public class FrontServiceImpl implements FrontService {
 			return JsonUtil.toStringFromObject(giftCode);
 		}
 		return JsonUtil.toStringFromObject(giftCode);
+	}
+
+	@Transactional(readOnly = true)
+	public Map<String, Object> wxcenter(String openId) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		WxUser wxuser = this.wxUserDao.getWxUserByOpenId(openId);
+		model.put("wxuser", wxuser);
+		model.put("model", "front/wxcenter/wxcenter");
+		return model;
+	}
+
+	@Transactional(readOnly = true)
+	public Map<String, Object> orderlist(String phone) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("model", "front/orderlist/orderlist");
+		return model;
 	}
 	
 

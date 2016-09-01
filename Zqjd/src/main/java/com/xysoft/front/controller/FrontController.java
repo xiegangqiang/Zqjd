@@ -54,5 +54,15 @@ public class FrontController {
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
 
+	@RequestMapping(value = "/wxcenter.jhtml")
+	public ModelAndView wxcenter(HttpServletResponse response, HttpServletRequest request, String openId) throws Exception {
+		Map<String, Object> model = this.frontService.wxcenter(openId);
+		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
+	}
 	
+	@RequestMapping(value = "/orderlist.jhtml")
+	public ModelAndView orderlist(HttpServletResponse response, HttpServletRequest request, String phone) throws Exception {
+		Map<String, Object> model = this.frontService.orderlist(phone);
+		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
+	}
 }
