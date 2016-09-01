@@ -49,6 +49,16 @@ public interface FrontService {
 	 */
 	public Map<String, Object> orderlist(String phone);
 
+	/**
+	 * 订单评价索引
+	 */
+	public Map<String, Object> ordermark(String order);
+
+	/**
+	 * 我的评价索引
+	 */
+	public Map<String, Object> mymark(String openId);
+
 	
 
 

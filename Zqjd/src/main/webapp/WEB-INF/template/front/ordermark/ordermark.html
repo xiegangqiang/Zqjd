@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>订单评价</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="stylesheet" href="../common/ace/assets/css/bootstrap.css" />
+		<link rel="stylesheet" href="../common/ace/assets/css/font-awesome.css" />
+		<link rel="stylesheet" href="../common/ace/assets/css/select2.css" />
+		<link rel="stylesheet" href="../common/ace/assets/css/ace-fonts.css" />
+		<link rel="stylesheet" href="../common/ace/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+		
+		<link rel="stylesheet" href="/template/front/css/weui.min.css" />
+		<link rel="stylesheet" href="/template/front/css/jquery-weui.css" />
+		<link rel="stylesheet" href="/template/front/css/demos.css" /> 
+		<script type="text/javascript" src="/template/front/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="/template/front/js/jquery-weui.js"></script>
+	</head>
+
+	<body class="no-skin">
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<div class="page-content">
+						<div class="page-header">
+						为以下服务岗位评价
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<form class="form-horizontal" role="form">
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-top"> 销售员 </label>
+										<div class="col-sm-9">
+											<div class="rating inline"></div>
+											<div class="hr hr-16 hr-dotted"></div>
+										</div>
+									</div>
+									<div class="weui_cells weui_cells_form">
+								       <div class="weui_cell">
+								          <div class="weui_cell_bd weui_cell_primary">
+								             <div class="weui_uploader">
+								             <div class="weui_uploader_hd weui_cell">
+								                <div class="weui_cell_bd weui_cell_primary">图片上传</div>
+								                  <div class="weui_cell_ft">0/2</div>
+								             </div>
+								             <div class="weui_uploader_bd">
+								                <ul class="weui_uploader_files">
+								                   <li class="weui_uploader_file" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)"></li>
+								                </ul>
+								              <div class="weui_uploader_input_wrp">
+								                  <input class="weui_uploader_input" type="file" accept="image/*" multiple="">
+								              </div>
+								            </div>
+								          </div>
+								        </div>
+								      </div>
+								    </div>
+									<div class="weui_cells weui_cells_form">
+								      <div class="weui_cell">
+								        <div class="weui_cell_bd weui_cell_primary">
+								          <textarea class="weui_textarea" placeholder="请输入评论" rows="3"></textarea>
+								          <div class="weui_textarea_counter"><span>0</span>/200</div>
+								        </div>
+								      </div>
+								    </div>
+								    <div class="weui_btn_area">
+								    	<button type="submit" class="weui_btn weui_btn_primary">提交</button>
+								    </div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--[if !IE]> -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='../common/ace/assets/js/jquery.js'>"+"<"+"/script>");
+		</script>
+
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='../common/ace/assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+		</script>
+		<script src="../common/ace/assets/js/bootstrap.js"></script>
+		<script src="../common/ace/assets/js/jquery.bootstrap-duallistbox.js"></script>
+		<script src="../common/ace/assets/js/jquery.raty.js"></script>
+		<script src="../common/ace/assets/js/bootstrap-multiselect.js"></script>
+		<script src="../common/ace/assets/js/select2.js"></script>
+		<script src="../common/ace/assets/js/typeahead.jquery.js"></script>
+
+		<script type="text/javascript">
+			jQuery(function($){
+				/**var setRatingColors = function() {
+					$(this).find('.star-on-png,.star-half-png').addClass('orange2').removeClass('grey');
+					$(this).find('.star-off-png').removeClass('orange2').addClass('grey');
+				}*/
+				$('.rating').raty({
+					'cancel' : true,
+					'half': true,
+					'starType' : 'i'
+					/**,
+					
+					'click': function() {
+						setRatingColors.call(this);
+					},
+					'mouseover': function() {
+						setRatingColors.call(this);
+					},
+					'mouseout': function() {
+						setRatingColors.call(this);
+					}*/
+				})//.find('i:not(.star-raty)').addClass('grey');
+			});
+		</script>
+	</body>
+</html>

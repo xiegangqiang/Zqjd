@@ -10,16 +10,65 @@
 		<link rel="stylesheet" href="/template/front/css/demos.css" /> 
 		<script type="text/javascript" src="/template/front/js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="/template/front/js/jquery-weui.js"></script>
+		<style type="text/css">
+				.clear{clear:both;}
+				.banner {
+				    background: url(../template/front/wxcenter/image/banner.jpg)no-repeat 0px 0px;
+				    background-size: cover;
+				}
+				.banner-text {
+				    padding: 2em 1em 2em 2em;
+				}
+				.title {
+				    margin: 1.5em 0 1em;
+				}
+				.title-left {
+				    float: left;
+				    width: 30%;
+				}
+				.title-left  img {
+				    border-radius: 50%;
+				}
+				.title-right {
+				    float: left;
+				    width: 62%;
+				    margin-left: 1.5em;
+				}
+				.title-right h2 {
+				    font-size: 1.6em;
+				    color: #fff;
+				    margin-top: 0.6em;
+				}
+				.title-right h6 {
+				    font-size: 1em;
+				    color: #68d3ff;
+				    margin-top: 0.5em;
+				}
+		</style>
 	</head>
 	<body>
+		<div class="banner">
+			<div class="banner-text">
+				<div class="title">
+					<div class="title-left">
+						<img src="../template/front/wxcenter/image/head.jpg" alt=""/>
+					</div>
+					<div class="title-right">
+						<h2>我是客户</h2>
+						<h6>UI/UX Designer</h6>
+					</div>
+					<div class="clear"> </div>
+				</div>
+			</div>
+		</div>
 		<div class="weui_grids">
-		  <a href="javascript:;" class="weui_grid js_grid" data-id="button">
+		  <a href="/orderlist.jhtml" class="weui_grid js_grid" data-id="button">
 		    <div class="weui_grid_icon">
 		      <img src="/template/front/wxcenter/image/order.png" alt="">
 		    </div>
 		    <p class="weui_grid_label">我的订单</p>
 		  </a>
-		  <a href="javascript:;" class="weui_grid js_grid" data-id="cell">
+		  <a href="/mymark.jhtml" class="weui_grid js_grid" data-id="cell">
 		    <div class="weui_grid_icon">
 		      <img src="/template/front/wxcenter/image/evaluate.png" alt="">
 		    </div>
@@ -48,7 +97,7 @@
 	            <a class="weui_cell" href="javascript:;">
 	              <div class="weui_cell_hd"><img src="/template/front/wxcenter/image/address.png"></div>
 	              <div class="weui_cell_bd weui_cell_primary">
-	                <p>收货地址：</p>
+	                <p  id="address">收货地址：</p>
 	              </div>
 	              <span class="weui_cell_ft"></span>
 	            </a>
@@ -57,8 +106,13 @@
 	      </div>
 	    </div>
 	</body>
-	
+	<script type="text/javascript" src="/template/front/js/city-picker.js"></script>
 	<script type="text/javascript">
-		
+	      $("#address").cityPicker({
+		        title: "选择出发地",
+		        onChange: function (picker, values, displayValues) {
+		           console.log(values, displayValues);
+		        }
+	      });
 	</script>
 </html>
