@@ -22,4 +22,8 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
 		return this.find("from User where "+field+" like ?", "%"+value+"%");
 	}
 
+	public User getUserById(String id) {
+		return this.get(User.class, id);
+	}
+
 }

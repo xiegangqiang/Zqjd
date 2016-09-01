@@ -10,7 +10,6 @@ public class FlowStepRec extends BaseEntity{
 	private String orders;//订单
 	private String flowstep;//流程
 	private int state;//状态
-	private String flowStepRecPost;//负责人
 	private String admin;//操作人
 	
 	public String getOrders() {
@@ -30,12 +29,6 @@ public class FlowStepRec extends BaseEntity{
 	}
 	public void setState(int state) {
 		this.state = state;
-	}
-	public String getFlowStepRecPost() {
-		return flowStepRecPost;
-	}
-	public void setFlowStepRecPost(String flowStepRecPost) {
-		this.flowStepRecPost = flowStepRecPost;
 	}
 	public String getAdmin() {
 		return admin;

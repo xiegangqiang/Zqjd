@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xysoft.admin.service.OrderService;
+import com.xysoft.entity.Orders;
+import com.xysoft.entity.User;
 import com.xysoft.support.BaseController;
 import com.xysoft.support.PageParam;
 @Controller
@@ -32,6 +34,14 @@ public class OrderController extends BaseController{
 	public String user(HttpServletResponse response, HttpServletRequest request, @RequestParam(defaultValue = "") String phone) 
 			throws IOException {
 		String res = this.orderService.getUsersByPhone(phone);
+		response.getWriter().print(res);
+		return null;
+	}
+	
+	@RequestMapping(params = "save")
+	public String save(HttpServletResponse response, HttpServletRequest request, String userId, User user, Orders order, String[] roles, String nextstep) 
+			throws IOException {
+		String res = this.orderService.saveOrders(userId, user, order, roles, nextstep);
 		response.getWriter().print(res);
 		return null;
 	}

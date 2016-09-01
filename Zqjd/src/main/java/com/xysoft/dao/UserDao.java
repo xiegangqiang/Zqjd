@@ -13,4 +13,6 @@ public interface UserDao extends BaseDao<User>{
 
 	List<User> getUserByField(String field, String value);
 
+	User getUserById(String id);
+
 }

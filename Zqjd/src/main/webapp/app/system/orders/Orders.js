@@ -16,7 +16,7 @@ Ext.define('SystemApp.View.Orders', {
     createGrid: function() {
     	 var store = Ext.create('Ext.data.Store', {
     		pageSize: 25,
-    	    fields:['id', 'user', 'name', 'phone', 'address', 'ordernumber', 'flowsteprec', 'modifyDate'],
+    	    fields:['id', 'user', 'name', 'phone', 'address', 'ordernumber', 'flowsteprec', 'modifyDate', 'posts', 'operator'],
     	    proxy: {
     	        type: 'ajax',
     	        url: '/admin/orders.do?list', 
@@ -44,19 +44,35 @@ Ext.define('SystemApp.View.Orders', {
     	    columns: [{
     	    	text: '订单号',
     	    	dataIndex: 'ordernumber',
-    	    	flex: 0.2
+    	    	flex: 0.15
     	    }, { 
     	    	text: '电话号码',  
     	    	dataIndex: 'phone',
-    	    	flex: 0.15
+    	    	flex: 0.1
     	    }, {
     	    	text: '客户姓名',
     	    	dataIndex: 'name',
-    	    	flex: 0.15
+    	    	flex: 0.1
     	    }, {
     	    	text: '送货地址',
     	    	dataIndex: 'address',
-    	    	flex: 0.15
+    	    	flex: 0.2
+    	    }, {
+    	    	text: '服务岗位',
+    	    	dataIndex: 'posts',
+    	    	flex: 0.2
+    	    }, {
+    	    	text: '操作人',
+    	    	dataIndex: 'operator',
+    	    	flex: 0.1
+    	    }, {
+    	    	text: '最后修改时间',
+    	    	dataIndex: 'modifyDate',
+    	    	flex: 0.15,
+    	    	renderer: function(v){
+    	    		if (v == null) return "";
+    	    		return Ext.Date.format(new Date(v.time), 'Y-m-d H:i');
+ 	            }
     	    }, {
             	xtype: 'actiontextcolumn',
             	text: '主要操作',
@@ -88,7 +104,7 @@ Ext.define('SystemApp.View.Orders', {
             }, '->', {
             	xtype: 'textfield',
             	width: 180,
-            	emptyText: '输入订单号搜索'
+            	emptyText: '输入电话号码搜索'
             }, '-', { 
             	xtype: 'button', 
             	text: '搜索',
@@ -109,7 +125,7 @@ Ext.define('SystemApp.View.Orders', {
     	var store = this.grid.getStore();
     	store.currentPage = 1;
     	store.proxy.extraParams = {
-			name: me.previousSibling('textfield').getValue()
+			phone: me.previousSibling('textfield').getValue()
 		};
 		store.load();
     },
@@ -158,12 +174,15 @@ Ext.define('SystemApp.View.Orders', {
     	        	xtype: 'hiddenfield',
     	        	name: 'userId'
     	        }, {
+    	        	xtype: 'hiddenfield',
+    	        	name: 'nextstep'
+    	        }, {
     	        	xtype:"container",
 		        	layout: 'column',
 		        	margin: 20,
 		        	items: [{
 	    	        	xtype: 'combo',
-	    	        	name: 'department',
+	    	        	name: 'phone',
 	    	        	fieldLabel: '输入电话',
 	    	            store: this.userStore,
 	    	            queryMode: 'remote',
@@ -173,6 +192,7 @@ Ext.define('SystemApp.View.Orders', {
 	    	            columnWidth: 0.7,
 	    	            allowBlank: false,
 	    	            listeners: {
+	    	            	scope: this,
 			            	change: function(me) {
 			            		var store = me.getStore();
 			            		store.proxy.extraParams = {
@@ -181,8 +201,11 @@ Ext.define('SystemApp.View.Orders', {
 								store.load();
 			            		me.expand();
 			            	},
-			            	select: function(me, index) {
-			            		
+			            	select: function(me, rec) {
+			            		var form = this.editWin.down('form').getForm();
+			            		form.findField('userId').setValue(rec[0].get('id'));
+			            		form.findField('name').setValue(rec[0].get('name'));
+			            		form.findField('address').setValue(rec[0].get('address'));
 			            	}
 			            }
 	    	        }, {
@@ -197,7 +220,8 @@ Ext.define('SystemApp.View.Orders', {
 	    	        	xtype: 'textfield',
 	    	            name: 'name',
 	    	            fieldLabel: '姓　名',
-	    	            columnWidth: 0.5
+	    	            columnWidth: 0.5,
+	    	            emptyText: '客户姓名'
 	    	        }, {
 		        		xtype: 'component',
 						html: '<span style="color:#aaa">　请输入客户姓名</span>'
@@ -208,9 +232,10 @@ Ext.define('SystemApp.View.Orders', {
 		        	margin: 20,
 		        	items: [{
 	    	        	xtype: 'textfield',
-	    	            name: 'name',
+	    	            name: 'address',
 	    	            fieldLabel: '送货地址',
-	    	            columnWidth: 0.5
+	    	            columnWidth: 0.8,
+	    	            emptyText: '客户送货地址'
 	    	        }, {
 		        		xtype: 'component',
 						html: '<span style="color:#aaa">　请输入客户送货地址</span>'

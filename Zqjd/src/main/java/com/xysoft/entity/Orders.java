@@ -10,7 +10,6 @@ public class Orders extends BaseEntity{
 	private String ordernumber;//订单号
 	private String user;//客户
 	private String product;//产品
-	private String name;//名称
 	private String descript;//描述
 	private int count;//数量
 	private float amount;//总金额
@@ -34,12 +33,6 @@ public class Orders extends BaseEntity{
 	}
 	public void setProduct(String product) {
 		this.product = product;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getDescript() {
 		return descript;
