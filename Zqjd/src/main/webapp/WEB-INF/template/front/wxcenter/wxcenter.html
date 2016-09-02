@@ -17,7 +17,7 @@
 				    background-size: cover;
 				}
 				.banner-text {
-				    padding: 2em 1em 2em 2em;
+				    padding: 1em 0.5em 1em 1em;
 				}
 				.title {
 				    margin: 1.5em 0 1em;
@@ -82,37 +82,73 @@
 		  </a>
 		</div>
 		
-		<div class="weui_panel">
-	      <div class="weui_panel_hd"></div>
-	      <div class="weui_panel_bd">
-	        <div class="weui_media_box weui_media_small_appmsg">
-	          <div class="weui_cells weui_cells_access">
-	            <a class="weui_cell" href="javascript:;">
-	              <div class="weui_cell_hd"><img src="/template/front/wxcenter/image/phone.png"></div>
-	              <div class="weui_cell_bd weui_cell_primary">
-	                <p>电话：</p>
-	              </div>
-	              <span class="weui_cell_ft"></span>
-	            </a>
-	            <a class="weui_cell" href="javascript:;">
-	              <div class="weui_cell_hd"><img src="/template/front/wxcenter/image/address.png"></div>
-	              <div class="weui_cell_bd weui_cell_primary">
-	                <p  id="address">收货地址：</p>
-	              </div>
-	              <span class="weui_cell_ft"></span>
-	            </a>
-	          </div>
-	        </div>
-	      </div>
+		<div class="weui_cells weui_cells_access">
+			 <a class="weui_cell" href="javascript:editPhone();">
+               <div class="weui_cell_hd"><img src="/template/front/wxcenter/image/phone.png"></div>
+               <div class="weui_cell_bd weui_cell_primary">
+                  <p>电话：</p>
+               </div>
+               <span class="weui_cell_ft"></span>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+              <div class="weui_cell_hd"><img src="/template/front/wxcenter/image/address.png"></div>
+                   收货地址：
+              <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" id="address" type="text" value="广东省 肇庆市 端州区" readonly="">
+              </div>
+              <span class="weui_cell_ft"></span>
+            </a>
+            <a class="weui_cell" href="javascript:editAddress();">
+               <div class="weui_cell_hd"><img src="/template/front/wxcenter/image/phone.png"></div>
+               <div class="weui_cell_bd weui_cell_primary">
+                  <p>街道门牌：</p>
+               </div>
+               <span class="weui_cell_ft"></span>
+            </a>
 	    </div>
+	    
 	</body>
 	<script type="text/javascript" src="/template/front/js/city-picker.js"></script>
 	<script type="text/javascript">
 	      $("#address").cityPicker({
-		        title: "选择出发地",
+		        title: "选择省市区",
 		        onChange: function (picker, values, displayValues) {
-		           console.log(values, displayValues);
+		           //console.log(values, displayValues);
+		           var address = "";
+		           for(var i=0;i<displayValues.length;i++) {
+		           		address += " "+displayValues[i]
+		           }
+		           $("#address").text("收货地址：");
+		           $("#address").append(address);
 		        }
 	      });
+	      function editPhone() {
+	      	$.prompt({
+				  title: '修改电话号码',
+				  text: '请输入11位手机号码',
+				  input: '输入框默认值',
+				  empty: false, // 是否允许为空
+				  onOK: function (input) {
+				    //点击确认
+				  },
+				  onCancel: function () {
+				    //点击取消
+				  }
+			});
+	      };
+	      function editAddress() {
+	      	$.prompt({
+				  title: '修改详细地址',
+				  text: '请输入街道或门牌号',
+				  input: '输入框默认值',
+				  empty: false, // 是否允许为空
+				  onOK: function (input) {
+				    //点击确认
+				  },
+				  onCancel: function () {
+				    //点击取消
+				  }
+			});
+	      } 
 	</script>
 </html>
