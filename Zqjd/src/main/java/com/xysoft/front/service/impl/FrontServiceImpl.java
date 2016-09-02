@@ -6,10 +6,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.beanutils.DynaBean;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xysoft.common.ElementConst;
 import com.xysoft.dao.GiftCodeDao;
 import com.xysoft.dao.UserDao;
 import com.xysoft.dao.WxUserDao;
@@ -17,8 +19,12 @@ import com.xysoft.entity.GiftCode;
 import com.xysoft.entity.User;
 import com.xysoft.entity.WxUser;
 import com.xysoft.front.service.FrontService;
+import com.xysoft.support.DynamicBean;
+import com.xysoft.support.JdbcDao;
 import com.xysoft.util.CommonUtil;
 import com.xysoft.util.JsonUtil;
+import com.xysoft.weixin.pojo.AccessToken;
+import com.xysoft.weixin.util.WeixinUtil;
 
 @Component
 public class FrontServiceImpl implements FrontService {
@@ -28,7 +34,7 @@ public class FrontServiceImpl implements FrontService {
 	@Resource
 	private UserDao userDao;
 	@Resource
-	private WxUserDao wxUserDao;
+	private JdbcDao<DynamicBean> jdbcDao;
 	
 	@Transactional(readOnly = true)
 	public Map<String, Object> error() {
@@ -104,12 +110,29 @@ public class FrontServiceImpl implements FrontService {
 		}
 		return JsonUtil.toStringFromObject(giftCode);
 	}
+	
+	@Transactional(readOnly = true)
+	public Map<String, Object> entry() {
+		Map<String, Object> model = new HashMap<String, Object>();
+		String redirectUri = WeixinUtil.getOauth2Code(ElementConst.Wx_AppId, ElementConst.Service_Address + "/wxcenter.jhtml", 0);
+		model.put("sys_url", redirectUri);
+		model.put("model", "front/go");
+		return model;
+	}
 
 	@Transactional(readOnly = true)
-	public Map<String, Object> wxcenter(String openId) {
+	public Map<String, Object> wxcenter(String code) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		WxUser wxuser = this.wxUserDao.getWxUserByOpenId(openId);
-		model.put("wxuser", wxuser);
+		if(code != null && !"authdeny".equals(code)) {
+			// 获取网页授权access_token
+			AccessToken accessToken = WeixinUtil.getOauth2AccessToken(ElementConst.Wx_AppId, ElementConst.Wx_AppSecret, code);
+			// 获取用户信息
+			WxUser wxUser = WeixinUtil.getOauth2WxUser(accessToken.getToken(), accessToken.getOpenid());
+			
+			String sql = "SELECT * From wxuser wu LEFT JOIN `user` u ON u.wxUser=wu.id WHERE wu.openid=?";
+			DynamicBean bean = this.jdbcDao.get(sql, wxUser.getOpenid());
+			model.put("user", bean.getObject());
+		}
 		model.put("model", "front/wxcenter/wxcenter");
 		return model;
 	}

@@ -51,11 +51,11 @@
 			<div class="banner-text">
 				<div class="title">
 					<div class="title-left">
-						<img src="../template/front/wxcenter/image/head.jpg" alt=""/>
+						<img src="<#if user??>${user.headimgurl}<#else>../template/front/wxcenter/image/defaultface.png</#if>" alt=""/>
 					</div>
 					<div class="title-right">
-						<h2>我是客户</h2>
-						<h6>UI/UX Designer</h6>
+						<h2><#if user??>${user.nickname}<#else>未登陆</#if></h2>
+						<h6><#if user??><#if user.sex==2>男<#else>女</#if><#else>未知</#if></h6>
 					</div>
 					<div class="clear"> </div>
 				</div>
@@ -86,7 +86,7 @@
 			 <a class="weui_cell" href="javascript:editPhone();">
                <div class="weui_cell_hd"><img src="/template/front/wxcenter/image/phone.png"></div>
                <div class="weui_cell_bd weui_cell_primary">
-                  <p>电话：</p>
+                  <p>电话：<#if user??>${user.phone}<#else>还没有完善</#if></p>
                </div>
                <span class="weui_cell_ft"></span>
             </a>
@@ -101,7 +101,7 @@
             <a class="weui_cell" href="javascript:editAddress();">
                <div class="weui_cell_hd"><img src="/template/front/wxcenter/image/phone.png"></div>
                <div class="weui_cell_bd weui_cell_primary">
-                  <p>街道门牌：</p>
+                  <p>街道门牌：<#if user??>${user.address}<#else>还没有完善</#if></p>
                </div>
                <span class="weui_cell_ft"></span>
             </a>
@@ -126,7 +126,7 @@
 	      	$.prompt({
 				  title: '修改电话号码',
 				  text: '请输入11位手机号码',
-				  input: '输入框默认值',
+				  input: '<#if user??>${user.phone}</#if>',
 				  empty: false, // 是否允许为空
 				  onOK: function (input) {
 				    //点击确认
@@ -140,7 +140,7 @@
 	      	$.prompt({
 				  title: '修改详细地址',
 				  text: '请输入街道或门牌号',
-				  input: '输入框默认值',
+				  input: '<#if user??>${user.address}</#if>',
 				  empty: false, // 是否允许为空
 				  onOK: function (input) {
 				    //点击确认

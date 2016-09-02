@@ -53,10 +53,17 @@ public class FrontController {
 		Map<String, Object> model = this.frontService.scangift();
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
+	
+	@RequestMapping(value = "/entry.jhtml")
+	public ModelAndView entry(HttpServletResponse response, HttpServletRequest request) throws Exception {
+		Map<String, Object> model = this.frontService.entry();
+		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
+	}
 
 	@RequestMapping(value = "/wxcenter.jhtml")
-	public ModelAndView wxcenter(HttpServletResponse response, HttpServletRequest request, String openId) throws Exception {
-		Map<String, Object> model = this.frontService.wxcenter(openId);
+	public ModelAndView wxcenter(HttpServletResponse response, HttpServletRequest request) throws Exception {
+		String code = request.getParameter("code");
+		Map<String, Object> model = this.frontService.wxcenter(code);
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
 	

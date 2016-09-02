@@ -38,11 +38,16 @@ public interface FrontService {
 	 * 提交电话号码换礼品码
 	 */
 	public String getGiftCode(String phone);
+	
+	/**
+	 * 个人中心入口
+	 */
+	public Map<String, Object> entry();
 
 	/**
 	 * 微信个人中心索引
 	 */
-	public Map<String, Object> wxcenter(String openId);
+	public Map<String, Object> wxcenter(String code);
 
 	/**
 	 * 订单列表索引
