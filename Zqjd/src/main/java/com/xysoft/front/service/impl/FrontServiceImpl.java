@@ -3,18 +3,13 @@ package com.xysoft.front.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
-import org.apache.commons.beanutils.DynaBean;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.xysoft.common.ElementConst;
 import com.xysoft.dao.GiftCodeDao;
 import com.xysoft.dao.UserDao;
-import com.xysoft.dao.WxUserDao;
 import com.xysoft.entity.GiftCode;
 import com.xysoft.entity.User;
 import com.xysoft.entity.WxUser;
@@ -23,6 +18,7 @@ import com.xysoft.support.DynamicBean;
 import com.xysoft.support.JdbcDao;
 import com.xysoft.util.CommonUtil;
 import com.xysoft.util.JsonUtil;
+import com.xysoft.util.SqlUtil;
 import com.xysoft.weixin.pojo.AccessToken;
 import com.xysoft.weixin.util.WeixinUtil;
 
@@ -137,9 +133,33 @@ public class FrontServiceImpl implements FrontService {
 		return model;
 	}
 
-	@Transactional(readOnly = true)
-	public Map<String, Object> orderlist(String phone) {
+	@Transactional
+	public Map<String, Object> orderlist(String wxUser, String phone) {
 		Map<String, Object> model = new HashMap<String, Object>();
+		String newphone = phone.replace(" ", "");
+		User user = null;
+		List<User> users = this.userDao.getUserByField("phone", newphone);
+		if(users.size() > 0) {
+			user = users.get(0);
+			user.setPhone(newphone);
+			user.setWxUser(wxUser);
+		}else {
+			user = new User();
+			user.setPhone(newphone);
+			user.setUsername(newphone);
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			user.setPassword(encoder.encodePassword(newphone, newphone));
+			user.setUserType(0);
+			user.setIsAccountEnabled(true);
+			user.setIsAccountExpired(false);
+			user.setIsAccountLocked(false);
+			user.setIsCredentialsExpired(false);
+			user.setLoginFailureCount(0);
+		}
+		this.userDao.saveUser(user);
+		
+		List<DynamicBean> beans = this.jdbcDao.find("SELECT * FROM orders WHERE `user`=?", user.getId());
+		model.put("orders", SqlUtil.DynamicToBean(beans));
 		model.put("model", "front/orderlist/orderlist");
 		return model;
 	}

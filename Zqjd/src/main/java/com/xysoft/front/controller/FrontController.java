@@ -68,8 +68,8 @@ public class FrontController {
 	}
 	
 	@RequestMapping(value = "/orderlist.jhtml")
-	public ModelAndView orderlist(HttpServletResponse response, HttpServletRequest request, String phone) throws Exception {
-		Map<String, Object> model = this.frontService.orderlist(phone);
+	public ModelAndView orderlist(HttpServletResponse response, HttpServletRequest request, String wxUser, String phone) throws Exception {
+		Map<String, Object> model = this.frontService.orderlist(wxUser,  phone);
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
 	

@@ -52,7 +52,7 @@ public interface FrontService {
 	/**
 	 * 订单列表索引
 	 */
-	public Map<String, Object> orderlist(String phone);
+	public Map<String, Object> orderlist(String wxUser, String phone);
 
 	/**
 	 * 订单评价索引

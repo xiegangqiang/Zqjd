@@ -19,24 +19,41 @@
 	       <div class="up">释放刷新</div>
 	       <div class="refresh">正在刷新</div>
 	    </div>
+	    <#if orders?size gt 0>
 		<div class="weui_cells_title">我的订单列表 　<span id="time"></span></div>
 		<div class="weui_panel weui_panel_access">
 			<div class="weui_panel_bd">
+				<#list orders as l>
 				<a href="/ordermark.jhtml" class="weui_media_box weui_media_appmsg">
 					<div class="weui_panel_bd">
 				        <div class="weui_media_box weui_media_text">
-				          <h4 class="weui_media_title">标题一</h4>
-				          <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+				          <h4 class="weui_media_title">订单号：${l.ordernumber}</h4>
+				          <p class="weui_media_desc">描述：${l.descript}</p>
 				          <ul class="weui_media_info">
-				            <li class="weui_media_info_meta">文字来源</li>
-				            <li class="weui_media_info_meta">时间</li>
+				            <li class="weui_media_info_meta"></li>
+				            <li class="weui_media_info_meta">交易时间：${l.createDate?datetime}</li>
 				            <li class="weui_media_info_meta weui_media_info_meta_extra">点击评价</li>
 				          </ul>
 				        </div>
 				      </div>
 			      </a>
+			      </#list>
 		      </div>
 	      </div>
+	      <#else>
+	      <div class="weui_msg">
+		      <div class="weui_icon_area"><i class="weui_icon_msg weui_icon_warn"></i></div>
+		      <div class="weui_text_area">
+		        <h2 class="weui_msg_title">实在对不起</h2>
+		        <p class="weui_msg_desc">系统没有找到您的订单！</p>
+		      </div>
+		      <div class="weui_opr_area">
+		        <p class="weui_btn_area">
+		          <a href="javascript:history.go(-1);" class="weui_btn weui_btn_primary">确定</a>
+		        </p>
+		      </div>
+		    </div>
+	      </#if>
 	</body>
 	
 	<script type="text/javascript">
