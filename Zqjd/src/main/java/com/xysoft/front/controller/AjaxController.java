@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.xysoft.admin.service.UploadService;
+import com.xysoft.entity.User;
 import com.xysoft.front.service.FrontService;
 
 @Controller
@@ -36,7 +37,22 @@ public class AjaxController {
 		return null;
 	}
 	
-
+	//更新用户信息
+	@RequestMapping(value = "/updateUser.ajx")
+	public String updateUser(HttpServletResponse response, HttpServletRequest request, User param) throws Exception {
+		String res = this.frontService.updateUser(param);
+		response.getWriter().print(res);
+		return null;
+	}
+	
+	//提交评价
+	@RequestMapping(value = "/submitEvaluat.ajx")
+	public String submitEvaluat(HttpServletResponse response, HttpServletRequest request, String order, 
+			String[] post, String[] rats, String[] imgs, String describe) throws Exception {
+		String res = this.frontService.submitEvaluat(order, post, rats, imgs, describe);
+		response.getWriter().print(res);
+		return null;
+	}
 }
 
 

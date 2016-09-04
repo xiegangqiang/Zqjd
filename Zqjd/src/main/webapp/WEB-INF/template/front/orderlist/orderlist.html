@@ -24,7 +24,7 @@
 		<div class="weui_panel weui_panel_access">
 			<div class="weui_panel_bd">
 				<#list orders as l>
-				<a href="/ordermark.jhtml" class="weui_media_box weui_media_appmsg">
+				<a id="${l.id}" evaluat="${l.evaluat}" onclick="javascript: goEvaluat(this);" class="weui_media_box weui_media_appmsg">
 					<div class="weui_panel_bd">
 				        <div class="weui_media_box weui_media_text">
 				          <h4 class="weui_media_title">订单号：${l.ordernumber}</h4>
@@ -32,7 +32,7 @@
 				          <ul class="weui_media_info">
 				            <li class="weui_media_info_meta"></li>
 				            <li class="weui_media_info_meta">交易时间：${l.createDate?datetime}</li>
-				            <li class="weui_media_info_meta weui_media_info_meta_extra">点击评价</li>
+				            <li class="weui_media_info_meta weui_media_info_meta_extra"><#if l.evaluat gt 0 >已评价<#else>未评价</#if></li>
 				          </ul>
 				        </div>
 				      </div>
@@ -57,12 +57,25 @@
 	</body>
 	
 	<script type="text/javascript">
+		  function goEvaluat(obj) {
+		     var order = $(obj).attr("id");
+		     var evaluat = $(obj).attr("evaluat");
+		     if(evaluat > 0) {
+		     	$.toast("该单已评价", "forbidden");
+		     }else{
+		  	 	location.href = "/ordermark.jhtml?order="+order+"&phone=${phone}";
+		  	 }
+		  };
+		  
 	      $(document.body).pullToRefresh().on("pull-to-refresh", function() {
 		        setTimeout(function() {
 		          var date = new Date();
 		          $("#time").text("更新时间 "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds());
 		          $(document.body).pullToRefreshDone();
+		          location.reload();
 		        }, 1000);
 	      });
+	     var date = new Date();
+		 $("#time").text("更新时间 "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds());
 	</script>
 </html>

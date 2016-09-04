@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Transactional(readOnly = true)
 	public String getUsersByPhone(String phone) {
-		List<User> users  = this.userDao.getUserByField("phone", phone);
+		List<User> users  = this.userDao.getUsersByField("phone", phone);
 		return JsonUtil.toString(users);
 	}
 

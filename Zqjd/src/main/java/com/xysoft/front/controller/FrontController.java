@@ -74,14 +74,14 @@ public class FrontController {
 	}
 	
 	@RequestMapping(value = "/ordermark.jhtml")
-	public ModelAndView ordermark(HttpServletResponse response, HttpServletRequest request, String order) throws Exception {
-		Map<String, Object> model = this.frontService.ordermark(order);
+	public ModelAndView ordermark(HttpServletResponse response, HttpServletRequest request, String order, String phone) throws Exception {
+		Map<String, Object> model = this.frontService.ordermark(order, phone);
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
 	
 	@RequestMapping(value = "/mymark.jhtml")
-	public ModelAndView mymark(HttpServletResponse response, HttpServletRequest request, String openId) throws Exception {
-		Map<String, Object> model = this.frontService.mymark(openId);
+	public ModelAndView mymark(HttpServletResponse response, HttpServletRequest request, String wxUser, String phone) throws Exception {
+		Map<String, Object> model = this.frontService.mymark(wxUser, phone);
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
 }

@@ -2,6 +2,8 @@ package com.xysoft.front.service;
 
 import java.util.Map;
 
+import com.xysoft.entity.User;
+
 public interface FrontService {
 	
 	/**
@@ -40,6 +42,11 @@ public interface FrontService {
 	public String getGiftCode(String phone);
 	
 	/**
+	 * 更新用户信息
+	 */
+	public String updateUser(User param);
+	
+	/**
 	 * 个人中心入口
 	 */
 	public Map<String, Object> entry();
@@ -57,12 +64,17 @@ public interface FrontService {
 	/**
 	 * 订单评价索引
 	 */
-	public Map<String, Object> ordermark(String order);
+	public Map<String, Object> ordermark(String order, String phone);
 
 	/**
 	 * 我的评价索引
 	 */
-	public Map<String, Object> mymark(String openId);
+	public Map<String, Object> mymark(String wxUser, String phone);
+
+	/**
+	 * 提交评价
+	 */
+	public String submitEvaluat(String order, String[] post, String[] rats, String[] imgs, String describe);
 
 	
 

@@ -18,8 +18,12 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
 		this.saveOrUpdate(user);
 	}
 
-	public List<User> getUserByField(String field, String value) {
+	public List<User> getUsersByField(String field, String value) {
 		return this.find("from User where "+field+" like ?", "%"+value+"%");
+	}
+	
+	public User getUserByField(String field, String value) {
+		return this.get("from User where "+field+" = ?", value);
 	}
 
 	public User getUserById(String id) {

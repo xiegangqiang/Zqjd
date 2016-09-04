@@ -122,10 +122,13 @@
 		           $("#address").append(address);
 		        }
 	      });
+	      
 	      function editPhone(title, tag, url) {
+	        var address = '<#if user??>${user.address}</#if>';
  	        var wxUser = '<#if user??>${user.id}</#if>';
 	        var phone = '<#if user??>${user.phone}</#if>';
-	        if(phone === '') {
+	        var reg = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/;
+	        if(phone === "") {
 		      	$.prompt({
 					  title: title,
 					  text: '请输入11位手机号码',
@@ -136,16 +139,30 @@
 					  		location.href = url+"?wxUser="+wxUser+"&phone="+input;
 					  	}else{
 					  		//修改电话号码
-					  		
+					  		$.ajax({
+			            		url: "/updateUser.ajx",
+			            		async: false,
+			            		data: {address: address, wxUser: wxUser, phone: phone},
+			            		success: function(datas) {
+			            			var data = eval("("+datas+")");
+									if(data.success) location.href = "/entry.jhtml";
+			            		}
+			            	});
 					  	} 
 					  },
 					  onCancel: function () {
 					    //点击取消
 					  }
 				});
+			}else {
+				location.href = url+"?wxUser="+wxUser+"&phone="+input;
 			}
 	      };
+	      
 	      function editAddress() {
+	      	var address = $("#address").val()+"||"+'<#if user??>${user.address}</#if>';
+ 	        var wxUser = '<#if user??>${user.id}</#if>';
+	        var phone = '<#if user??>${user.phone}</#if>';
 	      	$.prompt({
 				  title: '修改详细地址',
 				  text: '请输入街道或门牌号',
@@ -153,6 +170,15 @@
 				  empty: false, // 是否允许为空
 				  onOK: function (input) {
 				    //点击确认
+		    		$.ajax({
+	            		url: "/updateUser.ajx",
+	            		async: false,
+	            		data: {address: address+input, wxUser: wxUser, phone: phone},
+	            		success: function(datas) {
+	            			var data = eval("("+datas+")");
+							if(data.success) location.href = "/entry.jhtml";
+	            		}
+	            	});
 				  },
 				  onCancel: function () {
 				    //点击取消

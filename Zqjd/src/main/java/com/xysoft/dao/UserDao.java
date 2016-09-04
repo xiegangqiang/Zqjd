@@ -11,7 +11,9 @@ public interface UserDao extends BaseDao<User>{
 
 	void saveUser(User user);
 
-	List<User> getUserByField(String field, String value);
+	List<User> getUsersByField(String field, String value);
+	
+	User getUserByField(String field, String value);
 
 	User getUserById(String id);
 
