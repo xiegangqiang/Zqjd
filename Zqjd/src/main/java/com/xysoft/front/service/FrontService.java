@@ -76,6 +76,11 @@ public interface FrontService {
 	 */
 	public String submitEvaluat(String order, String[] post, String[] rats, String[] imgs, String describe);
 
+	/**
+	 * 微信首页
+	 */
+	public Map<String, Object> wxhome();
+
 	
 
 

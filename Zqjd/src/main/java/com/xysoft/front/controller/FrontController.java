@@ -84,4 +84,10 @@ public class FrontController {
 		Map<String, Object> model = this.frontService.mymark(wxUser, phone);
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
+	
+	@RequestMapping(value = "/wxhome.jhtml")
+	public ModelAndView wxhome(HttpServletResponse response, HttpServletRequest request) throws Exception {
+		Map<String, Object> model = this.frontService.wxhome();
+		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
+	}
 }

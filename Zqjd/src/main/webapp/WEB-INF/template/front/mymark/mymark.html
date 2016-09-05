@@ -86,7 +86,20 @@
 														</div>
 													</div><!-- /.timeline-items -->
 												</div><!-- /.timeline-container -->
-												</#if>
+												<#else>
+											      <div class="weui_msg">
+												      <div class="weui_icon_area"><i class="weui_icon_msg weui_icon_warn"></i></div>
+												      <div class="weui_text_area">
+												        <h2 class="weui_msg_title">实在对不起</h2>
+												        <p class="weui_msg_desc">系统没有找到您的评价！</p>
+												      </div>
+												      <div class="weui_opr_area">
+												        <p class="weui_btn_area">
+												          <a href="javascript:history.go(-1);" class="weui_btn weui_btn_primary">确定</a>
+												        </p>
+												      </div>
+												    </div>
+											      </#if>
 											</#list>
 										</div>
 									</div>
