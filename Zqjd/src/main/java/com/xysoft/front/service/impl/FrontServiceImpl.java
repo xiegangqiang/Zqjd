@@ -230,10 +230,13 @@ public class FrontServiceImpl implements FrontService {
 		}
 		this.userDao.saveUser(user);
 		
-		String sql = "SELECT el.*,r.`name` FROM evaluat el JOIN flowsteprecpost fsr ON fsr.id=el.flowStepRecPost JOIN role r ON r.id=fsr.posts WHERE el.`user` = ?";
-		List<DynamicBean> evaluats = this.jdbcDao.find(sql, user.getId());
-		List<Orders> orders = this.orderDao.getOrderByUser(user.getId());
-		model.put("orders", orders);
+		String evaluatSql = "SELECT el.*,r.`name` FROM evaluat el LEFT JOIN flowsteprecpost fsr ON fsr.id=el.flowStepRecPost LEFT JOIN role r ON r.id=fsr.posts WHERE el.`user` = ?";
+		List<DynamicBean> evaluats = this.jdbcDao.find(evaluatSql, user.getId());
+		
+		String orderSql = "SELECT ord.*,COUNT(el.orders) AS evaluat FROM orders ord LEFT JOIN evaluat el ON el.orders=ord.id WHERE ord.`user`=? GROUP BY ord.id";
+		List<DynamicBean> orders = this.jdbcDao.find(orderSql, user.getId());
+		
+		model.put("orders", SqlUtil.DynamicToBean(orders));
 		model.put("evaluats", SqlUtil.DynamicToBean(evaluats));
 		model.put("model", "front/mymark/mymark");
 		return model;

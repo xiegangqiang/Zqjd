@@ -16,6 +16,7 @@
 		<link rel="stylesheet" href="/template/front/css/demos.css" /> 
 		<script type="text/javascript" src="/template/front/js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="/template/front/js/jquery-weui.js"></script>
+		<script type="text/javascript" src="/template/front/js/swiper.js"></script>
 	</head>
 
 	<body class="no-skin">
@@ -35,148 +36,57 @@
 							<div class="col-xs-12">
 								<div id="timeline-2">
 									<div class="row">
-<!-- 										<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-											<div class="timeline-container timeline-style2">
-												<span class="timeline-label">
-													<b>Today</b>
-												</span>
-
-												<div class="timeline-items">
-													<div class="timeline-item clearfix">
-														<div class="timeline-info">
-															<span class="timeline-date">11:15 pm</span>
-
-															<i class="timeline-indicator btn btn-info no-hover"></i>
-														</div>
-
-														<div class="widget-box transparent">
-															<div class="widget-body">
-																<div class="widget-main no-padding">
-																	<span class="bigger-110">
-																		<a href="#" class="purple bolder">Susan</a>
-																		reviewed a product
-																	</span>
-
-																	<br />
-																	<i class="ace-icon fa fa-hand-o-right grey bigger-125"></i>
-																	<a href="#">Click to read &hellip;</a>
-																</div>
-															</div>
-														</div>
-													</div>
-
-													<div class="timeline-item clearfix">
-														<div class="timeline-info">
-															<span class="timeline-date">12:30 pm</span>
-
-															<i class="timeline-indicator btn btn-info no-hover"></i>
-														</div>
-
-														<div class="widget-box transparent">
-															<div class="widget-body">
-																<div class="widget-main no-padding">
-																	Going to
-																	<span class="green bolder">veg cafe</span>
-																	for lunch
-																</div>
-															</div>
-														</div>
-													</div>
-
-													<div class="timeline-item clearfix">
-														<div class="timeline-info">
-															<span class="timeline-date">11:15 pm</span>
-
-															<i class="timeline-indicator btn btn-info no-hover"></i>
-														</div>
-
-														<div class="widget-box transparent">
-															<div class="widget-body">
-																<div class="widget-main no-padding">
-																	Designed a new logo for our website. Would appreciate feedback.
-																	<a href="#">
-																		Click to see
-																		<i class="ace-icon fa fa-search-plus blue bigger-110"></i>
-																	</a>
-
-																	<div class="space-2"></div>
-
-																	<div class="action-buttons">
-																		<a href="#">
-																			<i class="ace-icon fa fa-heart red bigger-125"></i>
-																		</a>
-
-																		<a href="#">
-																			<i class="ace-icon fa fa-facebook blue bigger-125"></i>
-																		</a>
-
-																		<a href="#">
-																			<i class="ace-icon fa fa-reply light-green bigger-130"></i>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-
-													<div class="timeline-item clearfix">
-														<div class="timeline-info">
-															<span class="timeline-date">9:00 am</span>
-
-															<i class="timeline-indicator btn btn-info no-hover"></i>
-														</div>
-
-														<div class="widget-box transparent">
-															<div class="widget-body">
-																<div class="widget-main no-padding"> Took the final exam. Phew! </div>
-															</div>
-														</div>
-													</div>
-												</div>/.timeline-items
-											</div>/.timeline-container -->
-
 											<!-- /section:pages/timeline.style2 -->
 											<#list orders as l>
-											<div class="timeline-container timeline-style2">
-												<span class="timeline-label">
-													<b>订单号：${l.ordernumber}</b>
-												</span>
-												<div class="timeline-items">
-													<#list evaluats as ll>
-													<#if l.id=ll.orders>
-													<div class="timeline-item clearfix">
-														<div class="timeline-info">
-															<span class="timeline-date">时间</span>
-
-															<i class="timeline-indicator btn btn-success no-hover"></i>
-														</div>
-
-														<div class="widget-box transparent">
-															<div class="widget-body">
-																<div class="widget-main no-padding">
-																	<div class="clearfix">
-																		<div class="pull-left">
-																			${ll.name}
-																		</div>
-																		<div class="pull-right">
-																			<i class="ace-icon fa fa-chevron-left blue bigger-110"></i>
-																			&nbsp;
-																			<img alt="Image 4" width="36" src="../common/ace/assets/images/gallery/thumb-4.jpg" />
-																			<img alt="Image 3" width="36" src="../common/ace/assets/images/gallery/thumb-3.jpg" />
-																			<img alt="Image 2" width="36" src="../common/ace/assets/images/gallery/thumb-2.jpg" />
-																			<img alt="Image 1" width="36" src="../common/ace/assets/images/gallery/thumb-1.jpg" />
-																			&nbsp;
-																			<i class="ace-icon fa fa-chevron-right blue bigger-110"></i>
+												<#if l.evaluat gt 0>
+												<div class="timeline-container timeline-style2">
+													<span class="timeline-label">
+														<b>订单号：${l.ordernumber}</b>
+													</span>
+													<div class="timeline-items">
+														<div class="timeline-item clearfix">
+															<div class="timeline-info">
+																<span class="timeline-date" style="font-size: 13px"><#if evaluats?size gt 0><#list evaluats as ll><#if ll_index == 0>${ll.createDate?date}</#if></#list></#if></span>
+																<span class="timeline-date" style="font-size: 13px"><#if evaluats?size gt 0><#list evaluats as ll><#if ll_index == 0>${ll.createDate?time}</#if></#list></#if></span>
+																<i class="timeline-indicator btn btn-success no-hover"></i>
+															</div>
+	
+															<div class="widget-box transparent">
+																<div class="widget-body">
+																	<div class="widget-main no-padding">
+																		<div class="clearfix">
+																			<#list evaluats as ll>
+																				<#if l.id=ll.orders>
+																					<#if ll.type==0>
+																					<div class="pull-left">
+																						<span>${ll.name}　</span>
+																						<#list 1..ll.value?number as i>
+																							<font color="#feb902">★</font>
+																						</#list>
+																					</div></br>
+																					</#if>
+																					<#if ll.type==2>
+																						${ll.value}
+																					</#if>
+																				</#if>
+																			</#list>
+																			<div class="pull-right">
+																				<!-- <i class="ace-icon fa fa-chevron-left blue bigger-110"></i>&nbsp; -->
+																				<#list evaluats as ll>
+																					<#if l.id=ll.orders && ll.type==1>
+																						<img alt="Image 4" width="50" src="${ll.value}" onclick="openImg(this);"/>
+																					</#if>
+																				</#list>
+																				<!-- &nbsp;<i class="ace-icon fa fa-chevron-right blue bigger-110"></i> -->
+																			</div>
 																		</div>
 																	</div>
 																</div>
 															</div>
 														</div>
-													</div>
-													</#if>
-													</#list>
-												</div><!-- /.timeline-items -->
-											</div><!-- /.timeline-container -->
+													</div><!-- /.timeline-items -->
+												</div><!-- /.timeline-container -->
+												</#if>
 											</#list>
 										</div>
 									</div>
@@ -205,6 +115,13 @@
 		          location.reload();
 		        }, 1000);
 	      });
+	      
+      	function openImg (obj) {
+			var url = $(obj).css("src");
+			$.photoBrowser({
+				items: [url]
+			}).open();
+		};
 		</script>
 	</body>
 </html>
