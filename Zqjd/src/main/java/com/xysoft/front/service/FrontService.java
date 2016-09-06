@@ -79,7 +79,7 @@ public interface FrontService {
 	/**
 	 * 微信首页
 	 */
-	public Map<String, Object> wxhome();
+	public Map<String, Object> wxhome(String anchor);
 
 	
 

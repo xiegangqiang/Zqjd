@@ -26,5 +26,15 @@
         maxElementsOnDisk="100000"  
         diskPersistent="false"  
         />
+      
+     <!-- 信息管理 -->  
+     <cache  
+        name="XY_INFO"  
+        maxElementsInMemory="10000"  
+        eternal="true"  
+        overflowToDisk="true"  
+        maxElementsOnDisk="100000"  
+        diskPersistent="false"  
+        />
 
 </ehcache>

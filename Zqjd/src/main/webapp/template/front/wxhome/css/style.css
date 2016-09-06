@@ -35,7 +35,7 @@ h1,h2,h3,h4,h5,h6,label,p{
 	width: 100%;
     min-height: 700px;
     display: block;
-    background: url(../images/banner.jpg)no-repeat  ;
+    background: url(../images/home.jpg)no-repeat  ;
 	background-size: cover;
 }
 .header-head{

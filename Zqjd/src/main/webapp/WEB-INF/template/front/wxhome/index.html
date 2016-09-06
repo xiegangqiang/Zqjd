@@ -206,21 +206,27 @@
 			<div class="services" id="services">
 			<h3>企业介绍</h3>
 			<div class="ser-grid ">
+			<@xy_info markcode='INFO' >
 			<div class="col-md-4 ser-top wow fadeInLeft animated" data-wow-delay=".5s">
-				<h5>公司简介</h5>
-				<p>金舵瓷砖23年来始终注重自主研发与创新能力，是建陶行业高新技术企业；是国家生态建材示范展示中心示范企业、广东省高新技术企业，建筑陶瓷定点科技开发生产基地。企业各类高中级技术人才上百名，并常年与国外陶瓷技术专家合作，以“质量是金、技术为舵”为产品理念，产品质量过硬、性能优越，被广泛应用于国内外各种知名建筑工程，“北京奥运会秦皇岛奥体中心”、“九运会主会场”、“海南省政府办公大楼”等成千上万个大型工程让金舵瓷砖成为陶瓷行业内一颗瞩目的明星，历来享有“抛光砖鼻祖”之美誉。</p>
+				<h5>${res.name}</h5>
+				<p>${res.discript}</p>
 					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 			</div>
+			</@xy_info>
+			<@xy_info markcode='PRORESS' >
 			<div class="col-md-4 ser-top wow fadeInUp animated" data-wow-delay=".5s">
-				<h5>I will give you a complete</h5>
-				<p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete . </p>
+				<h5>${res.name}</h5>
+				<p>${res.content}</p>
 					<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
 			</div>
+			</@xy_info>
+			<@xy_info markcode='GROWING' >
 			<div class="col-md-4 ser-top wow fadeInRight animated" data-wow-delay=".5s">
-				<h5>Lorem Ipsum is simply dummy</h5>
-				<p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete. </p>
+				<h5>${res.name}</h5>
+				<p>${res.discript}</p>
 					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 			</div>
+			</@xy_info>
 			<div class="clearfix"></div>
 			</div>
 		</div>
@@ -230,10 +236,11 @@
 	<div class="container">
 		
 		<div class="top-event">
-			<h3>Events </h3>
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+			<h3>装修图库 </h3>
+			<p>We committed to creating a large modern international ceramics group for urban residents to provide personal service Humanity home space</p>
 		</div>
+		<@xy_productclass_list page=1 count=20>
+		<#list 1..(res.rows?size)/2 as l>
 		<div class="event-grid ">
 			<div class="event-left wow fadeInLeft animated" data-wow-delay=".5s">
 				<a href="single.html"><img src="/template/front/wxhome/images/pc.jpg" class="img-responsive" alt=""></a>
@@ -255,50 +262,8 @@
 			</div>
 			<div class="clearfix"></div>
 		</div>
-		<div class="event-grid">
-			<div class="event-left event-left1 wow fadeInRight animated" data-wow-delay=".5s">
-				<a href="single.html"><img src="/template/front/wxhome/images/pc2.jpg" class="img-responsive" alt=""></a>
-				<div class="clearfix"></div>
-				<div class="event-top event-t">
-					<div class="event-gr">
-						<h4><a href="single.html">There are many variations </a></h4>
-						<p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered</p>
-					</div>
-				</div>
-			</div>
-			<div class="event-right event-right1 wow fadeInLeft animated" data-wow-delay=".5s">
-				<a href="single.html"><img src="/template/front/wxhome/images/pc3.jpg" class="img-responsive" alt=""></a>
-				<div class="clearfix"></div>
-				<div class="event-top event-t1">
-					<div class="event-gr">
-						<h4><a href="single.html">Contrary to popular belief </a></h4>
-						<p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered</p>
-					</div>                                     
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-		<div class="event-grid ">
-			<div class="event-left wow fadeInLeft animated" data-wow-delay=".5s">
-				<a href="single.html"><img src="/template/front/wxhome/images/pc4.jpg" class="img-responsive" alt=""></a>
-				<div class="event-top">
-					<div class="event-gr">
-						<h4><a href="single.html">There are many variations </a></h4>
-						<p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered</p>
-					</div>
-				</div>
-			</div>
-			<div class="event-right wow fadeInRight animated" data-wow-delay=".5s">
-				<a href="single.html"><img src="/template/front/wxhome/images/pc5.jpg" class="img-responsive" alt=""></a>
-				<div class="event-top event-top1">
-					<div class="event-gr">
-						<h4><a href="single.html">Contrary to popular belief </a></h4>
-						<p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered</p>
-					</div>                                     
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
+		</#list>
+		</@xy_productclass_list >
 		</div>
 		</div>
 		<!---->
@@ -511,54 +476,50 @@
 	</div>
 	<!--contact--->
 	<div class="contact" id="contact">
-					<div class="col-md-6 map wow fadeInLeft animated" data-wow-delay=".5s">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37494223.23909492!2d103!3d55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x453c569a896724fb%3A0x1409fdf86611f613!2sRussia!5e0!3m2!1sen!2sin!4v1415776049771"></iframe>
-					</div>
-				<div class="col-md-6 contact-form wow fadeInRight animated" data-wow-delay=".5s">
-					<h3>Contact</h3>
-				<div class="col-md-6 contact-top">
-					<form>				
-							<input type="text" placeholder="Your Name" required="" >								
-							<input type="text" placeholder="Your Email" required="" >							
-							<input type="text" placeholder="Subject" required="" >			
-							<textarea placeholder="Your Message" required=""></textarea>	
-						<label class="hvr-rectangle-out">
-								<input type="submit" value="Send" >
-						</label>		
-					</form>						
-				</div>
-				
-					<div class="col-md-6 contact-left">
+
+		<div class="col-md-6 contact-form wow fadeInRight animated" data-wow-delay=".5s">
+			<h3>联系我们</h3>
+		<div class="col-md-6 contact-top">
+			<form>				
+					<input type="text" placeholder="您的名称" required="" >								
+					<input type="text" placeholder="您的邮箱" required="" >							
+					<input type="text" placeholder="项目" required="" >			
+					<textarea placeholder="您的留言" required=""></textarea>	
+				<label class="hvr-rectangle-out">
+						<input type="submit" value="发送" >
+				</label>		
+			</form>						
+		</div>
+		
+		<div class="col-md-6 contact-left">
 						
 			
-					<div class="address">
-					<div class=" address-grid">
-							<i class="glyphicon glyphicon-map-marker"></i>
-							<div class="address1">
-								<h6>Address</h6>
-								<p>Lorem ipsum dolor,
-								TL 19034-88974</p>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						<div class=" address-grid ">
-							<i class="glyphicon glyphicon-phone"></i>
-							<div class="address1">
-							<h6>Our Phone:</h6>
-								<p>+123456789</p>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						<div class=" address-grid ">
-							<i class="glyphicon glyphicon-envelope"></i>
-							<div class="address1">
-							<h6>Email:</h6>
-								<p><a href="mailto:info@example.com"> Lorem@example.com</a></p>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						
-</div>
+		<div class="address">
+			<div class=" address-grid">
+					<i class="glyphicon glyphicon-map-marker"></i>
+					<div class="address1">
+						<h6>地址</h6>
+						<p>Lorem ipsum dolor, TL 19034-88974</p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class=" address-grid ">
+					<i class="glyphicon glyphicon-phone"></i>
+					<div class="address1">
+					<h6>电话:</h6>
+						<p>+123456789</p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class=" address-grid ">
+					<i class="glyphicon glyphicon-envelope"></i>
+					<div class="address1">
+					<h6>邮箱:</h6>
+						<p><a href="mailto:info@example.com"> Lorem@example.com</a></p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+		</div>
 				</div>
 		<div class="clearfix"></div>
 	
@@ -587,6 +548,7 @@
 		<!--//footer-->
  <script type="text/javascript">
 	$(document).ready(function() {
+		location.href = "#${anchor}";
 		/*
 		var defaults = {
   			containerID: 'toTop', // fading element id
@@ -595,7 +557,6 @@
 			easingType: 'linear' 
  		};
 		*/
-		
 		$().UItoTop({ easingType: 'easeOutQuart' });
 		
 	});

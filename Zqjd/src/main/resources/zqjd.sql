@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本地
-Source Server Version : 50625
+Source Server Version : 50162
 Source Host           : localhost:3306
 Source Database       : zqjd
 
 Target Server Type    : MYSQL
-Target Server Version : 50625
+Target Server Version : 50162
 File Encoding         : 65001
 
-Date: 2016-09-06 17:36:57
+Date: 2016-09-06 23:36:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ CREATE TABLE `admin` (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('4028168153b7f13f0153b7fd20390011', '2016-03-27 20:12:12', '2016-08-28 16:20:19', '技术部', '', '', '\0', '\0', '\0', null, '2016-08-28 16:20:19', '0', '127.0.0.1', '超级管理员', '468dfb923993a1a9cf4f1da54cdfacaf', '', '0', 'root', null, null);
-INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-09-06 13:55:27', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-09-06 13:55:27', '0', '192.168.9.9', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
+INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-09-06 22:05:59', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-09-06 22:05:59', '0', '127.0.0.1', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
 
 -- ----------------------------
 -- Table structure for adminrole
@@ -361,6 +361,30 @@ CREATE TABLE `imagemes` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for info
+-- ----------------------------
+DROP TABLE IF EXISTS `info`;
+CREATE TABLE `info` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `content` text,
+  `discript` text,
+  `level` int(11) DEFAULT NULL,
+  `markcode` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `visible` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of info
+-- ----------------------------
+INSERT INTO `info` VALUES ('4028508156ff60ac0156ff676c750001', '2016-09-06 20:09:43', '2016-09-06 20:09:43', '', '金舵瓷砖23年来始终注重自主研发与创新能力，是建陶行业高新技术企业；是国家生态建材示范展示中心示范企业、广东省高新技术企业，建筑陶瓷定点科技开发生产基地。企业各类高中级技术人才上百名，并常年与国外陶瓷技术专家合作，以“质量是金、技术为舵”为产品理念，产品质量过硬、性能优越，被广泛应用于国内外各种知名建筑工程，“北京奥运会秦皇岛奥体中心”、“九运会主会场”、“海南省政府办公大楼”等成千上万个大型工程让金舵瓷砖成为陶瓷行业内一颗瞩目的明星，历来享有“抛光砖鼻祖”之美誉。', '0', 'INFO', '公司简介', '');
+INSERT INTO `info` VALUES ('4028508156ff807b0156ff82b2380000', '2016-09-06 20:39:30', '2016-09-06 20:39:30', '', '金舵瓷砖建立了完善的市场体系和渠道模式，以创新的产品和专业的服务，构筑了强大的销售网络，金舵品牌专卖店遍布全国各地。为了更好地迎接新一轮全球化的挑战，2016年金舵瓷砖将紧紧围绕“厉兵秣马，铸鼎2016”的营销战略转型思想，确立“职业化、全员营销、贴近终端、产品市场化”为全年品牌发展战略，同时，融合“互联网+”概念，运用多种设计工具，打造可移动的第三方平台，为用户提供有价值的服务。金舵瓷砖以实际行动创造国际高品质陶瓷，为广大用户提供更优质的产品和更卓越的服务。', '1', 'GROWING', '发展战略', '');
+INSERT INTO `info` VALUES ('4028508156ff807b0156ff87a9430001', '2016-09-06 20:44:56', '2016-09-06 20:51:58', '1995年 &nbsp; &nbsp;企业被评为“中国最大抛光砖生产厂家”，荣获“中华之最”的美誉。<br />\n1996年 &nbsp; &nbsp;被中华社会调查事务所评为“中国公认名牌产品”。<br />\n1997年 &nbsp; &nbsp;金舵陶瓷公司首次转制，开始全面调整企业经营体制和发展战略。<br />\n1998年 &nbsp; &nbsp;被评为“建筑陶瓷行业十佳品牌＂．同年年底产量高达1800万平方米。<br />\n<br />', '', '2', 'PRORESS', '发展历程', '');
+
+-- ----------------------------
 -- Table structure for letter
 -- ----------------------------
 DROP TABLE IF EXISTS `letter`;
@@ -432,9 +456,10 @@ INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0053', '2015-11-16 09:13
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0054', '2015-11-18 09:53:30', '2015-11-18 09:53:31', 'ROLE_ADMIN_DEPARTMENT', '1', '部门管理', 'department', '2c958da346862c52014686333e5c0050', '', '3', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0055', '2015-12-02 09:06:13', '2015-12-02 09:06:14', 'ROLE_ADMIN_LETTER', '1', '站内信', 'letter', '2c958da346862c52014686333e5c0050', '', '4', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0100', '2016-08-30 13:18:12', '2016-08-30 13:18:13', null, '0', '门户功能', null, null, '', '0', null, '40288103510e220701510e237c3c0000');
-INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0101', '2016-08-30 13:18:46', '2016-08-30 13:18:47', 'ROLE_ADMIN_PRODUCTCLASS', '1', '产品分类', 'productClass', '2c958da346862c52014686333e5c0100', '', '0', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
-INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0102', '2016-09-06 13:02:34', '2016-09-06 13:02:36', 'ROLE_ADMIN_PRODUCT', '1', '产品管理', 'product', '2c958da346862c52014686333e5c0100', '', '1', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
-INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0103', '2016-08-31 16:50:49', '2016-08-31 16:50:51', 'ROLE_ADMIN_ORDERS', '1', '订单管理', 'orders', '2c958da346862c52014686333e5c0100', '', '2', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0101', '2016-08-30 13:18:46', '2016-08-30 13:18:47', 'ROLE_ADMIN_PRODUCTCLASS', '1', '产品分类', 'productClass', '2c958da346862c52014686333e5c0100', '', '1', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0102', '2016-09-06 13:02:34', '2016-09-06 13:02:36', 'ROLE_ADMIN_PRODUCT', '1', '产品管理', 'product', '2c958da346862c52014686333e5c0100', '', '2', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0103', '2016-08-31 16:50:49', '2016-08-31 16:50:51', 'ROLE_ADMIN_ORDERS', '1', '订单管理', 'orders', '2c958da346862c52014686333e5c0100', '', '3', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0104', '2016-09-06 19:56:33', '2016-09-06 19:56:35', 'ROLE_ADMIN_INFO', '1', '信息管理', 'info', '2c958da346862c52014686333e5c0100', '', '0', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0500', '2016-04-20 11:12:24', '2016-04-20 11:12:26', null, '0', '系统帮助', null, null, '', '0', null, '40288103510ef60001510f03516f0003');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0501', '2016-04-20 11:14:00', '2016-04-20 11:14:02', 'ROLE_ADMIN_HELP', '1', '系统使用手册', 'help', '2c958da346862c52014686333e5c0500', '', '0', '/app/resources/default/images/item.png', '40288103510ef60001510f03516f0003');
 
@@ -507,6 +532,23 @@ INSERT INTO `orders` VALUES ('4028898956e4296b0156e47d91f40028', '2016-09-01 14:
 INSERT INTO `orders` VALUES ('4028898956e4883e0156e495b1f3000a', '2016-09-01 15:10:30', '2016-09-01 15:10:30', '0', '0', null, '0', null, null, '0', '4028898956e4296b0156e47566b40026');
 
 -- ----------------------------
+-- Table structure for ordersrole
+-- ----------------------------
+DROP TABLE IF EXISTS `ordersrole`;
+CREATE TABLE `ordersrole` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `orders` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ordersrole
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for product
 -- ----------------------------
 DROP TABLE IF EXISTS `product`;
@@ -529,12 +571,26 @@ CREATE TABLE `product` (
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES ('4028898956fe109a0156fe10edd20000', '2016-09-06 13:55:37', '2016-09-06 13:56:14', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、大堂、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高科技：“玻璃熔块和高温釉料”融合一次烧成技术、喷墨打印技术、红外线多点检测技术等等行业最\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017474703.jpg.thumb.jpg', '0', '2-JDB88613晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
-INSERT INTO `product` VALUES ('4028898956fe109a0156fe1437420001', '2016-09-06 13:59:12', '2016-09-06 14:01:48', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高平整：表面熔块布料较薄，烧成过程中液态熔块均匀流淌，抛光后的平整度更高。 易施工：切割更容易，无崩边、无崩角，产品易加工，\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017461386.jpg.thumb.jpg', '0', '2-JDB88607晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
-INSERT INTO `product` VALUES ('4028898956fe109a0156fe14e5920002', '2016-09-06 13:59:57', '2016-09-06 13:59:57', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高平整：表面熔块布料较薄，烧成过程中液态熔块均匀流淌，抛光后的平整度更高。 易施工：切割更容易，无崩边、无崩角，产品易加工，\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017436624.jpg.thumb.jpg', '0', '2-JDB88601晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
-INSERT INTO `product` VALUES ('4028898956fe109a0156fe154e610003', '2016-09-06 14:00:24', '2016-09-06 14:00:24', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高科技：“玻璃熔块和高温釉料”融合一次烧成技术、喷墨打印技术、红外线多点检测技术等等行业最领先的生产技术。 强耐磨：质体致\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017443284.jpg.thumb.jpg', '0', '2-JDB88605晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
-INSERT INTO `product` VALUES ('4028898956fe109a0156fe1603990004', '2016-09-06 14:01:10', '2016-09-06 14:01:10', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>强耐磨：质体致密，耐磨度比全抛釉和传统微晶石高。 高硬度：莫氏硬度超过6级，硬度略低于玻化砖。 超逼真：100%扫描顶级石材的\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017454700.jpg.thumb.jpg', '0', '2-JDB88606晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
-INSERT INTO `product` VALUES ('4028898956fe109a0156fe167e380005', '2016-09-06 14:01:42', '2016-09-06 14:01:42', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>从大自然中寻找丰富灵感的设计，实现了自然生态和现代文明的回归与期待，呈现忧雅而又不失灵动的家居风格，让凝结自然印记的产品变得\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017419782.jpg.thumb.jpg', '0', '2-JDB8803晶钻宝石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156ffee17580005', '2016-09-06 22:36:48', '2016-09-06 22:36:48', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120257437770.jpg', '0', '小户型现代', '0', '4028508156ffb1cb0156ffe753560001', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156ffeebc610006', '2016-09-06 22:37:31', '2016-09-06 22:37:31', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120327524510.jpg', '0', '一居现代', '0', '4028508156ffb1cb0156ffe753560001', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156ffef9a590007', '2016-09-06 22:38:27', '2016-09-06 22:38:27', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120341433940.jpg', '0', '二居现代（2）', '0', '4028508156ffb1cb0156ffe753560001', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff046d70008', '2016-09-06 22:39:12', '2016-09-06 22:39:12', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120711503990.jpg', '0', '3居现代', '0', '4028508156ffb1cb0156ffe753560001', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff100c30009', '2016-09-06 22:39:59', '2016-09-06 22:39:59', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120729302410.jpg', '0', '4居欧式', '0', '4028508156ffb1cb0156ffe753560001', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff197ee000a', '2016-09-06 22:40:38', '2016-09-06 22:40:38', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120731113860.jpg', '0', '复式新古典', '0', '4028508156ffb1cb0156ffe753560001', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff29000000b', '2016-09-06 22:41:41', '2016-09-06 22:41:41', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120734466270.jpg', '0', '2居简欧', '0', '4028508156ffb1cb0156ffe8a2a20002', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff320f1000c', '2016-09-06 22:42:18', '2016-09-06 22:42:18', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120833004370.jpg', '0', '现代中式别墅', '0', '4028508156ffb1cb0156ffe8a2a20002', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff39649000d', '2016-09-06 22:42:49', '2016-09-06 22:42:49', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120834511460.jpg', '0', '4居美式', '0', '4028508156ffb1cb0156ffe8a2a20002', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff40670000e', '2016-09-06 22:43:17', '2016-09-06 22:43:17', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120837072910.jpg', '0', '别墅新中式', '0', '4028508156ffb1cb0156ffe8a2a20002', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff4933e000f', '2016-09-06 22:43:53', '2016-09-06 22:43:53', '', null, 'http://www.jinduo.com/db_picture/pro12/201603120837379900.jpg', '0', '复式新中式', '0', '4028508156ffb1cb0156ffe9c8b30003', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff5791d0010', '2016-09-06 22:44:52', '2016-09-06 22:44:52', '', null, 'http://www.jinduo.com/db_picture/pro12/201601270305427779.jpg.thumb.jpg', '0', '广州市广交会大厦', '0', '4028508156ffb1cb0156ffeaa53d0004', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff6d2e50011', '2016-09-06 22:46:21', '2016-09-06 22:46:21', '', null, 'http://www.jinduo.com/db_picture/pro12/201601270304442041.jpg.thumb.jpg', '0', '中国建设银行广州分行', '0', '4028508156ffb1cb0156ffeaa53d0004', null, '');
+INSERT INTO `product` VALUES ('4028508156ffb1cb0156fff758460012', '2016-09-06 22:46:55', '2016-09-06 22:46:55', '', null, 'http://www.jinduo.com/db_picture/pro12/201601270304493789.jpg.thumb.jpg', '0', '珠海市吉林大学分校', '0', '4028508156ffb1cb0156ffeaa53d0004', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe10edd20000', '2016-09-06 13:55:37', '2016-09-06 22:09:57', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、大堂、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高科技：“玻璃熔块和高温釉料”融合一次烧成技术、喷墨打印技术、红外线多点检测技术等等行业最\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017474703.jpg.thumb.jpg', '1', '2-JDB88613晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe1437420001', '2016-09-06 13:59:12', '2016-09-06 14:01:48', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高平整：表面熔块布料较薄，烧成过程中液态熔块均匀流淌，抛光后的平整度更高。 易施工：切割更容易，无崩边、无崩角，产品易加工，\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017461386.jpg.thumb.jpg', '1', '2-JDB88607晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe14e5920002', '2016-09-06 13:59:57', '2016-09-06 13:59:57', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高平整：表面熔块布料较薄，烧成过程中液态熔块均匀流淌，抛光后的平整度更高。 易施工：切割更容易，无崩边、无崩角，产品易加工，\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017436624.jpg.thumb.jpg', '1', '2-JDB88601晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe154e610003', '2016-09-06 14:00:24', '2016-09-06 14:00:24', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高科技：“玻璃熔块和高温釉料”融合一次烧成技术、喷墨打印技术、红外线多点检测技术等等行业最领先的生产技术。 强耐磨：质体致\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017443284.jpg.thumb.jpg', '1', '2-JDB88605晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe1603990004', '2016-09-06 14:01:10', '2016-09-06 14:01:10', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>强耐磨：质体致密，耐磨度比全抛釉和传统微晶石高。 高硬度：莫氏硬度超过6级，硬度略低于玻化砖。 超逼真：100%扫描顶级石材的\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017454700.jpg.thumb.jpg', '1', '2-JDB88606晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe167e380005', '2016-09-06 14:01:42', '2016-09-06 14:01:42', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>从大自然中寻找丰富灵感的设计，实现了自然生态和现代文明的回归与期待，呈现忧雅而又不失灵动的家居风格，让凝结自然印记的产品变得\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017419782.jpg.thumb.jpg', '1', '2-JDB8803晶钻宝石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
 
 -- ----------------------------
 -- Table structure for productclass
@@ -557,6 +613,11 @@ CREATE TABLE `productclass` (
 -- ----------------------------
 -- Records of productclass
 -- ----------------------------
+INSERT INTO `productclass` VALUES ('4028508156ffb1cb0156ffdf588e0000', '2016-09-06 22:20:42', '2016-09-06 22:23:35', '', '', '0', null, '装修图库', '', '');
+INSERT INTO `productclass` VALUES ('4028508156ffb1cb0156ffe753560001', '2016-09-06 22:29:25', '2016-09-06 22:29:25', '精选户型', 'http://www.jinduo.com/db_picture/pro12/201603120257437770.jpg', '0', null, '户型', '4028508156ffb1cb0156ffdf588e0000', '');
+INSERT INTO `productclass` VALUES ('4028508156ffb1cb0156ffe8a2a20002', '2016-09-06 22:30:51', '2016-09-06 22:32:16', '简欧 现代 美式 新中式', 'http://www.jinduo.com/db_picture/pro12/201603120835329680.jpg', '0', null, '风格', '4028508156ffb1cb0156ffdf588e0000', '');
+INSERT INTO `productclass` VALUES ('4028508156ffb1cb0156ffe9c8b30003', '2016-09-06 22:32:06', '2016-09-06 22:32:06', '餐厅 厨房 客厅 书房 卫浴 卧室', 'http://www.jinduo.com/db_picture/pro12/201603120837379900.jpg', '0', null, '空间', '4028508156ffb1cb0156ffdf588e0000', '');
+INSERT INTO `productclass` VALUES ('4028508156ffb1cb0156ffeaa53d0004', '2016-09-06 22:33:03', '2016-09-06 22:33:03', '东北 华北 华东 华南 华中 西北 西南', 'http://www.jinduo.com/db_picture/pro12/201601270257279009.jpg.thumb.jpg', '0', null, '案例分享', '4028508156ffb1cb0156ffdf588e0000', '');
 INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf01fbe0000', '2016-09-06 13:19:47', '2016-09-06 13:19:47', '', '', '0', null, '微晶石', '', '');
 INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf06e330001', '2016-09-06 13:20:07', '2016-09-06 13:20:42', '', '', '1', null, '抛釉砖', '', '');
 INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf145e90002', '2016-09-06 13:21:02', '2016-09-06 13:21:02', '', '', '2', null, '抛光砖', '', '');

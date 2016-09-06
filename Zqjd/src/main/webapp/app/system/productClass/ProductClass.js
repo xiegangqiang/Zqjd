@@ -29,6 +29,7 @@ Ext.define('SystemApp.View.ProductClass',{
             region: 'center',
             useArrows: true,
             rootVisible: false,
+            columnLines: true,
             store: store,
             columns: [{ 
             	xtype: 'treecolumn',
@@ -142,7 +143,7 @@ Ext.define('SystemApp.View.ProductClass',{
     	});
     
     	this.editWin = Ext.create('Ext.window.Window',{
-    		title: '编辑部门信息',
+    		title: '编辑产品分类信息',
     	    height: 500,
     	    width: 700,
     	    layout: 'border',

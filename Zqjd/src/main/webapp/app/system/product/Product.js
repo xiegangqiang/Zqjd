@@ -17,7 +17,7 @@ Ext.define('SystemApp.View.Product', {
     createGrid: function() {
     	var store = Ext.create('Ext.data.Store', {
     		pageSize: 25,
-    	    fields:['name','productClass','content','img','discript','level','visible','modifyDate'],
+    	    fields:['name','productClass','content','img','discript','level','visible','modifyDate','productClassName'],
     	    proxy: {
     	        type: 'ajax',
     	        url: '/admin/product.do?list', 
@@ -31,6 +31,7 @@ Ext.define('SystemApp.View.Product', {
     	});
     	
     	this.grid = Ext.create('Ext.grid.Panel', {
+    		border: 0,
     	    store: store,
     	    region: 'center',
     	    columnLines: true,
@@ -43,10 +44,10 @@ Ext.define('SystemApp.View.Product', {
     	    columns: [{
     	    	text: '产品名称',
     	    	dataIndex: 'name',
-    	    	fiex: 0.2
+    	    	flex: 0.15
     	    }, {
     	    	text: '所属分类',
-    	    	dataIndex: 'productClass',
+    	    	dataIndex: 'productClassName',
     	    	flex: 0.1
     	    }, {
     	    	text: '等级排序',
