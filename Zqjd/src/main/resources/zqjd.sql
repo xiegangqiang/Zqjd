@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2016-09-01 15:15:13
+Date: 2016-09-06 17:36:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ CREATE TABLE `admin` (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('4028168153b7f13f0153b7fd20390011', '2016-03-27 20:12:12', '2016-08-28 16:20:19', '技术部', '', '', '\0', '\0', '\0', null, '2016-08-28 16:20:19', '0', '127.0.0.1', '超级管理员', '468dfb923993a1a9cf4f1da54cdfacaf', '', '0', 'root', null, null);
-INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-09-01 14:56:07', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-09-01 14:56:07', '0', '192.168.9.9', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
+INSERT INTO `admin` VALUES ('402881862bf08f18012bf0b1304a0053', '2013-10-23 12:40:57', '2016-09-06 13:55:27', '技术部', '370064940@qq.com', '', '\0', '\0', '\0', null, '2016-09-06 13:55:27', '0', '192.168.9.9', '开发者用户', 'f7f33c074053d2074861cf460a2ab844', null, '9', 'admin', null, null);
 
 -- ----------------------------
 -- Table structure for adminrole
@@ -85,6 +85,7 @@ CREATE TABLE `attention` (
 -- ----------------------------
 -- Records of attention
 -- ----------------------------
+INSERT INTO `attention` VALUES ('4028808551a6a0c50151a99b8df70002', '2016-09-03 12:43:03', '2016-09-03 12:43:04', '欢迎关注', '', '1');
 
 -- ----------------------------
 -- Table structure for authority
@@ -207,6 +208,31 @@ CREATE TABLE `diymen` (
 -- ----------------------------
 -- Records of diymen
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for evaluat
+-- ----------------------------
+DROP TABLE IF EXISTS `evaluat`;
+CREATE TABLE `evaluat` (
+  `id` varchar(32) NOT NULL,
+  `createDate` datetime DEFAULT NULL,
+  `modifyDate` datetime DEFAULT NULL,
+  `flowStepRecPost` varchar(255) DEFAULT NULL,
+  `orders` varchar(255) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of evaluat
+-- ----------------------------
+INSERT INTO `evaluat` VALUES ('4028898956f89da00156f8a1ae500000', '2016-09-05 12:36:00', '2016-09-05 12:36:00', '4028898956e4883e0156e495b1f8000d', '4028898956e4883e0156e495b1f3000a', '0', '4028898956e4296b0156e47566b40026', '2');
+INSERT INTO `evaluat` VALUES ('4028898956f89da00156f8a1ae550001', '2016-09-05 12:36:00', '2016-09-05 12:36:00', '4028898956e4883e0156e495b1f8000e', '4028898956e4883e0156e495b1f3000a', '0', '4028898956e4296b0156e47566b40026', '3');
+INSERT INTO `evaluat` VALUES ('4028898956f89da00156f8a1ae550002', '2016-09-05 12:36:00', '2016-09-05 12:36:00', '4028898956e4883e0156e495b1f7000c', '4028898956e4883e0156e495b1f3000a', '0', '4028898956e4296b0156e47566b40026', '3');
+INSERT INTO `evaluat` VALUES ('4028898956f89da00156f8a1ae550003', '2016-09-05 12:36:00', '2016-09-05 12:36:00', null, '4028898956e4883e0156e495b1f3000a', '2', '4028898956e4296b0156e47566b40026', '测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论测试评论');
+INSERT INTO `evaluat` VALUES ('4028898956f89da00156f8a1ae550004', '2016-09-05 13:44:16', '2016-09-05 13:44:18', null, '4028898956e4883e0156e495b1f3000a', '1', '4028898956e4296b0156e47566b40026', '../template/front/wxcenter/image/phone.png');
 
 -- ----------------------------
 -- Table structure for flowstep
@@ -407,6 +433,7 @@ INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0054', '2015-11-18 09:53
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0055', '2015-12-02 09:06:13', '2015-12-02 09:06:14', 'ROLE_ADMIN_LETTER', '1', '站内信', 'letter', '2c958da346862c52014686333e5c0050', '', '4', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0100', '2016-08-30 13:18:12', '2016-08-30 13:18:13', null, '0', '门户功能', null, null, '', '0', null, '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0101', '2016-08-30 13:18:46', '2016-08-30 13:18:47', 'ROLE_ADMIN_PRODUCTCLASS', '1', '产品分类', 'productClass', '2c958da346862c52014686333e5c0100', '', '0', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
+INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0102', '2016-09-06 13:02:34', '2016-09-06 13:02:36', 'ROLE_ADMIN_PRODUCT', '1', '产品管理', 'product', '2c958da346862c52014686333e5c0100', '', '1', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0103', '2016-08-31 16:50:49', '2016-08-31 16:50:51', 'ROLE_ADMIN_ORDERS', '1', '订单管理', 'orders', '2c958da346862c52014686333e5c0100', '', '2', '/app/resources/default/images/item.png', '40288103510e220701510e237c3c0000');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0500', '2016-04-20 11:12:24', '2016-04-20 11:12:26', null, '0', '系统帮助', null, null, '', '0', null, '40288103510ef60001510f03516f0003');
 INSERT INTO `menu` VALUES ('2c958da346862c52014686333e5c0501', '2016-04-20 11:14:00', '2016-04-20 11:14:02', 'ROLE_ADMIN_HELP', '1', '系统使用手册', 'help', '2c958da346862c52014686333e5c0500', '', '0', '/app/resources/default/images/item.png', '40288103510ef60001510f03516f0003');
@@ -487,8 +514,8 @@ CREATE TABLE `product` (
   `id` varchar(32) NOT NULL,
   `createDate` datetime DEFAULT NULL,
   `modifyDate` datetime DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
-  `descript` varchar(255) DEFAULT NULL,
+  `content` text,
+  `descript` text,
   `img` varchar(255) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -502,6 +529,12 @@ CREATE TABLE `product` (
 -- ----------------------------
 -- Records of product
 -- ----------------------------
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe10edd20000', '2016-09-06 13:55:37', '2016-09-06 13:56:14', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、大堂、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高科技：“玻璃熔块和高温釉料”融合一次烧成技术、喷墨打印技术、红外线多点检测技术等等行业最\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017474703.jpg.thumb.jpg', '0', '2-JDB88613晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe1437420001', '2016-09-06 13:59:12', '2016-09-06 14:01:48', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高平整：表面熔块布料较薄，烧成过程中液态熔块均匀流淌，抛光后的平整度更高。 易施工：切割更容易，无崩边、无崩角，产品易加工，\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017461386.jpg.thumb.jpg', '0', '2-JDB88607晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe14e5920002', '2016-09-06 13:59:57', '2016-09-06 13:59:57', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高平整：表面熔块布料较薄，烧成过程中液态熔块均匀流淌，抛光后的平整度更高。 易施工：切割更容易，无崩边、无崩角，产品易加工，\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017436624.jpg.thumb.jpg', '0', '2-JDB88601晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe154e610003', '2016-09-06 14:00:24', '2016-09-06 14:00:24', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>高科技：“玻璃熔块和高温釉料”融合一次烧成技术、喷墨打印技术、红外线多点检测技术等等行业最领先的生产技术。 强耐磨：质体致\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017443284.jpg.thumb.jpg', '0', '2-JDB88605晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe1603990004', '2016-09-06 14:01:10', '2016-09-06 14:01:10', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>强耐磨：质体致密，耐磨度比全抛釉和传统微晶石高。 高硬度：莫氏硬度超过6级，硬度略低于玻化砖。 超逼真：100%扫描顶级石材的\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017454700.jpg.thumb.jpg', '0', '2-JDB88606晶钻臻石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
+INSERT INTO `product` VALUES ('4028898956fe109a0156fe167e380005', '2016-09-06 14:01:42', '2016-09-06 14:01:42', '<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【所属系列】</span>微晶石\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品规格】</span>800x800mm\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【适用场所】</span>客厅、餐厅、卧室、浴室\n</p>\n<p style=\"color:#696969;font-family:宋体;\">\n	<span style=\"color:#E5000E;\">【产品介绍】</span>从大自然中寻找丰富灵感的设计，实现了自然生态和现代文明的回归与期待，呈现忧雅而又不失灵动的家居风格，让凝结自然印记的产品变得\n</p>', null, 'http://www.jinduo.com/db_picture/pro3/201601311017419782.jpg.thumb.jpg', '0', '2-JDB8803晶钻宝石', '0', '4028898956fdefaa0156fdf01fbe0000', null, '');
 
 -- ----------------------------
 -- Table structure for productclass
@@ -524,6 +557,14 @@ CREATE TABLE `productclass` (
 -- ----------------------------
 -- Records of productclass
 -- ----------------------------
+INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf01fbe0000', '2016-09-06 13:19:47', '2016-09-06 13:19:47', '', '', '0', null, '微晶石', '', '');
+INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf06e330001', '2016-09-06 13:20:07', '2016-09-06 13:20:42', '', '', '1', null, '抛釉砖', '', '');
+INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf145e90002', '2016-09-06 13:21:02', '2016-09-06 13:21:02', '', '', '2', null, '抛光砖', '', '');
+INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf18b020003', '2016-09-06 13:21:20', '2016-09-06 13:21:20', '', '', '3', null, '大理石瓷砖', '', '');
+INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf218720004', '2016-09-06 13:21:56', '2016-09-06 13:21:56', '', '', '4', null, '瓷片', '', '');
+INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf24d4a0005', '2016-09-06 13:22:10', '2016-09-06 13:22:10', '', '', '5', null, '和氏璧', '', '');
+INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf283880006', '2016-09-06 13:22:24', '2016-09-06 13:22:24', '', '', '6', null, '简爱', '', '');
+INSERT INTO `productclass` VALUES ('4028898956fdefaa0156fdf2b9a00007', '2016-09-06 13:22:38', '2016-09-06 13:22:38', '', '', '7', null, '配件', '', '');
 
 -- ----------------------------
 -- Table structure for role
@@ -650,7 +691,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('3769189447295b2b01472961a9690002', '2016-03-03 15:39:26', '2016-04-19 14:17:32', null, null, '../common/ace/assets/avatars/user.jpg', '', '\0', '\0', '\0', null, '2016-04-19 14:17:32', '0', '192.168.9.9', null, '7837c7867cde9aba3c451fc5c439d350', null, null, '0', 'qiang', '1', null, null);
-INSERT INTO `user` VALUES ('4028898956e4296b0156e47566b40026', '2016-09-01 14:35:14', '2016-09-01 15:10:30', null, null, null, '', '\0', '\0', '\0', null, null, '0', null, '333', 'd40ce70488c948a3f2e086327e92ddc1', '13800138000', null, '0', '13800138000', null, '444', null);
+INSERT INTO `user` VALUES ('4028898956e4296b0156e47566b40026', '2016-09-01 14:35:14', '2016-09-03 13:03:34', null, null, null, '', '\0', '\0', '\0', null, null, '0', null, '333', 'd40ce70488c948a3f2e086327e92ddc1', '13800138000', null, '0', '13800138000', null, '444', '');
 
 -- ----------------------------
 -- Table structure for useradmin
@@ -754,6 +795,7 @@ CREATE TABLE `wxuser` (
 -- ----------------------------
 -- Records of wxuser
 -- ----------------------------
+INSERT INTO `wxuser` VALUES ('4028898956ed819f0156ee5cf7bd0000', '2016-09-03 12:44:45', '2016-09-03 12:44:45', null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for wxusergroup
