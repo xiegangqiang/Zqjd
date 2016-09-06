@@ -1,6 +1,6 @@
-Ext.define('SystemApp.View.ProductClass',{
-	extend: 'Ext.panel.Panel',
-    xtype: 'productClass',
+Ext.define('SystemApp.View.Product', {
+    extend: 'Ext.panel.Panel',
+    xtype: 'product',
     
     initComponent: function() {
     	Ext.apply(this, {
@@ -12,61 +12,74 @@ Ext.define('SystemApp.View.ProductClass',{
     	this.createImageUpload();
         this.callParent(arguments);
     },
-	
+    
+    
     createGrid: function() {
+    	var store = Ext.create('Ext.data.Store', {
+    		pageSize: 25,
+    	    fields:['name','productClass','content','img','discript','level','visible','modifyDate'],
+    	    proxy: {
+    	        type: 'ajax',
+    	        url: '/admin/product.do?list', 
+    	        reader: {
+    	            type: 'json',
+    	            root: 'datas',
+    	            totalProperty: 'total'
+    	        }
+    	    },
+            autoLoad: true
+    	});
     	
-    	var store = Ext.create('Ext.data.TreeStore', {
-    		fields:['id', 'name', 'visible', 'level', 'img', 'markcode', 'descript'],
-            proxy: {
-                type: 'ajax',
-                url: '/admin/productClass.do?tree'
-            },
-            autoLoad: false
-        });
-    	
-    	this.grid = Ext.create('Ext.tree.Panel', {
-    		border: 0,
-            region: 'center',
-            useArrows: true,
-            rootVisible: false,
-            store: store,
-            columns: [{ 
-            	xtype: 'treecolumn',
-    	    	text: '分类名称',  
+    	this.grid = Ext.create('Ext.grid.Panel', {
+    	    store: store,
+    	    region: 'center',
+    	    columnLines: true,
+    	    dockedItems: [{
+    	        xtype: 'pagingtoolbar',
+    	        store: store,  
+    	        dock: 'bottom',
+    	        displayInfo: true
+    	    }],
+    	    columns: [{
+    	    	text: '产品名称',
     	    	dataIndex: 'name',
-    	    	flex: 0.1
+    	    	fiex: 0.2
     	    }, {
-    	    	text: '分类小图',
-    	    	dataIndex: 'img',
-    	    	flex: 0.06,
-    	    	renderer: function(v, meta){
-    	    		meta.tdAttr = "data-qtip='<img src=\"" + v + "\" width=128 heigtht=128/>'";
-    	    		return '<img src="'+ v + '" width=45 heigtht=45 />';
-    	    	}
-    	    }, {
-    	    	text: '关键字',  
-    	    	dataIndex: 'markcode',
+    	    	text: '所属分类',
+    	    	dataIndex: 'productClass',
     	    	flex: 0.1
-    	    }, { 
-    	    	text: '分类描述',  
-    	    	dataIndex: 'descript',
-    	    	flex: 0.25
     	    }, {
     	    	text: '等级排序',
     	    	dataIndex: 'level',
-    	    	flex: 0.1
+    	    	flex: 0.08
     	    }, {
     	    	text: '是否显示',
     	    	dataIndex: 'visible',
-    	    	flex: 0.1,
+    	    	flex: 0.08,
     	    	renderer: function(v) {
                 	if (v) return "<font color=green>显示</font>";
                 	else return "<font color=red>隐藏</font>";
                 }
     	    }, {
+    	    	text: '产品图片',
+    	    	dataIndex: 'img',
+    	    	flex: 0.08,
+    	    	renderer: function(v, meta){
+    	    		meta.tdAttr = "data-qtip='<img src=\"" + v + "\" />'";
+    	    		return "查看图片";
+    	    	}
+    	    }, {
+    	    	text: '最后修改时间',
+    	    	dataIndex: 'modifyDate',
+    	    	flex: 0.15,
+    	    	renderer: function(v){
+    	    		if (v == null) return "";
+    	    		return Ext.Date.format(new Date(v.time), 'Y-m-d H:i');
+ 	            }
+    	    }, {
             	xtype: 'actiontextcolumn',
             	text: '主要操作',
-            	flex: 0.25,
+            	flex: 0.15,
                 items : [{  
                     text : "编辑",  
                     cls: 'icon-edit', 
@@ -79,15 +92,15 @@ Ext.define('SystemApp.View.ProductClass',{
                     handler: this.delGrid
                 }]  
             }],
-            tbar: ['-', { 
+            tbar: [{ 
             	xtype: 'button', 
             	text: '刷新',
             	iconCls: 'icon-refresh',
             	scope: this,
             	handler: this.refreshGird
-            }, '-', { 
+            }, { 
             	xtype: 'button', 
-            	text: '添加分类',
+            	text: '添加',
             	iconCls: 'icon-add',
             	scope: this,
             	handler: this.addGrid
@@ -95,33 +108,33 @@ Ext.define('SystemApp.View.ProductClass',{
             	xtype: 'textfield',
             	width: 180,
             	emptyText: '输入名称搜索',
-            	id: 'ProductClass.SearchName'
-            }, '-', { 
+            	id: 'Product.SearchName'
+            },{ 
             	xtype: 'button', 
             	text: '搜索',
             	iconCls: 'icon-search',
             	scope: this,
             	handler: this.searchGrid
             }]
-        });
+    	});
     	
     	return this.grid;
     },
-	
+    
     refreshGird: function() {
     	this.grid.getStore().reload();
     },
     
-	 searchGrid: function() {
+    searchGrid: function() {
     	var store = this.grid.getStore();
     	store.currentPage = 1;
     	store.proxy.extraParams = {
-			name: Ext.getCmp('ProductClass.SearchName').getValue()
+			name: Ext.getCmp('Product.SearchName').getValue()
 		};
 		store.load();
     },
     
-    createEditWindows: function(){
+    createEditWindows: function() {
     	
     	var enabled = Ext.create('Ext.data.Store', {
     	    fields: ['text', 'value'],
@@ -131,154 +144,113 @@ Ext.define('SystemApp.View.ProductClass',{
     	    	"text":"隐藏", "value": false
     	    }]
     	});
-    
-    	this.parentStore = Ext.create('Ext.data.Store', {
+    	
+    	this.productClassStore = Ext.create('Ext.data.Store', {
     	    fields: ['name', 'id'],
     	    proxy: {
     	        type: 'ajax',
-    	        url: '/admin/productClass.do?parent'
+    	        url: '/admin/product.do?productClasses'
     	    },
             autoLoad: true
     	});
-    
-    	this.editWin = Ext.create('Ext.window.Window',{
-    		title: '编辑部门信息',
-    	    height: 500,
-    	    width: 700,
+    	
+    	this.editWin = Ext.create('Ext.window.Window', {
+    	    title: '编辑新闻内容信息',
+    	    border: 0,
+    	    height: 600,
+    	    width: 900,
     	    layout: 'border',
     	    modal: true,
     	    closeAction: 'hide',
-    		items: [{
-    			xtype: 'form',
-    			region: 'center',
-    			bodyPadding: 10,
-    			fieldDefaults: {
-    				labelWidth: 70,
+    	    items: [{  
+    	    	xtype: 'form',
+    	    	region: 'center',
+    	    	bodyPadding: 10,
+    	    	autoScroll: true,
+    	    	fieldDefaults: {
+    	            labelWidth: 80,
     	            labelAlign: 'left',
-    	            anchor: '100%',
-    	            labelStyle: 'color:green;padding-left:4px'
-    			},
-    			items: [{
-    				xtype: 'hiddenfield',
+    	            anchor: '100%'
+    	        },
+    	        items: [{
+    	        	xtype: 'hiddenfield',
     	        	name: 'id'
-    			}, {
-    				xtype:"container",
-		        	layout: 'column',
-		        	margin: 10,
-		        	items: [{
-	    	        	xtype: 'combo',
-	    	        	name: 'parentId',
-	    	        	fieldLabel: '上级分类',
-	    	            store: this.parentStore,
-	    	            queryMode: 'remote',
-	    	            displayField: 'name',
-	    	            valueField: 'id',
-	    	            editable: false,
-	    	            allowBlank: false,
-	    	            listeners: {
-	    	            	expand: function(me, eOpts) {
-	    	            		me.getStore().reload();
-	    	            	}
-	    	            }
-	    	        }, {
-		        		xtype: 'component',
-						html: '<span style="color:#aaa">　请选择上一级分类</span>'
-		        	}]
-    			}, {
-    				xtype:"container",
-		        	layout: 'column',
-		        	margin: 10,
-		        	items: [{
-	    	        	xtype: 'textfield',
-	    	            name: 'name',
-	    	            fieldLabel: '分类名称',
-	    	            allowBlank: false
-	    	        }, {
-		        		xtype: 'component',
-						html: '<span style="color:#aaa">　请输入部门名称</span>'
-		        	}]
-    			}, {
+    	        }, {
+    	        	xtype: 'combo',
+    	        	name: 'productClass',
+    	        	fieldLabel: '产品分类',
+    	            store: this.productClassStore,
+    	            queryMode: 'remote',
+    	            displayField: 'name',
+    	            valueField: 'id',
+    	            editable: false,
+    	            allowBlank: false
+    	        }, {
+    	        	xtype: 'textfield',
+    	        	name: 'name',
+    	        	fieldLabel: '产品名称',
+    	        	alowBlank: false
+    	        }, {
+    	        	xtype: 'numberfield',
+    	        	name: 'level',
+    	        	fieldLabel: '等级排序',
+    	            minValue: 0,
+    	            maxValue: 1000,
+    	            allowBlank: false,
+    	            value: 0
+    	        }, {
     	        	xtype: 'container',
     	        	layout: 'column',
-    	        	margin: 10,
+    	        	style: 'margin-bottom:5px',
+    	        	id: 'Product_Container_img',
     	        	items: [{
     	        		xtype: 'textfield',
         	            name: 'img',
-        	            fieldLabel: '分类小图',
-        	            columnWidth: 0.8,
+        	            fieldLabel: '门户端图片',
+        	            columnWidth: 0.7,
         	            listeners: {
-        	            	change: function(me) {
-        	            		me.up('container').items.get(2).setTooltip('<img src="' + me.getValue() + '"  width="100%"/>');
-        	            	}
+        	            	change: this.scanImage
         	            }
     	        	}, {
     	        		xtype: 'button',
     	        		text: '上传图片',
-    	        		columnWidth: 0.1,
+    	        		columnWidth: 0.15,
     	        		style: 'margin-left:3px',
+    	        		id: 'Product_Upload_img',
     	        		scope: this,
-    	        		handler: function(me) {
-    	        			var form = this.uploadImageWin.down('form');
-					    	this.uploadImageWin.show();
-					    	form.getForm().reset();
-					    	form.getForm().findField('id').setValue(fn.previousNode().getName());
-    	        		}
+    	        		handler: this.uploadImage
     	        	}, {
     	        		xtype: 'button',
     	        		text: '预览图片',
-    	        		columnWidth: 0.1,
+    	        		columnWidth: 0.15,
     	        		scope: this,
     	        		style: 'margin-left:3px'
     	        	}]
     	        }, {
-    				xtype:"container",
-		        	layout: 'column',
-		        	margin: 10,
-		        	items: [{
-	    	        	xtype: 'numberfield',
-	    	        	name: 'level',
-	    	        	fieldLabel: '等级排序',
-	    	            minValue: 0,
-	    	            value: 0,
-	    	            allowBlank: false
-	    	        }, {
-		        		xtype: 'component',
-						html: '<span style="color:#aaa">　等级排序影响显示的排列顺序，数值越小越靠前</span>'
-		        	}]
-    			}, {
-    				xtype:"container",
-		        	layout: 'column',
-		        	margin: 10,
-		        	items: [{
-	    	        	xtype: 'combo',
-	    	        	name: 'visible',
-	    	        	fieldLabel: '是否显示',
-	    	        	store: enabled,
-	    	            queryMode: 'local',
-	    	            valueField: 'value',
-	    	            displayField: 'text',
-	    	            editable: false,
-	    	            value:true,
-	    	            allowBlank: false
-	    	        }, {
-		        		xtype: 'component',
-						html: '<span style="color:#aaa">　设置是否显示</span>'
-		        	}]
-    			}, {
-    				xtype:"container",
-		        	layout: 'column',
-		        	margin: 10,
-		        	items: [{
-	    	        	xtype: 'textarea',
-	    	        	name: 'descript',
-	    	        	fieldLabel: '描述说明',
-	    	        	width: 600
-	    	        }]
-    			}],
-    			buttons: [{ 
+    	        	xtype: 'combo',
+    	        	name: 'visible',
+    	        	fieldLabel: '是否显示',
+    	        	store: enabled,
+    	            queryMode: 'local',
+    	            valueField: 'value',
+    	            displayField: 'text',
+    	            editable: false,
+    	            allowBlank: false
+    	        }, {
+    	        	xtype: 'kindeditor',
+    	        	name: 'content',
+    	        	fieldLabel: '产品内容',
+    	        	height: 250
+    	        }, {
+    	        	xtype: 'textarea',
+    	        	name: 'discript',
+    	        	fieldLabel: '产品描述',
+    	        	height: 250
+    	        }],
+    	        buttons: [{ 
     	        	text: '确定',
     	        	scope: this,
-    	        	handler: this.submitFormDate
+    	        	handler: this.submitFormData
     	        }, { 
     	        	text: '取消',
     	        	scope: this,
@@ -286,8 +258,15 @@ Ext.define('SystemApp.View.ProductClass',{
     	        		this.editWin.hide();
     	        	}
     	        }]
-    		}]
+    	    }]
     	});
+    },
+    
+    scanImage: function(fn) {
+    	var targetForm = fn.up('form').getForm();
+    	Ext.getCmp('Product_Container_' + fn.name).items.get(2).setTooltip(
+        	'<img src="' + targetForm.findField(fn.name).getValue() + '"  width="100%"/>'
+    	);
     },
     
     createImageUpload: function() {
@@ -332,6 +311,14 @@ Ext.define('SystemApp.View.ProductClass',{
     	});
     },
     
+    uploadImage: function(fn) {
+    	var form = this.uploadImageWin.down('form');
+    	this.uploadImageWin.show();
+    	form.getForm().reset();
+    	form.getForm().findField('id').setValue(fn.id.substr(fn.id.lastIndexOf('_') + 1));
+    },    
+
+    
     uploadImageForm: function() {
     	var targetForm = this.editWin.down('form').getForm();
     	var form = this.uploadImageWin.down('form');
@@ -350,26 +337,25 @@ Ext.define('SystemApp.View.ProductClass',{
     	});
     },
     
-   addGrid: function() {
+    addGrid: function() {
 		var form = this.editWin.down('form');
     	this.editWin.show();
     	form.getForm().reset();
-    	this.parentStore.reload();
     },
     
-   editGrid: function(grid, rowIndex, colIndex) {
+    editGrid: function(grid, rowIndex, colIndex) {
     	var form = this.editWin.down('form');
     	this.editWin.show();
     	var rec = grid.getStore().getAt(rowIndex);
     	form.loadRecord(rec);
     },
     
-   submitFormDate: function() {
+    submitFormData: function() {
     	var grid  = this.grid;
     	var form = this.editWin.down('form');
     	var win = this.editWin;
     	form.submit({
-    		url: '/admin/productClass.do?save',
+    		url: '/admin/product.do?save',
     	    success: function(form, action) {
     	       win.hide();
     	       Ext.Msg.alert('提示', action.result.title);
@@ -384,10 +370,10 @@ Ext.define('SystemApp.View.ProductClass',{
     delGrid: function(grid, rowIndex, colIndex) {
     	var record = grid.getStore().getAt(rowIndex);
     	var grid  = this.grid;
-		Ext.MessageBox.confirm('确认', '删除该分类会删除下面产品信息?', function(btn) {
+		Ext.MessageBox.confirm('确认', '是否删除该产品信息?', function(btn) {
     		if (btn != 'yes') return;
     		Ext.Ajax.request({
-        	    url: '/admin/productClass.do?delete',
+        	    url: '/admin/product.do?delete',
         	    params: {
         	        id: record.get('id')
         	    },
@@ -406,39 +392,10 @@ Ext.define('SystemApp.View.ProductClass',{
 		});
     },
     
-   onDestroy: function(){
+    onDestroy: function(){
     	this.editWin.destroy();
+    	this.uploadImageWin.destroy();
         this.callParent(arguments);
     }
-    
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6,11 +6,17 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import javax.annotation.Resource;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.xysoft.admin.service.ProductClassService;
 import com.xysoft.dao.ProductClassDao;
+import com.xysoft.dao.ProductDao;
+import com.xysoft.entity.Product;
 import com.xysoft.entity.ProductClass;
 import com.xysoft.util.JsonUtil;
 import com.xysoft.util.NullUtils;
@@ -21,8 +27,10 @@ public class ProductClassServiceImpl implements ProductClassService {
 
 	@Resource
 	private ProductClassDao productClassDao;
+	@Resource
+	private ProductDao productDao;
 	
-	@Override
+	@Transactional(readOnly = true)
 	public String getProductClasses(String name) {
 		List<ProductClass> productClasses = this.productClassDao.getProductClasses(name);
 		Map<String, List<ProductClass>> maps = new HashMap<String, List<ProductClass>>();
@@ -76,7 +84,7 @@ public class ProductClassServiceImpl implements ProductClassService {
 		return hms;
 	}
 
-	@Override
+	@Transactional(readOnly = true)
 	public String getProductClassNull(String name) {
 		List<ProductClass> productClasses = this.productClassDao.getProductClasses(name.replaceAll("　", ""));
 		List<ProductClass> hms = new ArrayList<ProductClass>(); 
@@ -107,7 +115,7 @@ public class ProductClassServiceImpl implements ProductClassService {
 		return JsonUtil.toString(hms);
 	}
 
-	@Override
+	@Transactional
 	public String saveProductClass(ProductClass param) {
 		ProductClass productClass = null;
 		if(NullUtils.isEmpty(param.getId())) {
@@ -120,10 +128,14 @@ public class ProductClassServiceImpl implements ProductClassService {
 		return JsonUtil.toRes("保存成功");
 	}
 
-	@Override
+	@Transactional
 	public String deleteProductClass(String id) {
 		ProductClass productClass = this.productClassDao.getProductClass(id);
 		this.productClassDao.delectProductClass(productClass);
+		List<Product> products = this.productDao.getProductsByProductClass(productClass.getId());
+		for (Product product : products) {
+			this.productDao.deleteProduct(product);
+		}
 		return JsonUtil.toRes("删除成功");
 	}
 

@@ -17,9 +17,9 @@
         memoryStoreEvictionPolicy="LRU"  
         />  
         
-     <!-- 权限菜单 -->   
+     <!-- 产品 -->   
      <cache  
-        name="XY_AUTHORITY_INFO"  
+        name="XY_PRODUCT_INFO"  
         maxElementsInMemory="10000"  
         eternal="true"  
         overflowToDisk="true"  

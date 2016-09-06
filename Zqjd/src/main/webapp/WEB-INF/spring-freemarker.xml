@@ -23,6 +23,7 @@
 	</bean>
 	
 	<bean id="authority" class="com.xysoft.tag.AuthorityListTag"></bean>
+	<bean id="product" class="com.xysoft.tag.ProductListTag"></bean>
 	
 	<bean id="freemarkerConfig"   
         class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">  
@@ -30,6 +31,7 @@
         <property name="freemarkerVariables">
             <map>
             	<entry key="xy_authority_list" value-ref="authority"></entry>
+            	<entry key="xy_product_list" value-ref="product"></entry>
             </map>
         </property>
         <property name="freemarkerSettings">

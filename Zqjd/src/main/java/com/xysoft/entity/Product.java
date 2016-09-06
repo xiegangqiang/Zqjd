@@ -1,5 +1,6 @@
 package com.xysoft.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
@@ -59,12 +60,14 @@ public class Product extends BaseEntity{
 	public void setProductClass(String productClass) {
 		this.productClass = productClass;
 	}
+	@Column(columnDefinition = "text")
 	public String getDescript() {
 		return descript;
 	}
 	public void setDescript(String descript) {
 		this.descript = descript;
 	}
+	@Column(columnDefinition = "text")
 	public String getContent() {
 		return content;
 	}

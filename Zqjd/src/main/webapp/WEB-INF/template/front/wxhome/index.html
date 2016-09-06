@@ -53,7 +53,7 @@
 						<span class="icon-bar"></span>
 					  </button>
 						 <div class="navbar-brand logo wow fadeInLeft animated" data-wow-delay=".5s">
-							<h1><a href="index.html">金<br>舵<br><span>瓷<br>砖</span><br>代<br>理</a></h1>	
+							<h1><a href="##">金<br>舵<br><span>瓷<br>砖</span><br>代<br>理</a></h1>	
 						</div>
 					</div>
 
@@ -153,249 +153,51 @@
 	 </div>
 	 <!---->
 	 <div class="portfolio" id="gallery">
-		
-		 <div class="portfolio-top wow fadeInDown animated" data-wow-delay=".5s">
-		 
-			<div class="col-md-4 grid slideanim">
-				<figure class="effect-jazz">
-				<a href="#portfolioModal1"  data-toggle="modal">
-
-					<img src="/template/front/wxhome/images/pi.jpg" alt="img25" class="img-responsive"/>
-						<figcaption>
-							<h4> Contrary to popular belief</h4>
-							<p> There are many variations of passages of Lorem Ipsum .</p>
-						</figcaption>
-					</a>						
-				</figure>
-			</div>
-			<div class="col-md-4 grid slideanim">
-				<figure class="effect-jazz">
-				<a href="#portfolioModal2"  data-toggle="modal">
-
-					<img src="/template/front/wxhome/images/pi1.jpg" alt="img25" class="img-responsive"/>
-						<figcaption>
-							<h4> Contrary to popular belief</h4>
-							<p> There are many variations of passages of Lorem Ipsum .</p>							
-						</figcaption>	
-						</a>						
-				</figure>
-			</div>
-			<div class="col-md-4 grid slideanim">
-				<figure class="effect-jazz">
-				<a href="#portfolioModal3"  data-toggle="modal">
-
-					<img src="/template/front/wxhome/images/pi2.jpg" alt="img25" class="img-responsive"/>
-						<figcaption>
-							<h4> Contrary to popular belief</h4>
-						<p> There are many variations of passages of Lorem Ipsum .</p>							
-						</figcaption>
-					</a>						
-				</figure>
-			</div>
-			
-			<div class="clearfix"></div>
-		 </div>
+		<div class="col-top" ><h3>最新产品 </h3></div>
 		  <div class="portfolio-top wow fadeInUp animated" data-wow-delay=".5s"">
-			<div class="col-md-3 grid grid-wi slideanim">
-				<figure class="effect-jazz">
-				<a href="#portfolioModal4"  data-toggle="modal">
-
-					<img src="/template/front/wxhome/images/pi3.jpg" alt="img25" class="img-responsive"/>
-						<figcaption>
-							<h4 class="effcet-text"> Popular belief</h4>
-					<p> There are many variations of passages .</p>							
-						</figcaption>	
-					</a>						
-				</figure>
-			</div>
-			<div class="col-md-3 grid grid-wi slideanim">
-				<figure class="effect-jazz">
-				<a href="#portfolioModal5"  data-toggle="modal">
-
-					<img src="/template/front/wxhome/images/pi5.jpg" alt="img25" class="img-responsive"/>
-						<figcaption>
-							<h4 class="effcet-text"> Popular belief</h4>
-						<p> There are many variations of passages.</p>							
-						</figcaption>
+		  	<@xy_product_list page=1 count=6 name=''>
+			  	<#list res.rows as l>
+				<div class="col-md-3 grid grid-wi slideanim">
+					<figure class="effect-jazz">
+					<a href="#portfolioModal${l_index}"  data-toggle="modal">
+	
+						<img src="${l.img}" alt="img25" class="img-responsive"/>
+							<figcaption>
+								<h4 class="effcet-text"> ${l.name}</h4>
+								<p> ${l.descript}</p>							
+							</figcaption>	
 						</a>						
-				</figure>
-			</div>
-			<div class="col-md-3 grid grid-wi slideanim">
-				<figure class="effect-jazz">
-				<a href="#portfolioModal6"  data-toggle="modal">
-
-					<img src="/template/front/wxhome/images/pi4.jpg" alt="img25" class="img-responsive"/>
-						<figcaption>
-							<h4 class="effcet-text">Popular belief</h4>
-							<p> There are many variations of passages.</p>							
-						</figcaption>
-					</a>						
-				</figure>
-			</div>
-			<div class="col-md-3 grid grid-wi slideanim">
-				<figure class="effect-jazz">
-				<a href="#portfolioModal7"  data-toggle="modal">
-
-					<img src="/template/front/wxhome/images/pi6.jpg" alt="img25" class="img-responsive"/>
-						<figcaption>
-							<h4 class="effcet-text"> Popular belief</h4>
-						<p> There are many variations of passages.</p>							
-						</figcaption>
-					</a>						
-				</figure>
-			</div>
+					</figure>
+				</div>
+				</#list>
+			</@xy_product_list>
 			<div class="clearfix"></div>
 		 </div>
 	</div>
 	<!---->
 <!-- Portfolio Modals -->
-<div class="portfolio-modal modal fade slideanim" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-		
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="modal-body">
-                        <h3>Lorem ipsum</h3>
-						
-                        <img src="/template/front/wxhome/images/pi.jpg" class="img-responsive" alt="">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                </div>
-           
-        </div>
-    </div>
-</div>
-<div class="portfolio-modal modal fade slideanim" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-         
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="modal-body">
-                        <h3>Dummy text</h3>
-                      
-                        <img src="/template/front/wxhome/images/pi1.jpg" class="img-responsive" alt="">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                </div>
-           
-        </div>
-    </div>
-    </div>
-<div class="portfolio-modal modal fade slideanim" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-           
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="modal-body">
-                        <h3>Popular belief</h3>
-                     
-                        <img src="/template/front/wxhome/images/pi2.jpg" class="img-responsive" alt="">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                </div>
-            </div>
-       
-    </div>
-</div>
-<div class="portfolio-modal modal fade slideanim" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-			
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="modal-body">
-                        <h3>Lorem ipsum</h3>
-                       
-                        <img src="/template/front/wxhome/images/pi3.jpg" class="img-responsive" alt="">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                </div>
-            
-        </div>
-    </div>
-</div>
-<div class="portfolio-modal modal fade slideanim" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="modal-body">
-                        <h3>Dummy text</h3>
-                       
-                        <img src="/template/front/wxhome/images/pi5.jpg" class="img-responsive" alt="">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                </div>
-           
-        </div>
-    </div>
-</div>
-<div class="portfolio-modal modal fade slideanim" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-           
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="modal-body">
-                        <h3>Popular belief</h3>
-                       
-                        <img src="/template/front/wxhome/images/pi4.jpg" class="img-responsive" alt="">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                </div>
-            </div>
-        
-    </div>
-</div>
-<div class="portfolio-modal modal fade slideanim" id="portfolioModal7" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-            
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="modal-body">
-                        <h3>Lorem ipsum</h3>
-                     
-                        <img src="/template/front/wxhome/images/pi6.jpg" class="img-responsive" alt="">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    </div>
-                </div>
-         
-        </div>
-    </div>
-</div>
+<@xy_product_list page=1 count=6 name=''>
+	<#list res.rows as l>
+		<div class="portfolio-modal modal fade slideanim" id="portfolioModal${l_index}" tabindex="-1" role="dialog" aria-hidden="true">
+		    <div class="modal-content">
+		        <div class="close-modal" data-dismiss="modal">
+		            <div class="lr">
+		                <div class="rl"></div>
+		            </div>
+		        </div>
+		        <div class="container">
+	                <div class="col-lg-8 col-lg-offset-2">
+	                    <div class="modal-body">
+	                        <h3>${l.name}</h3>
+	                        <img src="${l.img}" class="img-responsive" alt="">
+	                        <p>${l.content}</p>
+	                    </div>
+	                </div>
+		        </div>
+		    </div>
+		</div>
+	</#list>
+</@xy_product_list>
 <!-- /Portfolio Modals -->
 
 
@@ -424,8 +226,8 @@
 		</div>
 		</div>
 			<!---->	
-			<div class="event" id="events">
-			<div class="container">
+	<div class="event" id="events">
+	<div class="container">
 		
 		<div class="top-event">
 			<h3>Events </h3>
