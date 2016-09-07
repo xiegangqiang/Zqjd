@@ -116,35 +116,35 @@
  				<div class="facts">
  					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
  					<h4>质量是金、技术是舵</h4>
-					 <p>00000</p>
+					 <p>质量是金、技术是舵</p>
 				 </div>
 			</div>
 			<div class="tab-pane  text-style" id="tab2">
  				<div class="facts">
  					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
  					<h4>细节是金、结果是舵</h4>
-					 <p>1111</p>
+					 <p>细节是金、结果是舵</p>
 				 </div>
 			</div>
 			<div class="tab-pane  text-style" id="tab3">
  				<div class="facts">
  					<span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
  					<h4>顾客是金、市场是舵</h4>
-					 <p>2222</p>
+					 <p>顾客是金、市场是舵</p>
 				 </div>
 			</div>
 			<div class="tab-pane text-style" id="tab4">
  				<div class="facts">
  					<span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
  					<h4>情义是金、思想是舵</h4>
-					 <p>3333</p>
+					 <p>情义是金、思想是舵</p>
 				 </div>
 			</div>
 			<div class="tab-pane  text-style" id="tab5">
  				<div class="facts">
  					<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
  					<h4>竞争意识、开创意识</h4>
-					 <p>4444444</p>
+					 <p>竞争意识、开创意识</p>
 				 </div>
 			</div>
   		</div>
@@ -240,9 +240,8 @@
 			<p>We committed to creating a large modern international ceramics group for urban residents to provide personal service Humanity home space</p>
 		</div>
 		<@xy_productclass_list page=1 count=20>
-		<#list 1..(res.rows?size)/2 as l>
 		<div class="event-grid ">
-			<div class="event-left wow fadeInLeft animated" data-wow-delay=".5s">
+<!-- 			<div class="event-left wow fadeInLeft animated" data-wow-delay=".5s">
 				<a href="single.html"><img src="/template/front/wxhome/images/pc.jpg" class="img-responsive" alt=""></a>
 				<div class="event-top">
 					<div class="event-gr">
@@ -250,19 +249,20 @@
 						<p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered</p>
 					</div>
 				</div>
-			</div>
+			</div> -->
+			<#list res.rows as l >
 			<div class="event-right wow fadeInRight animated" data-wow-delay=".5s">
-				<a href="single.html"><img src="/template/front/wxhome/images/pc1.jpg" class="img-responsive" alt=""></a>
+				<a href="single.html"><img src="${l.img}" class="img-responsive" alt=""></a>
 				<div class="event-top event-top1">
 					<div class="event-gr">
-						<h4><a href="single.html">There are many variations</a> </h4>
-						<p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered</p>
+						<h4><a href="single.html">${l.name}</a> </h4>
+						<p> ${l.name}</p>
 					</div>                                     
 				</div>
 			</div>
 			<div class="clearfix"></div>
+			</#list>
 		</div>
-		</#list>
 		</@xy_productclass_list >
 		</div>
 		</div>
@@ -499,7 +499,7 @@
 					<i class="glyphicon glyphicon-map-marker"></i>
 					<div class="address1">
 						<h6>地址</h6>
-						<p>Lorem ipsum dolor, TL 19034-88974</p>
+						<p>肇庆市端州区桥北路东侧（即鸿景锦园侧）第7幢01-02卡</p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
@@ -507,7 +507,7 @@
 					<i class="glyphicon glyphicon-phone"></i>
 					<div class="address1">
 					<h6>电话:</h6>
-						<p>+123456789</p>
+						<p>0758-2839292</p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
@@ -515,7 +515,7 @@
 					<i class="glyphicon glyphicon-envelope"></i>
 					<div class="address1">
 					<h6>邮箱:</h6>
-						<p><a href="mailto:info@example.com"> Lorem@example.com</a></p>
+						<p><a href="mailto:info@example.com"> 13602973782@163.com</a></p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
