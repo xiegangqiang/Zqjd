@@ -1,6 +1,7 @@
 package com.xysoft.admin.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.beans.BeanUtils;
@@ -24,6 +25,7 @@ import com.xysoft.support.DynamicBean;
 import com.xysoft.support.JdbcDao;
 import com.xysoft.support.PageParam;
 import com.xysoft.support.Pager;
+import com.xysoft.util.DateUtil;
 import com.xysoft.util.JsonUtil;
 import com.xysoft.util.NullUtils;
 import com.xysoft.util.RequestUtil;
@@ -98,6 +100,8 @@ public class OrderServiceImpl implements OrderService {
 		}else {
 			or = this.orderDao.getOrder(order.getId());
 		}
+		if(NullUtils.isEmpty(order.getOrdernumber())) or.setOrdernumber(DateUtil.toStrYyyyMmDdHhMmSs(new Date()));
+		else or.setOrdernumber(order.getOrdernumber());
 		or.setUser(us.getId());
 		this.orderDao.saveOrder(or);
 		

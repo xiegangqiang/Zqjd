@@ -21,7 +21,7 @@ public class WxUser extends BaseEntity{
 	private String unionid;
 	private String remark;
 	private String groupid;
-	private String[] privilege;
+	private String[] tagid_list;
 	public String getSubscribe() {
 		return subscribe;
 	}
@@ -101,11 +101,12 @@ public class WxUser extends BaseEntity{
 		this.groupid = groupid;
 	}
 	@Transient
-	public String[] getPrivilege() {
-		return privilege;
+	public String[] getTagid_list() {
+		return tagid_list;
 	}
-	public void setPrivilege(String[] privilege) {
-		this.privilege = privilege;
+	public void setTagid_list(String[] tagid_list) {
+		this.tagid_list = tagid_list;
 	}
+	
 	
 }

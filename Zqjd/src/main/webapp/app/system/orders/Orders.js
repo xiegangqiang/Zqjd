@@ -152,6 +152,7 @@ Ext.define('SystemApp.View.Orders', {
     	
     	this.editWin = Ext.create('Ext.window.Window', {
     		title: '编辑管理员信息',
+    		border: 0,
     	    height: 500,
     	    width: 700,
     	    layout: 'border',
@@ -216,6 +217,30 @@ Ext.define('SystemApp.View.Orders', {
 	    	        }, {
 		        		xtype: 'component',
 						html: '<span style="color:#aaa">　请输入电话搜索客户</span>'
+		        	}]
+    	        }, {
+    	        	xtype:"container",
+		        	layout: 'column',
+		        	margin: 20,
+		        	items: [{
+	    	        	xtype: 'textfield',
+	    	            name: 'ordernumber',
+	    	            fieldLabel: '订单号',
+	    	            columnWidth: 0.6,
+	    	            disabled: true,
+	    	            allowBlank: false,
+	    	            margin: '0 10 0 0',
+	    	            emptyText: '输入订单号供客户查询'
+	    	        }, {
+		        		xtype: 'checkbox',
+		        		checked: true,
+						boxLabel: '系统生成',
+						listeners: {
+							change: function(me, newValue, oldValue) {
+								if(newValue) me.previousSibling('textfield').setDisabled(true);
+								else me.previousSibling('textfield').setDisabled(false);
+							}
+						}
 		        	}]
     	        }, {
     	        	xtype:"container",

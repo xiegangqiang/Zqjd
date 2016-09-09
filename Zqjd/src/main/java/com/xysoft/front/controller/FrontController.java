@@ -90,4 +90,10 @@ public class FrontController {
 		Map<String, Object> model = this.frontService.wxhome(anchor);
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
+	
+	@RequestMapping(value = "/wxdetail.jhtml")
+	public ModelAndView wxdetail(HttpServletResponse response, HttpServletRequest request, String anchor) throws Exception {
+		Map<String, Object> model = this.frontService.wxdetail(anchor);
+		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
+	}
 }

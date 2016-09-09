@@ -81,6 +81,11 @@ public interface FrontService {
 	 */
 	public Map<String, Object> wxhome(String anchor);
 
+	/**
+	 * 微信详细页
+	 */
+	public Map<String, Object> wxdetail(String anchor);
+
 	
 
 

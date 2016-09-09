@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Single</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<title>装修图库</title>
+<link href="/template/front/wxhome/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
-<script src="js/jquery.min.js"></script>
+<script src="/template/front/wxhome/js/jquery.min.js"></script>
 <!--theme-style-->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="/template/front/wxhome/css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<link rel="stylesheet" href="/template/front/css/weui.min.css" />
+		<link rel="stylesheet" href="/template/front/css/jquery-weui.css" />
+		<link rel="stylesheet" href="/template/front/css/demos.css" /> 	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript" src="/template/front/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="/template/front/js/jquery-weui.js"></script>
+		<script type="text/javascript" src="/template/front/js/swiper.js"></script>
+<script src="/template/front/wxhome/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/template/front/wxhome/js/move-top.js"></script>
+<script type="text/javascript" src="/template/front/wxhome/js/easing.js"></script>
 <script type="text/javascript">
 					jQuery(document).ready(function($) {
 						$(".scroll").click(function(event){		
@@ -26,10 +31,10 @@
 					</script>
 					<!----start-top-nav-script---->
 
-		<script type="text/javascript" src="js/modernizr.custom.js"></script> 
+		<script type="text/javascript" src="/template/front/wxhome/js/modernizr.custom.js"></script> 
 <!---- animated-css ---->
-<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
-<script src="js/wow.min.js"></script>
+<link href="/template/front/wxhome/css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="/template/front/wxhome/js/wow.min.js"></script>
 		<script>
 			 new WOW().init();
 		</script>
@@ -50,20 +55,20 @@
 						<span class="icon-bar"></span>
 					  </button>
 						 <div class="navbar-brand logo wow fadeInLeft animated" data-wow-delay=".5s">
-							<h1><a href="index.html">I<br>N<br><span>N<br>A</span><br>T<br>E</a></h1>	
+							<h1><a href="##">金<br>舵<br><span>瓷<br>砖</span><br>代<br>理</a></h1>
 						</div>
 					</div>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
 					 <ul class="nav navbar-nav wow fadeInDown animated" data-wow-delay=".5s">
-					<li ><a href="index.html"><span data-hover="Home">Home</span></a> </li>
-						<li ><a href="index.html"><span data-hover="About">About</span> </a> </li>
-						<li><a href="index.html"><span data-hover="Gallery">Gallery</span></a></li>
-						<li><a href="index.html" ><span data-hover="Services">Services</span> </a></li>
-						<li><a href="index.html" ><span data-hover="Events">Events</span> </a></li>
-						<li><a href="index.html" ><span data-hover="Team">Team</span> </a></li>
-						<li><a href="index.html" ><span data-hover="Contact">Contact</span></a></li>
+					<li ><a href="/wxhome.jhtml?anchor="><span data-hover="Home">首页</span></a> </li>
+						<li ><a href="/wxhome.jhtml?anchor=about"><span data-hover="About">活动</span> </a> </li>
+						<li><a href="/wxhome.jhtml?anchor=gallery"><span data-hover="Gallery">产品</span></a></li>
+						<li><a href="/wxhome.jhtml?anchor=services" ><span data-hover="Services">历程</span> </a></li>
+						<li><a href="/wxhome.jhtml?anchor=events" ><span data-hover="Events">品牌</span> </a></li>
+						<li><a href="/wxhome.jhtml?anchor=team" ><span data-hover="Team">团队</span> </a></li>
+						<li><a href="/wxhome.jhtml?anchor=contact" ><span data-hover="Contact">联系我们</span></a></li>
 					  </ul>
 					</div><!-- /.navbar-collapse -->
 				</nav>
@@ -76,92 +81,27 @@
 <!--content-->
 <div class="single">
 	<div class="container">
-		
+		<@xy_dynamic_list table="product" where="productClass='${anchor}'" page=1 count=10>
+		<#list res.rows as l>
+		<#if l_index==0>
 		<div class="single-top">
-			<img class="img-responsive wow fadeInUp animated" data-wow-delay=".5s" src="images/bo.jpg" alt="" />
+				<img class="img-responsive wow fadeInUp animated" data-wow-delay=".5s" src="${l.img}" alt="" onclick="openImgs();"/>
 				<div class="lone-line">
-					<h4>Social Sense Perception of Loneliness</h4>
+					<h4>${l.name}</h4>
 						<ul class="grid-blog">
-							<li><span><i class="glyphicon glyphicon-time"> </i>08.09.2014</span></li>
-							<li><a href="#"><i class="glyphicon glyphicon-comment"> </i>5 Comment</a></li>
-							<li><a href="#"><i class="glyphicon glyphicon-share"> </i>Share</a></li>
+							<li><span><i class="glyphicon glyphicon-time"> </i>${l.createDate?datetime}</span></li>
+							<li><a href="javascript:openImgs();"><i class="glyphicon glyphicon-comment"> </i>${res.rows?size} 张</a></li>
+							<li><a href="#"><i class="glyphicon glyphicon-share"> </i>分享</a></li>
 						</ul>
-						<p class="wow fadeInLeft animated" data-wow-delay=".5s">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error.
-						<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span></p>
+						<p class="wow fadeInLeft animated" data-wow-delay=".5s">
+							${l.descript}
+							<span>${l.content}</span>
+						</p>
 				</div>
 		</div>
-		<div class="comment">
-							<h3>Comments</h3>
-							 <div class="media wow fadeInLeft animated" data-wow-delay=".5s">
-								<div class="code-in">
-									<p class="smith"><a href="#">Andey</a> <span>02 June 2014, 15:20</span></p>
-									<p class="reply"><a href="#"><i class="glyphicon glyphicon-repeat"> </i>REPLY</a></p>
-									<div class="clearfix"> </div>
-								</div>
-							    <div class="media-left">
-							        <a href="#">
-							        	<img src="images/si.jpg" alt="">
-							        </a>
-							     </div>
-							    <div class="media-body">
-		
-									<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-							      </div>
-							    </div>
-							    <div class="media media-1 wow fadeInUp animated" data-wow-delay=".5s">
-								<div class="code-in">
-									<p class="smith"><a href="#"> Rackham</a> <span>02 June 2014, 15:20</span></p>
-									<p class="reply"><a href="#"><i class="glyphicon glyphicon-repeat"> </i>REPLY</a></p>
-									<div class="clearfix"> </div>
-								</div>
-							    <div class="media-left">
-							        <a href="#">
-							        	<img src="images/si1.jpg" alt="">
-							        </a>
-							     </div>
-							    <div class="media-body">
-		
-									<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-							      </div>
-							    </div>
-								<div class="media wow fadeInRight animated" data-wow-delay=".5s">
-								<div class="code-in">
-									<p class="smith"><a href="#">Clara</a> <span>02 June 2014, 15:20</span></p>
-									<p class="reply"><a href="#"><i class="glyphicon glyphicon-repeat"> </i>REPLY</a></p>
-									<div class="clearfix"> </div>
-								</div>
-							    <div class="media-left">
-							        <a href="#">
-							        	<img src="images/si2.jpg" alt="">
-							        </a>
-							     </div>
-							    <div class="media-body">
-		
-									<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-							      </div>
-							    </div>
-						 </div>
-		<div class="leave">
-			<h3>Leave a comment</h3>
-				<form>
-					<div class="single-grid wow fadeInLeft animated" data-wow-delay=".5s">
-						
-							<input type="text" value="Name" onfocus="this.value='';" onblur="if (this.value == '') {this.value = 'Name';}">
-						
-							<input type="text" value="E-mail" onfocus="this.value='';" onblur="if (this.value == '') {this.value = 'E-mail';}">
-						
-						
-							<input type="text" value="Web site" onfocus="this.value='';" onblur="if (this.value == '') {this.value = 'Web site';}">
-						
-							<textarea value=" " onfocus="this.value='';" onblur="if (this.value == '') {this.value = 'Comment';}">Comment</textarea>
-						<label class="hvr-rectangle-out">
-								<input type="submit" value="Send">
-						</label>						
-				</div>
-				</form>
-			</div>
+		</#if>
+		</#list>
+		</@xy_dynamic_list>
 	</div>		
 </div>
 <!---->
@@ -169,37 +109,43 @@
 <!--//content-->
 <!--//footer-->
 	<div class="footer">
-
-				<div class="container">
-				<ul class="social">
-						<li><a href="#"><i></i></a></li>
-						<li><a href="#"><i class="ic1"></i></a></li>
-						<li><a href="#"><i class="ic2"></i></a></li>
-						
-					</ul>
-					<p class="footer-class">Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-
-			</div>
-		
+		<div class="container">
+			<ul class="social">
+				<li><a href="#"><i></i></a></li>
+				<li><a href="#"><i class="ic1"></i></a></li>
+				<li><a href="#"><i class="ic2"></i></a></li>
+			</ul>
+			<p class="footer-class">Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/"></a></p>
 		</div>
+	</div>
 		<!--//footer-->
- <script type="text/javascript">
-						$(document).ready(function() {
-							/*
-							var defaults = {
-					  			containerID: 'toTop', // fading element id
-								containerHoverID: 'toTopHover', // fading element hover id
-								scrollSpeed: 1200,
-								easingType: 'linear' 
-					 		};
-							*/
-							
-							$().UItoTop({ easingType: 'easeOutQuart' });
-							
-						});
-					</script>
-				<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-
-
+ 		<script type="text/javascript">
+				/*
+				var defaults = {
+		  			containerID: 'toTop', // fading element id
+					containerHoverID: 'toTopHover', // fading element hover id
+					scrollSpeed: 1200,
+					easingType: 'linear' 
+		 		};
+				*/
+				$().UItoTop({ easingType: 'easeOutQuart' });
+				
+				var items = [];
+				<@xy_dynamic_list table="product" where="productClass='${anchor}'" page=1 count=10>
+					<#list res.rows as l>
+						items.push({image: "${l.img}", caption: "（${l.name}）${l.content}"})
+					</#list>
+				</@xy_dynamic_list>
+				
+				var photoBrowser = $.photoBrowser({
+			        items: items,
+			        initIndex: 2
+		        });
+		      
+			  function openImgs () {
+		      	 photoBrowser.open();
+		      }
+		</script>
+	<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 </body>
 </html>

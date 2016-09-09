@@ -65,7 +65,7 @@ public class WxUserServiceImpl implements WxUserService{
 				if(httpUser == null) continue;
 				BeanUtils.copyProperties(httpUser, wxUser, new String[] {"id", "createDate", "nickname", "subscribe_time"});
 				try {
-					if(NullUtils.isNotEmpty(httpUser.getNickname())){wxUser.setNickname(new String(httpUser.getNickname().getBytes(), "GBK"));}
+					if(NullUtils.isNotEmpty(httpUser.getNickname())){wxUser.setNickname(new String(httpUser.getNickname().getBytes(), "UTF-8"));}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

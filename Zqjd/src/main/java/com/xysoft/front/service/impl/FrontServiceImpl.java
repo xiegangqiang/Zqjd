@@ -285,6 +285,14 @@ public class FrontServiceImpl implements FrontService {
 		model.put("model", "front/wxhome/index");
 		return model;
 	}
+	
+	@Transactional(readOnly = true)
+	public Map<String, Object> wxdetail(String anchor) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("anchor", anchor);
+		model.put("model", "front/wxhome/single");
+		return model;
+	}
 
 }
 

@@ -37,6 +37,42 @@
 	border: 1px solid #ADD2ED;
 }
 
+
+
+.wxgroup-list {
+    padding: 0 3px 0 3px;
+}
+
+.wxgroup-list-item {
+    margin-top: 3px;
+    padding-left: 10px; 
+    font-size: 13px;
+    line-height: 32px;
+    cursor: pointer;
+    /* background: url(../app/resources/default/images/item.png) no-repeat 2px 3px; */
+    border: 1px solid #fff;
+}
+
+.wxgroup-list-item img {
+	margin: 0px 5 -3px 0px;
+}
+
+.wxgroup-list .x-item-selected {
+    font-weight: bold; 
+    color: #15428B;
+    background-color: #DFE8F6;
+    border: 1px dotted #A3BAE9;
+}
+
+.wxgroup-list-item-hover {
+    font-weight: bold; 
+    color: #15428B;
+    background-color: #DFE8F6;
+    border: 1px dotted #A3BAE9;
+}
+
+
+
 .x-grid-row {
 	height: 30px;
 }

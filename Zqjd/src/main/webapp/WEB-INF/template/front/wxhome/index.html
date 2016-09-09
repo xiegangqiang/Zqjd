@@ -252,11 +252,11 @@
 			</div> -->
 			<#list res.rows as l >
 			<div class="event-right wow fadeInRight animated" data-wow-delay=".5s">
-				<a href="single.html"><img src="${l.img}" class="img-responsive" alt=""></a>
+				<a href="/wxdetail.jhtml?anchor=${l.id}"><img src="${l.img}" class="img-responsive" alt=""></a>
 				<div class="event-top event-top1">
 					<div class="event-gr">
-						<h4><a href="single.html">${l.name}</a> </h4>
-						<p> ${l.name}</p>
+						<h4><a href="/wxdetail.jhtml?anchor=${l.id}">${l.name}</a> </h4>
+						<p> ${l.content}</p>
 					</div>                                     
 				</div>
 			</div>
@@ -267,7 +267,7 @@
 		</div>
 		</div>
 		<!---->
-		<div class="test">
+<!-- 		<div class="test">
 			<div class="container">
 				<h3>Testimonials</h3>
 				<div class="test-top">
@@ -298,9 +298,9 @@
 					<div class="clearfix"> </div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!---->
-		<div class="advantage" >
+<!-- 		<div class="advantage" >
 			 <div class="container">
 				 <div class="advantage-top" >
 				 <h3>Our Advantages</h3>
@@ -339,11 +339,11 @@
 				<div class="clearfix"> </div>
 			</div>
 			<div class="clearfix"> </div>
+			</div>
 		</div>
-</div>
-			 </div>
+	</div> -->
 			 <!---->
-			 <div class="our-team" id="team">
+<!-- 	<div class="our-team" id="team">
 		 <div class="container">			
 				 <h3>Our Team</h3>
 			 <div class="team">
@@ -423,11 +423,11 @@
 				 <div class="clearfix"> </div>
 			 </div>
 		</div>
-	</div>
+	</div> -->
 		<!---->
 		<div class="clients" >
 			 <div class="container">
-				<h3>What our client thinks about us </span></h3>
+				<h3>客户的想法</span></h3>
 				<!---->
 				 <!-- requried-jsfiles-for owl -->
 				 <link href="/template/front/wxhome/css/owl.carousel.css" rel="stylesheet">
@@ -446,30 +446,22 @@
 									  </script>
 							 <!-- //requried-jsfiles-for owl -->
 							 <!-- start content_slider -->
-						       <div id="owl-demo1" class="owl-carousel wow fadeInDown animated" data-wow-delay=".5s">
-							   <div class="item-bottom">
-					                <div class="item-right">
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magnaaliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit e</p>
-										<span>Dean Martin</span>
-									</div>
-								</div>
-								<div class="item-bottom">
-					                <div class="item-right">
-										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magnaaliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit e</p>
-										<span>Dean Martin</span>
-									</div>
-								</div>
-								<div class="item-bottom">
-					                <div class="item-right">
-										<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magnaaliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit e</p>
-										<span>Dean Martin</span>
-									</div>
-								</div>					
-									
-								</div>
+				     <div id="owl-demo1" class="owl-carousel wow fadeInDown animated" data-wow-delay=".5s">
+					   <div class="item-bottom">
+			                <div class="item-right">
+							<p>11111111</p>
+								<span>111111</span>
+							</div>
+						</div>
+						<div class="item-bottom">
+			                <div class="item-right">
+								<p>22222</p>
+								<span>222</span>
+							</div>
+						</div>		
+					</div>
 				</div>	
 			</div>
-
 			<!---->
 
 		<!---->
@@ -548,7 +540,9 @@
 		<!--//footer-->
  <script type="text/javascript">
 	$(document).ready(function() {
-		location.href = "#${anchor}";
+		setTimeout(function() {
+			location.href = "#${anchor}";
+		},500)
 		/*
 		var defaults = {
   			containerID: 'toTop', // fading element id
