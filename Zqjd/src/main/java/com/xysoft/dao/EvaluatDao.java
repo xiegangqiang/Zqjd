@@ -12,4 +12,6 @@ public interface EvaluatDao extends BaseDao<Evaluat>{
 	void deleteEvaluat(Evaluat evaluat);
 
 	List<Evaluat> getEvaluatByUser(String user);
+
+	Evaluat getEvaluat(String id);
 }

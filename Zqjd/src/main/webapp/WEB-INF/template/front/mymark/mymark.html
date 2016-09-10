@@ -37,7 +37,7 @@
 								<div id="timeline-2">
 									<div class="row">
 											<!-- /section:pages/timeline.style2 -->
-											<#if orders?size gt 0>
+											<#if evaluats?size gt 0>
 											<#list orders as l>
 												<#if l.evaluat gt 0>
 												<div class="timeline-container timeline-style2">
@@ -67,7 +67,11 @@
 																					</div></br>
 																					</#if>
 																					<#if ll.type==2>
-																						${ll.value}
+																						<#if ll.phone==phone>
+																							我的留言：${ll.value}
+																						<#else>
+																							<font color="red">商家回复：${ll.value}</font>
+																						</#if></br>
 																					</#if>
 																				</#if>
 																			</#list>

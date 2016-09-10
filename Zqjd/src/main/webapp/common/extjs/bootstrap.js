@@ -37,6 +37,7 @@ Ext.Loader.loadScript("../app/system/info/Info.js");
 Ext.Loader.loadScript("../app/system/product/Product.js");
 Ext.Loader.loadScript("../app/system/productClass/ProductClass.js");
 Ext.Loader.loadScript("../app/system/orders/Orders.js");
+Ext.Loader.loadScript("../app/system/evaluat/Evaluat.js");
 
 
 

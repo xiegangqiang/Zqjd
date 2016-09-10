@@ -22,4 +22,8 @@ public class EvaluatDaoImpl extends BaseDaoImpl<Evaluat> implements EvaluatDao{
 		return this.find("from Evaluat where user = ?", user);
 	}
 
+	public Evaluat getEvaluat(String id) {
+		return this.get(Evaluat.class, id);
+	}
+
 }

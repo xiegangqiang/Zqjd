@@ -1,5 +1,6 @@
 package com.xysoft.front.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import com.xysoft.util.CommonUtil;
 import com.xysoft.util.JsonUtil;
 import com.xysoft.util.NullUtils;
 import com.xysoft.util.SqlUtil;
+import com.xysoft.util.StringUtil;
 import com.xysoft.weixin.pojo.AccessToken;
 import com.xysoft.weixin.util.WeixinUtil;
 
@@ -188,7 +190,7 @@ public class FrontServiceImpl implements FrontService {
 		}
 		this.userDao.saveUser(user);
 		
-		List<DynamicBean> beans = this.jdbcDao.find("SELECT ord.*,COUNT(el.orders) AS evaluat FROM orders ord LEFT JOIN evaluat el ON el.orders=ord.id WHERE ord.`user`=? GROUP BY ord.id", user.getId());
+		List<DynamicBean> beans = this.jdbcDao.find("SELECT ord.*,COUNT(el.orders) AS evaluat FROM orders ord LEFT JOIN evaluat el ON el.orders=ord.id WHERE ord.`user`=? GROUP BY ord.id DESC", user.getId());
 		model.put("phone", phone);
 		model.put("orders", SqlUtil.DynamicToBean(beans));
 		model.put("model", "front/orderlist/orderlist");
@@ -230,12 +232,18 @@ public class FrontServiceImpl implements FrontService {
 		}
 		this.userDao.saveUser(user);
 		
-		String evaluatSql = "SELECT el.*,r.`name` FROM evaluat el LEFT JOIN flowsteprecpost fsr ON fsr.id=el.flowStepRecPost LEFT JOIN role r ON r.id=fsr.posts WHERE el.`user` = ?";
-		List<DynamicBean> evaluats = this.jdbcDao.find(evaluatSql, user.getId());
-		
 		String orderSql = "SELECT ord.*,COUNT(el.orders) AS evaluat FROM orders ord LEFT JOIN evaluat el ON el.orders=ord.id WHERE ord.`user`=? GROUP BY ord.id";
 		List<DynamicBean> orders = this.jdbcDao.find(orderSql, user.getId());
 		
+		List<String> orderIds = new ArrayList<String>();
+		for (DynamicBean order: orders) {
+			orderIds.add(order.getValue("id").toString());
+		}
+		
+		String evaluatSql = "SELECT el.*,r.`name`,u.phone FROM evaluat el LEFT JOIN `user` u ON u.id=el.`user` LEFT JOIN flowsteprecpost fsr ON fsr.id=el.flowStepRecPost LEFT JOIN role r ON r.id=fsr.posts WHERE el.orders IN "+StringUtil.toSQLIn(orderIds);
+		List<DynamicBean> evaluats = this.jdbcDao.find(evaluatSql);
+		
+		model.put("phone", newphone);
 		model.put("orders", SqlUtil.DynamicToBean(orders));
 		model.put("evaluats", SqlUtil.DynamicToBean(evaluats));
 		model.put("model", "front/mymark/mymark");
@@ -249,12 +257,14 @@ public class FrontServiceImpl implements FrontService {
 			//处理分值
 			for (int i=0;i<post.length;i++) {
 				Evaluat evaluat = new Evaluat();
-				evaluat.setOrders(orders.getId());
-				evaluat.setFlowStepRecPost(post[i]);
-				evaluat.setUser(orders.getUser());
-				evaluat.setType(0);
-				evaluat.setValue(rats[i]);
-				this.evaluatDao.saveEvaluat(evaluat);
+				if(NullUtils.isNotEmpty(post[i])) {
+					evaluat.setOrders(orders.getId());
+					evaluat.setFlowStepRecPost(post[i]);
+					evaluat.setUser(orders.getUser());
+					evaluat.setType(0);
+					evaluat.setValue( (NullUtils.isEmpty(rats[i]))? "0": rats[i] );
+					this.evaluatDao.saveEvaluat(evaluat);
+				}
 			}
 			//处理图片
 			for (String img : imgs) {
