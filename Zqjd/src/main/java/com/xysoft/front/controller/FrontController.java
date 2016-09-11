@@ -54,6 +54,18 @@ public class FrontController {
 		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
 	}
 	
+	@RequestMapping(value = "/searchgift.jhtml")
+	public ModelAndView searchgift(HttpServletResponse response, HttpServletRequest request, String phone) throws Exception {
+		Map<String, Object> model = this.frontService.searchgift(phone);
+		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
+	}
+	
+	@RequestMapping(value = "/grantgift.jhtml")
+	public ModelAndView grantgift(HttpServletResponse response, HttpServletRequest request, String phone) throws Exception {
+		Map<String, Object> model = this.frontService.grantgift(phone);
+		return new ModelAndView(model.get("model").toString(), RequestUtil.initFrontMap(model));
+	}
+	
 	@RequestMapping(value = "/entry.jhtml")
 	public ModelAndView entry(HttpServletResponse response, HttpServletRequest request) throws Exception {
 		Map<String, Object> model = this.frontService.entry();

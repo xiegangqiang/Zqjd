@@ -32,9 +32,19 @@ public interface FrontService {
 	public Map<String, Object> index();
 
 	/**
-	 * 扫描送礼索引
+	 * 关注送礼索引
 	 */
 	public Map<String, Object> scangift();
+	
+	/**
+	 * 搜索兑换码索引
+	 */
+	public Map<String, Object> searchgift(String phone);
+	
+	/**
+	 * 发放礼品
+	 */
+	public Map<String, Object> grantgift(String phone);
 
 	/**
 	 * 提交电话号码换礼品码
@@ -85,6 +95,8 @@ public interface FrontService {
 	 * 微信详细页
 	 */
 	public Map<String, Object> wxdetail(String anchor);
+
+
 
 	
 

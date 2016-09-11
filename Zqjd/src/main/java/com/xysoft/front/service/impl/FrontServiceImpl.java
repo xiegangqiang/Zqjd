@@ -119,6 +119,31 @@ public class FrontServiceImpl implements FrontService {
 		return JsonUtil.toStringFromObject(giftCode);
 	}
 	
+	@Transactional(readOnly = true)
+	public Map<String, Object> searchgift(String phone) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		if(NullUtils.isNotEmpty(phone)) {
+			phone.trim();
+			GiftCode  giftCode = this.giftCodeDao.getGiftCodeByPhone(phone);
+			model.put("code", giftCode);
+		}
+		model.put("model", "front/searchgift/searchgift");
+		return model;
+	}
+	
+	@Transactional
+	public Map<String, Object> grantgift(String phone) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		phone.trim();
+		GiftCode  giftCode = this.giftCodeDao.getGiftCodeByPhone(phone);
+		if(giftCode != null) {
+			giftCode.setIsGrant(true);
+		}
+		model.put("code", giftCode);
+		model.put("model", "front/searchgift/searchgift");
+		return model;
+	}
+	
 	@Transactional
 	public String updateUser(User param) {
 		User user = this.userDao.getUserByField("phone", param.getPhone().replace(" ", ""));
