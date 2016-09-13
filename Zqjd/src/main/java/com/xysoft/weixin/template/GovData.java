@@ -2,7 +2,7 @@ package com.xysoft.weixin.template;
 
 public class GovData {
 
-	private GovFirst first;
+	private First first;
 	private Keyword keyword1;
 	private Keyword keyword2;
 	private Keyword keyword3;
@@ -14,7 +14,7 @@ public class GovData {
 		
 	}
 	
-	public GovData(GovFirst first, Keyword keyword1, Keyword keyword2,
+	public GovData(First first, Keyword keyword1, Keyword keyword2,
 			Keyword keyword3, Keyword keyword4, Keyword keyword5, Remark remark) {
 		super();
 		this.first = first;
@@ -26,10 +26,10 @@ public class GovData {
 		this.remark = remark;
 	}
 
-	public GovFirst getFirst() {
+	public First getFirst() {
 		return first;
 	}
-	public void setFirst(GovFirst first) {
+	public void setFirst(First first) {
 		this.first = first;
 	}
 	public Keyword getKeyword1() {

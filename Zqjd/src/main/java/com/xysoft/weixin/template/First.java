@@ -1,15 +1,15 @@
 package com.xysoft.weixin.template;
 
-public class GovFirst {
+public class First {
 
 	private String value;
 	private String color;
 	
-	public GovFirst() {
+	public First() {
 		
 	}
 	
-	public GovFirst(String value, String color) {
+	public First(String value, String color) {
 		super();
 		this.value = value;
 		this.color = color;

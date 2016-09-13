@@ -26,7 +26,7 @@ import com.xysoft.entity.WxUserGroup;
 import com.xysoft.weixin.pojo.AccessToken;
 import com.xysoft.weixin.pojo.JsapiTicket;
 import com.xysoft.weixin.pojo.Menu;
-import com.xysoft.weixin.template.GovTemplate;
+import com.xysoft.weixin.template.Template;
 import com.xysoft.entity.WxUser;
 
 /** 
@@ -389,7 +389,7 @@ public class WeixinUtil {
     //向微信用户发送模板消息接口
     public static String sen_template_url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
     
-    public static int senTemplate(GovTemplate template, String accessToken) {
+    public static int senTemplate(Template template, String accessToken) {
     	int result = 0;
     	String url = sen_template_url.replace("ACCESS_TOKEN", accessToken);
     	//String jsontem = "{\"touser\": \"o_pk3tw19Y1kwS81ErLS9ib6xPzo\",\"template_id\": \"lKQEG2FxXWbfqIOj7Fzn8VFYUs4ArLnSc_UOhVL3Gt0\",\"url\": \"http://www.baidu.com\",\"data\": {\"first\": {\"value\": \"测试业务办理情况通知\",\"color\": \"#173177\"},\"keyword1\": {\"value\": \"字段1\",\"color\": \"#1731FF\"},\"keyword2\": {\"value\": \"201511038888\",\"color\": \"#173177\"},\"keyword3\": {\"value\": \"字段2\",\"color\": \"#173177\"},\"remark\": {\"value\": \"欢迎再次使用！\",\"color\": \"#173177\"}}}";

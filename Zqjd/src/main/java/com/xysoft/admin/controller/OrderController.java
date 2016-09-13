@@ -61,4 +61,12 @@ public class OrderController extends BaseController{
 		response.getWriter().print(res);
 		return null;
 	}
+	
+	@RequestMapping(params = "notice")
+	public String notice(HttpServletResponse response, HttpServletRequest request, String order) 
+			throws IOException {
+		String res = this.orderService.sendNotice(order);
+		response.getWriter().print(res);
+		return null;
+	}
 }

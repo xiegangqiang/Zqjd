@@ -1,18 +1,17 @@
 package com.xysoft.weixin.template;
 
-public class GovTemplate {
+public class Template {
 
 	private String touser;
 	private String template_id;
 	private String url;
-	private GovData data;
+	private Object data;
 	
-	public GovTemplate() {
+	public Template() {
 		
 	}
 	
-	public GovTemplate(String touser, String template_id, String url,
-			GovData data) {
+	public Template(String touser, String template_id, String url, Object data) {
 		super();
 		this.touser = touser;
 		this.template_id = template_id;
@@ -38,12 +37,13 @@ public class GovTemplate {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public GovData getData() {
+	public Object getData() {
 		return data;
 	}
-	public void setData(GovData data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
+	
 	
 	
 }

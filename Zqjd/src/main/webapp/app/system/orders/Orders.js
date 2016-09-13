@@ -77,7 +77,12 @@ Ext.define('SystemApp.View.Orders', {
             	xtype: 'actiontextcolumn',
             	text: '主要操作',
             	flex: 0.25,
-                items : [{  
+                items : [{
+                	text : "微信通知",  
+                    cls: 'icon-news', 
+                    scope: this,
+                    handler: this.sendNotice
+                }, {  
                     text : "编辑",  
                     cls: 'icon-edit', 
                     scope: this,
@@ -341,6 +346,30 @@ Ext.define('SystemApp.View.Orders', {
 			roleIds[index] = item.get('id');
 		});
 		form.getForm().findField('roles').setValue(roleIds);
+    },
+    
+    sendNotice: function(grid, rowIndex, colIndex) {
+    	var rec = grid.getStore().getAt(rowIndex);
+    	var grid  = this.grid;
+    	Ext.MessageBox.confirm('确认', '是否向该微信用户推送订单消息？', function(btn) {
+    		if (btn != 'yes') return;
+			Ext.Ajax.request({
+	    	    url: '/admin/orders.do?notice',
+	    	    params: {
+	    			order: rec.get('id')
+	    		},
+	    	    success: function(response){
+	    	    	var res = Ext.decode(response.responseText);
+					if (res.success) {
+	        	    	grid.getStore().reload();
+	        	    }
+	        	    Ext.example.msg('提示', res.title);
+	    	    },
+	    	    failure: function(response) {
+	    	    	Ext.Msg.alert('提示', '操作异常');
+	    	    }
+	    	});
+    	});
     },
     
     editGrid: function(grid, rowIndex, colIndex) {

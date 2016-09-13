@@ -3,24 +3,30 @@ package com.xysoft.admin.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.xysoft.admin.service.OrderService;
+import com.xysoft.common.ElementConst;
 import com.xysoft.dao.AdminDao;
 import com.xysoft.dao.FlowStepDao;
 import com.xysoft.dao.FlowStepRecDao;
 import com.xysoft.dao.FlowStepRecPostDao;
 import com.xysoft.dao.OrderDao;
 import com.xysoft.dao.UserDao;
+import com.xysoft.dao.WxUserDao;
 import com.xysoft.entity.Admin;
 import com.xysoft.entity.FlowStep;
 import com.xysoft.entity.FlowStepRec;
 import com.xysoft.entity.FlowStepRecPost;
 import com.xysoft.entity.Orders;
 import com.xysoft.entity.User;
+import com.xysoft.entity.WxUser;
 import com.xysoft.support.DynamicBean;
 import com.xysoft.support.JdbcDao;
 import com.xysoft.support.PageParam;
@@ -29,6 +35,13 @@ import com.xysoft.util.DateUtil;
 import com.xysoft.util.JsonUtil;
 import com.xysoft.util.NullUtils;
 import com.xysoft.util.RequestUtil;
+import com.xysoft.weixin.template.First;
+import com.xysoft.weixin.template.Keyword;
+import com.xysoft.weixin.template.OrderData;
+import com.xysoft.weixin.template.Remark;
+import com.xysoft.weixin.template.Template;
+import com.xysoft.weixin.util.WeixinCacheUtil;
+import com.xysoft.weixin.util.WeixinUtil;
 
 @Component
 @SuppressWarnings("unchecked")
@@ -40,6 +53,8 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDao orderDao;
 	@Resource
 	private UserDao userDao;
+	@Resource
+	private WxUserDao wxUserDao;
 	@Resource
 	private FlowStepDao flowStepDao;
 	@Resource
@@ -89,7 +104,7 @@ public class OrderServiceImpl implements OrderService {
 		}else {
 			us = this.userDao.getUserById(userId);
 		}
-		BeanUtils.copyProperties(user, us, new String[]{"id", "loginDate", "loginIp", "createDate", "username",
+		BeanUtils.copyProperties(user, us, new String[]{"id", "loginDate", "loginIp", "createDate", "username", "wxUser",
 				"password", "userType", "isAccountEnabled", "isAccountExpired", "isAccountLocked", "isCredentialsExpired", "loginFailureCount"});
 		
 		this.userDao.saveUser(us);
@@ -159,6 +174,28 @@ public class OrderServiceImpl implements OrderService {
 			this.orderDao.deleteOrders(order);
 		}
 		return JsonUtil.toRes("删除成功");
+	}
+	
+	@Transactional
+	public String sendNotice(String order) {
+		Orders orders = this.orderDao.getOrder(order);
+		User user = this.userDao.getUserById(orders.getUser());
+		if(NullUtils.isEmpty(user.getWxUser()))  return JsonUtil.toRes("该用户还未关联微信号，无法发送！");
+		WxUser wxUser = this.wxUserDao.getWxUser(user.getWxUser());
+		if(wxUser == null) return JsonUtil.toRes("找不到用户相关微信号");
+		
+		First first = new First("您的订单已创建成功，详情点击查看", "#173177");
+		Keyword orderno = new Keyword(orders.getOrdernumber(), "#173177");
+		Keyword refundno = new Keyword("保密", "#173177");
+		Keyword refundproduct = new Keyword("保密", "#173177");
+		Remark remark = new Remark("如您还有疑问，请联系客服0758-2839292，或卖场主管", "#173177");
+		OrderData orderData = new OrderData(first, orderno, refundno, refundproduct, remark);
+		
+		String url = ElementConst.Service_Address+"/orderlist.jhtml?wxUser="+wxUser.getId()+"&phone="+user.getPhone();
+		Template template = new Template(wxUser.getOpenid(), "4eGIAhCFDB4LCPntsexJxokm1FL3dIfDwt43-lJNxIg", url, orderData);
+		int result = WeixinUtil.senTemplate(template, WeixinCacheUtil.getAccessToken(ElementConst.Wx_Token, ElementConst.Wx_AppId, ElementConst.Wx_AppSecret).getToken());
+		if(result > 0) JsonUtil.toRes("发送失败，微信错误代码："+result);
+		return JsonUtil.toRes("发送成功");
 	}
 
 

@@ -16,5 +16,7 @@ public interface OrderService {
 	
 	String deleteOrders(String id);
 
+	String sendNotice(String order);
+
 
 }
