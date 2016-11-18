@@ -169,7 +169,7 @@ public class FrontServiceImpl implements FrontService {
 	@Transactional(readOnly = true)
 	public Map<String, Object> entry() {
 		Map<String, Object> model = new HashMap<String, Object>();
-		String redirectUri = WeixinUtil.getOauth2Code(ElementConst.Wx_AppId, ElementConst.Service_Address + "/wxcenter.jhtml", 0);
+		String redirectUri = WeixinUtil.getOauth2Code(ElementConst.Wx_AppId, ElementConst.Service_Address + "/wxcenter.jhtml", 1);
 		model.put("sys_url", redirectUri);
 		model.put("model", "front/go");
 		return model;
