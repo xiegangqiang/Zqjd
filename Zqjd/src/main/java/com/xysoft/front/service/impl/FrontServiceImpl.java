@@ -184,7 +184,7 @@ public class FrontServiceImpl implements FrontService {
 			// 获取用户信息
 			WxUser wxUser = WeixinUtil.getOauth2WxUser(accessToken.getToken(), accessToken.getOpenid());
 			
-			String sql = "SELECT * From wxuser wu LEFT JOIN `user` u ON u.wxUser=wu.id WHERE wu.openid=?";
+			String sql = "SELECT wu.*,u.address,u.phone FROM wxuser wu LEFT JOIN `user` u ON u.wxUser=wu.id WHERE wu.openid=?";
 			DynamicBean bean = this.jdbcDao.get(sql, wxUser.getOpenid());
 			model.put("user", bean.getObject());
 		}

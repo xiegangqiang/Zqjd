@@ -51,11 +51,11 @@
 			<div class="banner-text">
 				<div class="title">
 					<div class="title-left">
-						<img src="<#if user??>${user.headimgurl}<#else>../template/front/wxcenter/image/defaultface.png</#if>" alt=""/>
+						<img src="<#if user??>${user.headimgurl}<#else>../template/front/wxcenter/image/defaultface.png</#if>" alt="" width="100px"/>
 					</div>
 					<div class="title-right">
 						<h2><#if user??>${user.nickname}<#else>未登陆</#if></h2>
-						<h6><#if user??><#if user.sex==2>男<#else>女</#if><#else>未知</#if></h6>
+						<h6><#if user??><#if user.sex==2>女<#else>男</#if><#else>未知</#if></h6>
 					</div>
 					<div class="clear"> </div>
 				</div>
